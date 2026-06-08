@@ -154,6 +154,7 @@
     .not-found p { font-size: 14px; color: #a0756a; }
     .not-found a { display: inline-block; background: #CD7250; color: #fff; font-weight: 900; padding: 12px 28px; border-radius: 50px; text-decoration: none; font-size: 14px; margin-top: 0.5rem; }
 
+
     /* ─── Responsive ─────────────────────────────────── */
     @media (max-width: 768px) {
       .nav { padding: 1rem 1.25rem; justify-content: space-between; }
@@ -277,6 +278,35 @@
       }
     };
 
+    // basket drawer 
+    <div class="basket-overlay" id="basketOverlay" onclick="closeBasket()"></div>
+    
+    <div class="basket-drawer" id="basketDrawer">
+      <div class="basket-header">
+        <span class="basket-title">Your Basket</span>
+        <button class="basket-close" onclick="closeBasket()">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round">
+            <line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/>
+          </svg>
+        </button>
+      </div>
+      <div class="basket-items" id="basketItems">
+        <div class="basket-empty" id="basketEmpty">
+          <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="#ccc" stroke-width="1.5" stroke-linecap="round"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg>
+          <p>Your basket is empty</p>
+          <p style="font-size:12px;font-weight:400;color:#ccc;">Add a friend to get started!</p>
+        </div>
+      </div>
+      <div class="basket-footer">
+        <div class="basket-total-row">
+          <span class="basket-total-label">Total</span>
+          <span class="basket-total-price" id="basketTotal">£0.00</span>
+        </div>
+        <button class="checkout-btn" id="checkoutBtn" disabled>Continue to checkout →</button>
+      </div>
+    </div>
+    
+    <div class="add-flash" id="addFlash">✦ Added to basket!</div>
     // Shared reviews data (swap per-product when you have real reviews)
     const reviews = [
       { name: 'Fatima A.', date: 'March 2025', stars: 5, text: 'My daughter absolutely loves this! She clips it onto her school bag and takes it everywhere. So sweet and finally something that looks like her!' },
