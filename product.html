@@ -549,57 +549,107 @@
         <p class="footer-copy">© 2025 My Adorable Hijabi Friend · Made with love in the UK</p>
       </footer>`;
     }
-
-    // ─── Interactivity ───────────────────────────────
+// ─── Interactivity (FIXED - no conflicts with basket.js) ─────────────────
+    
     let qty = 1;
-
-    function changeQty(delta) {
+    let currentProductId = null;
+    
+    // quantity controls (product page only)
+    function productChangeQty(delta) {
       qty = Math.max(1, qty + delta);
       const el = document.getElementById('qtyNum');
       if (el) el.textContent = qty;
     }
-
+    
+    // add to basket (USES basket.js properly)
     function addToBasket() {
-      showToast(`✦ Added to basket!`);
-      // Wire to your basket logic here
+      if (!currentProductId) return;
+    
+      const product = products[currentProductId];
+      if (!product) return;
+    
+      addToBasketById(
+        currentProductId,
+        product.name,
+        product.price,
+        product.colour,
+        "🧸",
+        qty
+      );
+    
+      showToast('✦ Added to basket!');
     }
-
+    
+    // buy now (placeholder)
     function buyNow() {
-      // Wire to Stripe checkout here
+      if (!currentProductId) return;
+    
+      const product = products[currentProductId];
+      if (!product) return;
+    
+      addToBasketById(
+        currentProductId,
+        product.name,
+        product.price,
+        product.colour,
+        "🧸",
+        qty
+      );
+    
       showToast('Redirecting to checkout…');
+      // window.location.href = 'checkout.html';
     }
-
+    
+    // thumbnail switch (safe)
     function switchThumb(el, index) {
       document.querySelectorAll('.thumb').forEach(t => t.classList.remove('active'));
       el.classList.add('active');
-      // When you add real images, swap the main image here:
-      // document.getElementById('mainImg').innerHTML = ...
     }
-
+    
+    // accordion
     function toggleAcc(header) {
       const body = header.nextElementSibling;
       const icon = header.querySelector('i');
       const isOpen = body.classList.contains('open');
+    
       document.querySelectorAll('.accordion-body').forEach(b => b.classList.remove('open'));
-      document.querySelectorAll('.accordion-header i').forEach(i => { i.className = 'ti ti-plus'; });
-      if (!isOpen) { body.classList.add('open'); icon.className = 'ti ti-minus'; }
+      document.querySelectorAll('.accordion-header i').forEach(i => {
+        i.className = 'ti ti-plus';
+      });
+    
+      if (!isOpen) {
+        body.classList.add('open');
+        icon.className = 'ti ti-minus';
+      }
     }
-
+    
+    // mobile menu
     function toggleMenu() {
       document.getElementById('mobileMenu').classList.toggle('open');
     }
-
+    
+    // toast
     let toastTimer;
     function showToast(msg) {
       const t = document.getElementById('toast');
+      if (!t) return;
+    
       t.textContent = msg;
       t.classList.add('show');
+    
       clearTimeout(toastTimer);
       toastTimer = setTimeout(() => t.classList.remove('show'), 2200);
     }
-
-    // ─── Init ────────────────────────────────────────
-    renderPage();
+    
+    // ─── Init ───────────────────────────────────────────
+    function initProductPage() {
+      const params = new URLSearchParams(window.location.search);
+      currentProductId = params.get('id');
+    
+      renderPage();
+    }
+    
+    initProductPage();
   </script>
 </body>
 </html>
