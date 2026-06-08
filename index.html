@@ -822,7 +822,7 @@
     <p class="footer-copy">© 2025 My Adorable Hijabi Friend · Made with love in the UK</p>
   </footer>
 
-  <script>
+  <script src="basket.js">
     // ─── Carousel ───────────────────────────────────
     const track = document.getElementById('carouselTrack');
     const cards = track.querySelectorAll('.product-card');
@@ -854,101 +854,6 @@
     }
     track.addEventListener('scroll', updateDots);
 
-    // ─── Basket ──────────────────────────────────────
-    let basket = []; // { id, name, price, colour, emoji, qty }
-
-    function openBasket(e) {
-      if (e) e.preventDefault();
-      document.getElementById('basketDrawer').classList.add('open');
-      document.getElementById('basketOverlay').classList.add('open');
-      document.body.style.overflow = 'hidden';
-    }
-    function closeBasket() {
-      document.getElementById('basketDrawer').classList.remove('open');
-      document.getElementById('basketOverlay').classList.remove('open');
-      document.body.style.overflow = '';
-    }
-    // Close on Escape key
-    document.addEventListener('keydown', e => { if (e.key === 'Escape') closeBasket(); });
-
-    function addToBasket(btn) {
-      const name   = btn.dataset.name;
-      const price  = parseFloat(btn.dataset.price);
-      const colour = btn.dataset.colour;
-      const emoji  = btn.dataset.emoji;
-      const id     = name.replace(/\s+/g, '-').toLowerCase();
-
-      const existing = basket.find(i => i.id === id);
-      if (existing) {
-        existing.qty++;
-      } else {
-        basket.push({ id, name, price, colour, emoji, qty: 1 });
-      }
-
-      renderBasket();
-      showFlash();
-    }
-
-    function changeQty(id, delta) {
-      const item = basket.find(i => i.id === id);
-      if (!item) return;
-      item.qty += delta;
-      if (item.qty <= 0) basket = basket.filter(i => i.id !== id);
-      renderBasket();
-    }
-
-    function renderBasket() {
-      const itemsEl   = document.getElementById('basketItems');
-      const emptyEl   = document.getElementById('basketEmpty');
-      const totalEl   = document.getElementById('basketTotal');
-      const countEl   = document.getElementById('basketCount');
-      const checkoutEl = document.getElementById('checkoutBtn');
-
-      const totalQty   = basket.reduce((s, i) => s + i.qty, 0);
-      const totalPrice = basket.reduce((s, i) => s + i.price * i.qty, 0);
-
-      countEl.textContent = totalQty;
-      totalEl.textContent = '£' + totalPrice.toFixed(2);
-      checkoutEl.disabled = basket.length === 0;
-
-      // Clear existing items (keep empty state el)
-      Array.from(itemsEl.children).forEach(el => {
-        if (!el.classList.contains('basket-empty')) el.remove();
-      });
-
-      if (basket.length === 0) {
-        emptyEl.style.display = 'flex';
-        return;
-      }
-      emptyEl.style.display = 'none';
-
-      basket.forEach(item => {
-        const el = document.createElement('div');
-        el.className = 'basket-item';
-        el.innerHTML = `
-          <div class="basket-item-img" style="background:${item.colour}20;">${item.emoji}</div>
-          <div class="basket-item-info">
-            <p class="basket-item-name">${item.name}</p>
-            <p class="basket-item-price">£${(item.price * item.qty).toFixed(2)}</p>
-          </div>
-          <div class="basket-item-qty">
-            <button class="qty-btn" onclick="changeQty('${item.id}', -1)">−</button>
-            <span class="qty-num">${item.qty}</span>
-            <button class="qty-btn" onclick="changeQty('${item.id}', 1)">+</button>
-          </div>
-        `;
-        itemsEl.appendChild(el);
-      });
-    }
-
-    let flashTimer;
-    function showFlash() {
-      const flash = document.getElementById('addFlash');
-      flash.classList.add('show');
-      clearTimeout(flashTimer);
-      flashTimer = setTimeout(() => flash.classList.remove('show'), 2000);
-    }
   </script>
-
 </body>
 </html>
