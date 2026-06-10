@@ -10,558 +10,107 @@
   <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;700;900&family=Playfair+Display:ital,wght@1,700&display=swap" rel="stylesheet">
   <link href="https://fonts.cdnfonts.com/css/cooper-black" rel="stylesheet">
   <style>
-    /* ─── Reset & Base ─────────────────────────────── */
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     html { scroll-behavior: smooth; }
-    body {
-      font-family: 'Nunito', sans-serif;
-      background: #EDC1BB;
-      color: #333;
-      -webkit-font-smoothing: antialiased;
-    }
-
-    /* ─── Nav ───────────────────────────────────────── */
-    .nav {
-      display: flex;
-      justify-content: flex-end;
-      align-items: center;
-      padding: 1rem 2.5rem;
-      background: #E7DFE1;
-      border-bottom: 2px solid #EDC1BB;
-      position: sticky;
-      top: 0;
-      z-index: 100;
-    }
-    .nav-links {
-      display: flex;
-      gap: 2rem;
-      list-style: none;
-    }
-    .nav-links a {
-      font-size: 13px;
-      font-weight: 700;
-      color: #7e98a8;
-      text-decoration: none;
-      letter-spacing: 0.5px;
-      transition: color 0.2s;
-    }
+    body { font-family: 'Nunito', sans-serif; background: #EDC1BB; color: #333; -webkit-font-smoothing: antialiased; }
+    .nav { display: flex; justify-content: flex-end; align-items: center; padding: 1rem 2.5rem; background: #E7DFE1; border-bottom: 2px solid #EDC1BB; position: sticky; top: 0; z-index: 100; }
+    .nav-links { display: flex; gap: 2rem; list-style: none; }
+    .nav-links a { font-size: 13px; font-weight: 700; color: #7e98a8; text-decoration: none; letter-spacing: 0.5px; transition: color 0.2s; }
     .nav-links a:hover { color: #CD7250; }
-
-    .nav-basket {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      margin-left: 1.5rem;
-      position: relative;
-      cursor: pointer;
-      color: #7e98a8;
-      transition: color 0.2s;
-      text-decoration: none;
-    }
+    .nav-basket { display: flex; align-items: center; justify-content: center; margin-left: 1.5rem; position: relative; cursor: pointer; color: #7e98a8; transition: color 0.2s; text-decoration: none; }
     .nav-basket:hover { color: #CD7250; }
-    .basket-count {
-      position: absolute;
-      top: -6px;
-      right: -8px;
-      background: #CD7250;
-      color: #fff;
-      font-size: 9px;
-      font-weight: 900;
-      width: 16px;
-      height: 16px;
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-family: 'Nunito', sans-serif;
-    }
-
-    /* ─── Hero ──────────────────────────────────────── */
-    .hero {
-      background: #EDC1BB;
-      padding: 5rem 2rem 4rem;
-      text-align: center;
-      position: relative;
-      overflow: hidden;
-    }
-    .hero::before {
-      content: '';
-      position: absolute;
-      width: 400px; height: 400px;
-      border-radius: 50%;
-      background: #E99075;
-      opacity: 0.12;
-      top: -100px; right: -80px;
-      pointer-events: none;
-    }
-    .hero::after {
-      content: '';
-      position: absolute;
-      width: 220px; height: 220px;
-      border-radius: 50%;
-      background: #fff;
-      opacity: 0.07;
-      bottom: -50px; left: 40px;
-      pointer-events: none;
-    }
-    .hero-eyebrow {
-      font-size: 11px;
-      font-weight: 700;
-      letter-spacing: 3px;
-      color: #CD7250;
-      text-transform: uppercase;
-      margin-bottom: 1rem;
-    }
-    .hero-title {
-      font-family: 'Cooper Black', 'Cooper Std', serif;
-      font-size: clamp(40px, 8vw, 72px);
-      color: #fff;
-      line-height: 1.08;
-      text-shadow: 0 6px 0 #CD7250;
-      margin-bottom: 0.75rem;
-    }
-    .hero-sub {
-      font-family: 'Playfair Display', serif;
-      font-size: clamp(16px, 3vw, 20px);
-      color: #CD7250;
-      font-style: italic;
-      font-weight: 700;
-      margin-bottom: 2.25rem;
-    }
-    .cta-btn {
-      display: inline-block;
-      background: #CD7250;
-      color: #fff;
-      font-family: 'Nunito', sans-serif;
-      font-weight: 900;
-      font-size: 16px;
-      padding: 15px 38px;
-      border-radius: 50px;
-      border: none;
-      cursor: pointer;
-      box-shadow: 0 5px 0 #9a4f2f;
-      text-decoration: none;
-      transition: transform 0.1s, box-shadow 0.1s;
-      letter-spacing: 0.3px;
-    }
-    .cta-btn:hover {
-      transform: translateY(2px);
-      box-shadow: 0 3px 0 #9a4f2f;
-    }
-    .cta-btn:active {
-      transform: translateY(4px);
-      box-shadow: 0 1px 0 #9a4f2f;
-    }
-
-    /* ─── Marquee ───────────────────────────────────── */
-    .marquee-strip {
-      background: #7e98a8;
-      padding: 12px 0;
-      overflow: hidden;
-      white-space: nowrap;
-    }
-    .marquee-track {
-      display: inline-flex;
-      animation: marquee 20s linear infinite;
-    }
-    .marquee-track span {
-      font-size: 12px;
-      font-weight: 700;
-      letter-spacing: 2.5px;
-      color: #fff;
-      text-transform: uppercase;
-      padding: 0 1.5rem;
-    }
+    .basket-count { position: absolute; top: -6px; right: -8px; background: #CD7250; color: #fff; font-size: 9px; font-weight: 900; width: 16px; height: 16px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-family: 'Nunito', sans-serif; }
+    .hero { background: #EDC1BB; padding: 5rem 2rem 4rem; text-align: center; position: relative; overflow: hidden; }
+    .hero::before { content: ''; position: absolute; width: 400px; height: 400px; border-radius: 50%; background: #E99075; opacity: 0.12; top: -100px; right: -80px; pointer-events: none; }
+    .hero::after { content: ''; position: absolute; width: 220px; height: 220px; border-radius: 50%; background: #fff; opacity: 0.07; bottom: -50px; left: 40px; pointer-events: none; }
+    .hero-eyebrow { font-size: 11px; font-weight: 700; letter-spacing: 3px; color: #CD7250; text-transform: uppercase; margin-bottom: 1rem; }
+    .hero-title { font-family: 'Cooper Black', 'Cooper Std', serif; font-size: clamp(40px, 8vw, 72px); color: #fff; line-height: 1.08; text-shadow: 0 6px 0 #CD7250; margin-bottom: 0.75rem; }
+    .hero-sub { font-family: 'Playfair Display', serif; font-size: clamp(16px, 3vw, 20px); color: #CD7250; font-style: italic; font-weight: 700; margin-bottom: 2.25rem; }
+    .cta-btn { display: inline-block; background: #CD7250; color: #fff; font-family: 'Nunito', sans-serif; font-weight: 900; font-size: 16px; padding: 15px 38px; border-radius: 50px; border: none; cursor: pointer; box-shadow: 0 5px 0 #9a4f2f; text-decoration: none; transition: transform 0.1s, box-shadow 0.1s; letter-spacing: 0.3px; }
+    .cta-btn:hover { transform: translateY(2px); box-shadow: 0 3px 0 #9a4f2f; }
+    .cta-btn:active { transform: translateY(4px); box-shadow: 0 1px 0 #9a4f2f; }
+    .marquee-strip { background: #7e98a8; padding: 12px 0; overflow: hidden; white-space: nowrap; }
+    .marquee-track { display: inline-flex; animation: marquee 20s linear infinite; }
+    .marquee-track span { font-size: 12px; font-weight: 700; letter-spacing: 2.5px; color: #fff; text-transform: uppercase; padding: 0 1.5rem; }
     .marquee-track .dot { color: #EDC1BB; }
-    @keyframes marquee {
-      0%   { transform: translateX(0); }
-      100% { transform: translateX(-50%); }
-    }
-
-    /* ─── Story ─────────────────────────────────────── */
-    .story {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      background: #fff;
-    }
-    .story-image-side {
-      background: #EDC1BB;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      padding: 3.5rem 2.5rem;
-      min-height: 420px;
-    }
-    .story-placeholder {
-      width: 100%;
-      max-width: 280px;
-      aspect-ratio: 3/4;
-      background: #E99075;
-      border-radius: 24px;
-      opacity: 0.35;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-    .story-placeholder span {
-      font-size: 12px;
-      font-weight: 700;
-      color: #fff;
-      text-transform: uppercase;
-      letter-spacing: 1px;
-      text-align: center;
-      line-height: 1.8;
-    }
-    .story-text {
-      padding: 3.5rem 3rem;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      border-left: 4px solid #EDC1BB;
-    }
-    .story-tag {
-      font-size: 10px;
-      letter-spacing: 2.5px;
-      text-transform: uppercase;
-      color: #7e98a8;
-      font-weight: 700;
-      margin-bottom: 1.1rem;
-    }
-    .story-heading {
-      font-family: 'Playfair Display', serif;
-      font-size: clamp(24px, 3vw, 32px);
-      font-style: italic;
-      font-weight: 700;
-      color: #CD7250;
-      line-height: 1.25;
-      margin-bottom: 1.25rem;
-    }
-    .story-body {
-      font-size: 14px;
-      color: #999;
-      line-height: 1.85;
-      margin-bottom: 2rem;
-    }
+    @keyframes marquee { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
+    .story { display: grid; grid-template-columns: 1fr 1fr; background: #fff; }
+    .story-image-side { background: #EDC1BB; display: flex; align-items: center; justify-content: center; padding: 3.5rem 2.5rem; min-height: 420px; }
+    .story-placeholder { width: 100%; max-width: 280px; aspect-ratio: 3/4; background: #E99075; border-radius: 24px; opacity: 0.35; display: flex; align-items: center; justify-content: center; }
+    .story-placeholder span { font-size: 12px; font-weight: 700; color: #fff; text-transform: uppercase; letter-spacing: 1px; text-align: center; line-height: 1.8; }
+    .story-text { padding: 3.5rem 3rem; display: flex; flex-direction: column; justify-content: center; border-left: 4px solid #EDC1BB; }
+    .story-tag { font-size: 10px; letter-spacing: 2.5px; text-transform: uppercase; color: #7e98a8; font-weight: 700; margin-bottom: 1.1rem; }
+    .story-heading { font-family: 'Playfair Display', serif; font-size: clamp(24px, 3vw, 32px); font-style: italic; font-weight: 700; color: #CD7250; line-height: 1.25; margin-bottom: 1.25rem; }
+    .story-body { font-size: 14px; color: #999; line-height: 1.85; margin-bottom: 2rem; }
     .story-body em { color: #CD7250; font-style: italic; }
-    .story-link {
-      display: inline-block;
-      background: #EDC1BB;
-      color: #CD7250;
-      font-family: 'Nunito', sans-serif;
-      font-weight: 900;
-      font-size: 13px;
-      padding: 11px 26px;
-      border-radius: 50px;
-      text-decoration: none;
-      border: 2px solid #CD7250;
-      letter-spacing: 0.3px;
-      transition: background 0.2s, color 0.2s;
-      align-self: flex-start;
-    }
-    .story-link:hover {
-      background: #CD7250;
-      color: #fff;
-    }
-
-    /* ─── Product Carousel ──────────────────────────── */
-    .products {
-      background: #fff;
-      padding: 4rem 0 4rem;
-    }
-    .products-header {
-      text-align: center;
-      padding: 0 2rem 2.5rem;
-    }
-    .products-title {
-      font-family: 'Cooper Black', 'Cooper Std', serif;
-      font-size: clamp(24px, 4vw, 38px);
-      color: #CD7250;
-      text-shadow: 0 4px 0 #EDC1BB;
-      margin-bottom: 0.4rem;
-    }
-    .products-sub {
-      font-family: 'Playfair Display', serif;
-      font-size: 15px;
-      font-style: italic;
-      color: #aaa;
-    }
-    .carousel-wrapper {
-      position: relative;
-    }
-    .carousel-track {
-      display: flex;
-      gap: 1.5rem;
-      overflow-x: auto;
-      scroll-snap-type: x mandatory;
-      -webkit-overflow-scrolling: touch;
-      padding: 0.5rem 2.5rem 1.5rem;
-      scrollbar-width: none;
-      align-items: stretch;
-    }    .carousel-track::-webkit-scrollbar { display: none; }
-    .product-card {
-      flex: 0 0 240px;
-      scroll-snap-align: start;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 0.5rem;
-      cursor: pointer;
-    }
-    /* Push add button to bottom so all cards align */
-    .product-card .product-name,
-    .product-card .product-price { width: 100%; text-align: center; }
+    .story-link { display: inline-block; background: #EDC1BB; color: #CD7250; font-family: 'Nunito', sans-serif; font-weight: 900; font-size: 13px; padding: 11px 26px; border-radius: 50px; text-decoration: none; border: 2px solid #CD7250; letter-spacing: 0.3px; transition: background 0.2s, color 0.2s; align-self: flex-start; }
+    .story-link:hover { background: #CD7250; color: #fff; }
+    .products { background: #fff; padding: 4rem 0; }
+    .products-header { text-align: center; padding: 0 2rem 2.5rem; }
+    .products-title { font-family: 'Cooper Black', 'Cooper Std', serif; font-size: clamp(24px, 4vw, 38px); color: #CD7250; text-shadow: 0 4px 0 #EDC1BB; margin-bottom: 0.4rem; }
+    .products-sub { font-family: 'Playfair Display', serif; font-size: 15px; font-style: italic; color: #aaa; }
+    .carousel-wrapper { position: relative; }
+    .carousel-track { display: flex; gap: 1.5rem; overflow-x: auto; scroll-snap-type: x mandatory; -webkit-overflow-scrolling: touch; padding: 0.5rem 2.5rem 1.5rem; scrollbar-width: none; align-items: stretch; }
+    .carousel-track::-webkit-scrollbar { display: none; }
+    .product-card { flex: 0 0 240px; scroll-snap-align: start; display: flex; flex-direction: column; align-items: center; gap: 0.5rem; cursor: pointer; }
+    .product-card .product-name, .product-card .product-price { width: 100%; text-align: center; }
     .product-card .product-price { margin-bottom: 0.25rem; }
     .product-card .product-add { margin-top: auto; width: 100%; text-align: center; }
-    .product-img-wrap {
-      width: 240px;
-      height: 240px;
-      background: #f0eaec;
-      border-radius: 20px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      position: relative;
-      overflow: hidden;
-      transition: transform 0.2s;
-    }
-    .product-card:hover .product-img-wrap {
-      transform: translateY(-4px);
-    }
-    .product-img-wrap .placeholder-doll {
-      width: 100%;
-      height: 100%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      flex-direction: column;
-      gap: 8px;
-    }
-    .placeholder-doll svg {
-      opacity: 0.35;
-    }
-    .placeholder-doll span {
-      font-size: 10px;
-      font-weight: 700;
-      color: #CD7250;
-      text-transform: uppercase;
-      letter-spacing: 1px;
-      opacity: 0.6;
-    }
-    .product-colour-dot {
-      position: absolute;
-      bottom: 12px;
-      right: 12px;
-      width: 18px;
-      height: 18px;
-      border-radius: 50%;
-      border: 2px solid #fff;
-      box-shadow: 0 1px 4px rgba(0,0,0,0.15);
-    }
-    .product-name {
-      font-size: 14px;
-      font-weight: 700;
-      color: #555;
-      text-align: center;
-      letter-spacing: 0.2px;
-    }
-    .product-price {
-      font-family: 'Cooper Black', serif;
-      font-size: 17px;
-      color: #CD7250;
-    }
-    .product-add {
-      display: inline-block;
-      background: #EDC1BB;
-      color: #CD7250;
-      font-family: 'Nunito', sans-serif;
-      font-weight: 900;
-      font-size: 12px;
-      padding: 8px 20px;
-      border-radius: 50px;
-      border: 2px solid #CD7250;
-      cursor: pointer;
-      transition: background 0.2s, color 0.2s;
-      letter-spacing: 0.3px;
-    }
-    .product-add:hover {
-      background: #CD7250;
-      color: #fff;
-    }
-    /* Arrow buttons */
-    .carousel-btn {
-      position: absolute;
-      top: 50%;
-      transform: translateY(-50%);
-      background: #CD7250;
-      color: #fff;
-      border: none;
-      border-radius: 50%;
-      width: 40px;
-      height: 40px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      cursor: pointer;
-      box-shadow: 0 3px 10px rgba(0,0,0,0.15);
-      z-index: 10;
-      transition: background 0.2s, transform 0.15s;
-    }
+    .product-img-wrap { width: 240px; height: 240px; background: #f0eaec; border-radius: 20px; display: flex; align-items: center; justify-content: center; position: relative; overflow: hidden; transition: transform 0.2s; }
+    .product-card:hover .product-img-wrap { transform: translateY(-4px); }
+    .product-img-wrap .placeholder-doll { width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; flex-direction: column; gap: 8px; }
+    .placeholder-doll svg { opacity: 0.35; }
+    .placeholder-doll span { font-size: 10px; font-weight: 700; color: #CD7250; text-transform: uppercase; letter-spacing: 1px; opacity: 0.6; }
+    .product-colour-dot { position: absolute; bottom: 12px; right: 12px; width: 18px; height: 18px; border-radius: 50%; border: 2px solid #fff; box-shadow: 0 1px 4px rgba(0,0,0,0.15); }
+    .product-name { font-size: 14px; font-weight: 700; color: #555; text-align: center; letter-spacing: 0.2px; }
+    .product-price { font-family: 'Cooper Black', serif; font-size: 17px; color: #CD7250; }
+    .product-add { display: inline-block; background: #EDC1BB; color: #CD7250; font-family: 'Nunito', sans-serif; font-weight: 900; font-size: 12px; padding: 8px 20px; border-radius: 50px; border: 2px solid #CD7250; cursor: pointer; transition: background 0.2s, color 0.2s; letter-spacing: 0.3px; }
+    .product-add:hover { background: #CD7250; color: #fff; }
+    .carousel-btn { position: absolute; top: 50%; transform: translateY(-50%); background: #CD7250; color: #fff; border: none; border-radius: 50%; width: 40px; height: 40px; display: flex; align-items: center; justify-content: center; cursor: pointer; box-shadow: 0 3px 10px rgba(0,0,0,0.15); z-index: 10; transition: background 0.2s; }
     .carousel-btn:hover { background: #9a4f2f; }
     .carousel-btn.prev { left: 8px; }
     .carousel-btn.next { right: 8px; }
-    /* Dots */
-    .carousel-dots {
-      display: flex;
-      justify-content: center;
-      gap: 8px;
-      margin-top: 1.25rem;
-      padding-bottom: 0.5rem;
-    }
-    .carousel-dot {
-      width: 8px; height: 8px;
-      border-radius: 50%;
-      background: #EDC1BB;
-      border: none;
-      cursor: pointer;
-      transition: background 0.2s, transform 0.2s;
-    }
-    .carousel-dot.active {
-      background: #CD7250;
-      transform: scale(1.25);
-    }
-
+    .carousel-dots { display: flex; justify-content: center; gap: 8px; margin-top: 1.25rem; padding-bottom: 0.5rem; }
+    .carousel-dot { width: 8px; height: 8px; border-radius: 50%; background: #EDC1BB; border: none; cursor: pointer; transition: background 0.2s, transform 0.2s; }
+    .carousel-dot.active { background: #CD7250; transform: scale(1.25); }
+    .footer { background: #7e98a8; padding: 3.5rem 2rem 2.5rem; text-align: center; }
+    .footer-title { font-family: 'Cooper Black', 'Cooper Std', serif; font-size: 26px; color: #fff; margin-bottom: 0.4rem; }
+    .footer-sub { font-family: 'Playfair Display', serif; font-size: 16px; font-style: italic; color: #E7DFE1; margin-bottom: 2rem; }
+    .footer-socials { display: flex; justify-content: center; gap: 1rem; flex-wrap: wrap; margin-bottom: 2rem; }
+    .social-btn { display: inline-flex; align-items: center; gap: 8px; background: #adc2cf; color: #fff; font-family: 'Nunito', sans-serif; font-weight: 700; font-size: 13px; padding: 11px 24px; border-radius: 50px; text-decoration: none; transition: background 0.2s, transform 0.15s; }
+    .social-btn:hover { background: #E7DFE1; color: #7e98a8; transform: translateY(-2px); }
+    .footer-divider { border: none; border-top: 1px solid #adc2cf; margin: 0 auto 2rem; width: 50%; }
+    .contact-box { background: #adc2cf; border-radius: 20px; display: inline-block; padding: 18px 36px; }
+    .contact-label { font-size: 13px; color: #fff; font-weight: 900; margin-bottom: 4px; }
+    .contact-email { font-size: 14px; color: #fff; font-weight: 700; }
+    .footer-copy { font-size: 11px; color: #dde8ef; margin-top: 2rem; opacity: 0.7; }
     @media (max-width: 768px) {
+      .nav { justify-content: space-between; padding: 1rem 1.25rem; }
+      .nav-basket { margin-left: 0; }
+      .hero { padding: 3rem 1.25rem 2.5rem; }
+      .hero-title { font-size: clamp(34px, 10vw, 48px); }
+      .story { grid-template-columns: 1fr; }
+      .story-image-side { padding: 2rem 1.25rem; min-height: 220px; }
+      .story-placeholder { max-width: 180px; aspect-ratio: 1/1; border-radius: 16px; }
+      .story-text { padding: 2rem 1.25rem; border-left: none; border-top: 4px solid #EDC1BB; }
       .product-card { flex: 0 0 180px; }
       .product-img-wrap { width: 180px; height: 180px; }
       .carousel-btn { display: none; }
       .carousel-track { padding: 0.5rem 1.25rem 1.5rem; }
       .products { padding-bottom: 2.5rem; }
-    }
-
-    /* ─── Footer ────────────────────────────────────── */
-    .footer {
-      background: #7e98a8;
-      padding: 3.5rem 2rem 2.5rem;
-      text-align: center;
-    }
-    .footer-title {
-      font-family: 'Cooper Black', 'Cooper Std', serif;
-      font-size: 26px;
-      color: #fff;
-      margin-bottom: 0.4rem;
-    }
-    .footer-sub {
-      font-family: 'Playfair Display', serif;
-      font-size: 16px;
-      font-style: italic;
-      color: #E7DFE1;
-      margin-bottom: 2rem;
-    }
-    .footer-socials {
-      display: flex;
-      justify-content: center;
-      gap: 1rem;
-      flex-wrap: wrap;
-      margin-bottom: 2rem;
-    }
-    .social-btn {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      background: #adc2cf;
-      color: #fff;
-      font-family: 'Nunito', sans-serif;
-      font-weight: 700;
-      font-size: 13px;
-      padding: 11px 24px;
-      border-radius: 50px;
-      text-decoration: none;
-      transition: background 0.2s, transform 0.15s;
-    }
-    .social-btn:hover {
-      background: #E7DFE1;
-      color: #7e98a8;
-      transform: translateY(-2px);
-    }
-    .footer-divider {
-      border: none;
-      border-top: 1px solid #adc2cf;
-      margin: 0 auto 2rem;
-      width: 50%;
-    }
-    .contact-box {
-      background: #adc2cf;
-      border-radius: 20px;
-      display: inline-block;
-      padding: 18px 36px;
-    }
-    .contact-label {
-      font-size: 13px;
-      color: #fff;
-      font-weight: 900;
-      margin-bottom: 4px;
-    }
-    .contact-email {
-      font-size: 14px;
-      color: #fff;
-      font-weight: 700;
-    }
-    .footer-copy {
-      font-size: 11px;
-      color: #dde8ef;
-      margin-top: 2rem;
-      opacity: 0.7;
-    }
-
-    /* ─── Responsive ────────────────────────────────── */
-    @media (max-width: 768px) {
-      /* Nav */
-      .nav { justify-content: space-between; padding: 1rem 1.25rem; }
-      .nav-links { display: flex; }
-      .nav-basket { margin-left: 0; }
-
-      /* Hero */
-      .hero { padding: 3rem 1.25rem 2.5rem; }
-      .hero-title { font-size: clamp(34px, 10vw, 48px); }
-
-      /* Story */
-      .story { grid-template-columns: 1fr; }
-      .story-image-side {
-        padding: 2rem 1.25rem;
-        min-height: 220px;
-      }
-      .story-placeholder {
-        max-width: 180px;
-        aspect-ratio: 1/1;
-        border-radius: 16px;
-      }
-      .story-text {
-        padding: 2rem 1.25rem;
-        border-left: none;
-        border-top: 4px solid #EDC1BB;
-      }
-
-      /* Footer */
       .footer { padding: 2.5rem 1.25rem 2rem; }
-      .footer-socials {
-        display: grid;
-        grid-template-columns: 1fr 1fr;
-        gap: 0.75rem;
-      }
+      .footer-socials { display: grid; grid-template-columns: 1fr 1fr; gap: 0.75rem; }
       .social-btn { justify-content: center; }
       .footer-divider { width: 80%; }
       .contact-box { padding: 14px 24px; }
     }
-
     @media (max-width: 480px) {
       .hero-eyebrow { font-size: 9px; letter-spacing: 2px; }
       .story-heading { font-size: 22px; }
       .footer-title { font-size: 22px; }
       .footer-sub { font-size: 14px; }
     }
-   
   </style>
-  <script src="basket.js"></script>
 </head>
 <body>
 
@@ -570,7 +119,7 @@
     <ul class="nav-links">
       <li><a href="#">Shop</a></li>
     </ul>
-    <a href="#" class="nav-basket" aria-label="Basket" onclick="openBasket(event)">
+    <a class="nav-basket" aria-label="Basket" onclick="event.preventDefault(); openBasket();">
       <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
         <path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/>
         <line x1="3" y1="6" x2="21" y2="6"/>
@@ -605,12 +154,13 @@
         <span class="basket-total-label">Total</span>
         <span class="basket-total-price" id="basketTotal">£0.00</span>
       </div>
-      <button class="checkout-btn" id="checkoutBtn" disabled>Continue to checkout →</button>
+      <button class="checkout-btn" id="checkoutBtn" onclick="goToCheckout()" disabled>Continue to checkout →</button>
     </div>
   </div>
 
-  <!-- Added to basket toast -->
+  <!-- Toast -->
   <div class="add-flash" id="addFlash">✦ Added to basket!</div>
+
   <!-- Hero -->
   <section class="hero">
     <p class="hero-eyebrow">✦ the sweetest little companion ✦</p>
@@ -653,19 +203,19 @@
       </button>
       <div class="carousel-track" id="carouselTrack">
 
-    <!-- test rose pink card-->
-      <div class="product-card" onclick="window.location.href='product.html?id=rose-pink'" style="cursor:pointer;">
+        <!-- Card 1 — Rose Pink -->
+        <div class="product-card" onclick="window.location.href='product.html?id=rose-pink'">
           <div class="product-img-wrap" style="background:#fde8e8;">
             <img src="assets/images/test1img.jpg" alt="Hijabi Friend — Rose Pink" style="width:100%;height:100%;object-fit:cover;border-radius:20px;">
-          <div class="product-colour-dot" style="background:#e8a0a0;"></div>
+            <div class="product-colour-dot" style="background:#e8a0a0;"></div>
+          </div>
+          <p class="product-name">Hijabi Friend — Rose Pink</p>
+          <p class="product-price">£12.99</p>
+          <button class="product-add" onclick="event.stopPropagation(); addToBasket(this)" data-name="Hijabi Friend — Rose Pink" data-price="12.99" data-colour="#e8a0a0" data-emoji="🩷">Add to basket</button>
         </div>
-       <p class="product-name">Hijabi Friend — Rose Pink</p>
-       <p class="product-price">£12.99</p>
-       <button class="product-add" onclick="event.stopPropagation(); addToBasket(this)" data-name="Hijabi Friend — Rose Pink" data-price="12.99" data-colour="#e8a0a0" data-emoji="🩷">Add to basket</button>
-     </div>
 
-        <!-- Card 2 -->
-        <div class="product-card">
+        <!-- Card 2 — Sky Blue -->
+        <div class="product-card" onclick="window.location.href='product.html?id=sky-blue'">
           <div class="product-img-wrap" style="background:#e8eef5;">
             <div class="placeholder-doll">
               <svg width="80" height="100" viewBox="0 0 80 100" xmlns="http://www.w3.org/2000/svg">
@@ -687,11 +237,11 @@
           </div>
           <p class="product-name">Hijabi Friend — Sky Blue</p>
           <p class="product-price">£12.99</p>
-          <button class="product-add" onclick="addToBasket(this)" data-name="Hijabi Friend — Sky Blue" data-price="12.99" data-colour="#adc2cf" data-emoji="💙">Add to basket</button>
+          <button class="product-add" onclick="event.stopPropagation(); addToBasket(this)" data-name="Hijabi Friend — Sky Blue" data-price="12.99" data-colour="#adc2cf" data-emoji="💙">Add to basket</button>
         </div>
 
-        <!-- Card 3 -->
-        <div class="product-card">
+        <!-- Card 3 — Blush Peach -->
+        <div class="product-card" onclick="window.location.href='product.html?id=blush-peach'">
           <div class="product-img-wrap" style="background:#fdf0e8;">
             <div class="placeholder-doll">
               <svg width="80" height="100" viewBox="0 0 80 100" xmlns="http://www.w3.org/2000/svg">
@@ -713,11 +263,11 @@
           </div>
           <p class="product-name">Hijabi Friend — Blush Peach</p>
           <p class="product-price">£12.99</p>
-          <button class="product-add" onclick="addToBasket(this)" data-name="Hijabi Friend — Blush Peach" data-price="12.99" data-colour="#EDC1BB" data-emoji="🌸">Add to basket</button>
+          <button class="product-add" onclick="event.stopPropagation(); addToBasket(this)" data-name="Hijabi Friend — Blush Peach" data-price="12.99" data-colour="#EDC1BB" data-emoji="🌸">Add to basket</button>
         </div>
 
-        <!-- Card 4 -->
-        <div class="product-card">
+        <!-- Card 4 — Soft Lilac -->
+        <div class="product-card" onclick="window.location.href='product.html?id=soft-lilac'">
           <div class="product-img-wrap" style="background:#ede8f5;">
             <div class="placeholder-doll">
               <svg width="80" height="100" viewBox="0 0 80 100" xmlns="http://www.w3.org/2000/svg">
@@ -739,11 +289,11 @@
           </div>
           <p class="product-name">Hijabi Friend — Soft Lilac</p>
           <p class="product-price">£12.99</p>
-          <button class="product-add" onclick="addToBasket(this)" data-name="Hijabi Friend — Soft Lilac" data-price="12.99" data-colour="#c8bde8" data-emoji="💜">Add to basket</button>
+          <button class="product-add" onclick="event.stopPropagation(); addToBasket(this)" data-name="Hijabi Friend — Soft Lilac" data-price="12.99" data-colour="#c8bde8" data-emoji="💜">Add to basket</button>
         </div>
 
         <!-- Card 5 — Gift Set -->
-        <div class="product-card">
+        <div class="product-card" onclick="window.location.href='product.html?id=gift-set'">
           <div class="product-img-wrap" style="background:#e8f5ee;">
             <div class="placeholder-doll">
               <svg width="80" height="100" viewBox="0 0 80 100" xmlns="http://www.w3.org/2000/svg">
@@ -761,15 +311,14 @@
                 <rect x="40" y="48" width="24" height="28" rx="7" fill="#adc2cf"/>
                 <rect x="40" y="48" width="24" height="10" rx="5" fill="#7e98a8"/>
                 <ellipse cx="52" cy="47" rx="9" ry="4" fill="#F5C9A0"/>
-                <text x="40" y="98" text-anchor="middle" font-size="9" fill="#CD7250" font-weight="bold">Gift Set</text>
               </svg>
               <span>Gift Set of 2</span>
             </div>
-            <div class="product-colour-dot" style="background: linear-gradient(135deg, #EDC1BB 50%, #adc2cf 50%);"></div>
+            <div class="product-colour-dot" style="background:linear-gradient(135deg,#EDC1BB 50%,#adc2cf 50%);"></div>
           </div>
           <p class="product-name">Hijabi Friend — Gift Set of 2</p>
           <p class="product-price">£22.99</p>
-          <button class="product-add" onclick="addToBasket(this)" data-name="Hijabi Friend — Gift Set of 2" data-price="22.99" data-colour="#EDC1BB" data-emoji="🎁">Add to basket</button>
+          <button class="product-add" onclick="event.stopPropagation(); addToBasket(this)" data-name="Hijabi Friend — Gift Set of 2" data-price="22.99" data-colour="#EDC1BB" data-emoji="🎁">Add to basket</button>
         </div>
 
       </div>
@@ -824,8 +373,9 @@
     <p class="footer-copy">© 2025 My Adorable Hijabi Friend · Made with love in the UK</p>
   </footer>
 
+  <!-- basket.js loads here — AFTER the DOM -->
+  <script src="basket.js"></script>
   <script>
-    // ─── Carousel ───────────────────────────────────
     const track = document.getElementById('carouselTrack');
     const cards = track.querySelectorAll('.product-card');
     const dotsContainer = document.getElementById('carouselDots');
@@ -855,7 +405,6 @@
       document.querySelectorAll('.carousel-dot').forEach((d, i) => d.classList.toggle('active', i === activeDot));
     }
     track.addEventListener('scroll', updateDots);
-
   </script>
 </body>
 </html>
