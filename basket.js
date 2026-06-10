@@ -146,9 +146,8 @@ function showFlash() {
 // ─── Checkout ────────────────────────────────────────
 function goToCheckout() {
   // Wire this to your Stripe checkout URL or checkout.html
-  // Example: window.location.href = 'checkout.html';
-  alert('Checkout coming soon!');
-}
+  window.location.href = 'checkout.html';
+  }
 
 // ─── Init on page load ───────────────────────────────
 document.addEventListener('DOMContentLoaded', loadBasket);
