@@ -227,10 +227,12 @@
         }
       });
 
-      currentProduct.name       = product.name + ' — ' + variation.label;
-      currentProduct.price      = variation.price;
-      currentProduct.image      = variation.image;
+      // Keep id and name as the base product so basket deduplicates correctly
+      // across all pages (index, shop, product)
+      currentProduct.price       = variation.price;
+      currentProduct.image       = variation.image;
       currentProduct.thumbImages = variation.thumbImages;
+      currentProduct.variantLabel = variation.label;
 
       var priceEl = document.querySelector('.product-price');
       if (priceEl) priceEl.textContent = '£' + variation.price.toFixed(2);
