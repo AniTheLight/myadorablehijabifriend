@@ -58,20 +58,19 @@ function addToBasket(btn) {
 }
 
 // ─── Add by product object (for product.html buy now / add buttons) ──
-function addToBasketById(id, name, price, colour, emoji, qty) {
+ffunction addToBasketById(id, name, price, colour, qty, image) {
   qty = qty || 1;
-  const existing = basket.find(function(i) { return i.id === id; });
+  image = image || null;
+  var existing = basket.find(function(i) { return i.id === id; });
   if (existing) {
     existing.qty += qty;
   } else {
-    basket.push({ id: id, name: name, price: price, colour: colour, emoji: emoji, qty: qty });
+    basket.push({ id: id, name: name, price: price, colour: colour, qty: qty, image: image });
   }
-
   saveBasket();
   renderBasket();
   showFlash();
 }
-
 // ─── Change Quantity ─────────────────────────────────
 function changeQty(id, delta) {
   const item = basket.find(function(i) { return i.id === id; });
@@ -117,7 +116,7 @@ function renderBasket() {
     const el = document.createElement('div');
     el.className = 'basket-item';
     el.innerHTML =
-      '<div class="basket-item-img" style="background:' + item.colour + '20;">' + item.emoji + '</div>' +
+      '<div class="basket-item-img" style="background:' + item.colour + '20;">' + (item.image ? '<img src="' + item.image + '" alt="' + item.name ) +'</div>' +
       '<div class="basket-item-info">' +
         '<p class="basket-item-name">' + item.name + '</p>' +
         '<p class="basket-item-price">£' + (item.price * item.qty).toFixed(2) + '</p>' +
@@ -130,6 +129,8 @@ function renderBasket() {
     itemsEl.appendChild(el);
   });
 }
+
+
 
 // ─── Flash Toast ─────────────────────────────────────
 let flashTimer;
