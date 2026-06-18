@@ -1,24 +1,23 @@
-// ─── Basket State ───────────────────────────────────
-let basket = [];
+// ─── basket.js ──────────────────────────────────────────────────────────────
+// Shared basket logic used by index, shop, product, and checkout pages.
 
-// ─── Load & Save ────────────────────────────────────
+// ─── State ──────────────────────────────────────────────────────────────────
+var basket = [];
+
+// ─── Persist ────────────────────────────────────────────────────────────────
 function saveBasket() {
   localStorage.setItem('mahf_basket', JSON.stringify(basket));
 }
 
 function loadBasket() {
-  const saved = localStorage.getItem('mahf_basket');
+  var saved = localStorage.getItem('mahf_basket');
   if (saved) {
-    try {
-      basket = JSON.parse(saved);
-    } catch (e) {
-      basket = [];
-    }
+    try { basket = JSON.parse(saved); } catch (e) { basket = []; }
   }
   renderBasket();
 }
 
-// ─── Open / Close ────────────────────────────────────
+// ─── Open / Close drawer ────────────────────────────────────────────────────
 function openBasket(e) {
   if (e) e.preventDefault();
   document.getElementById('basketDrawer').classList.add('open');
@@ -32,24 +31,23 @@ function closeBasket() {
   document.body.style.overflow = '';
 }
 
-// Close on Escape key
-document.addEventListener('keydown', function(e) {
+document.addEventListener('keydown', function (e) {
   if (e.key === 'Escape') closeBasket();
 });
 
-// ─── Add to Basket ───────────────────────────────────
+// ─── Add to basket (card buttons using data-* attributes) ───────────────────
 function addToBasket(btn) {
-  const name   = btn.dataset.name;
-  const price  = parseFloat(btn.dataset.price);
-  const colour = btn.dataset.colour;
-  const emoji  = btn.dataset.emoji;
-  const id     = name.replace(/\s+/g, '-').toLowerCase();
+  var name   = btn.dataset.name;
+  var price  = parseFloat(btn.dataset.price);
+  var colour = btn.dataset.colour;
+  var image  = btn.dataset.image || null;
+  var id     = btn.dataset.id || name.replace(/\s+/g, '-').toLowerCase();
 
-  const existing = basket.find(function(i) { return i.id === id; });
+  var existing = basket.find(function (i) { return i.id === id; });
   if (existing) {
     existing.qty++;
   } else {
-    basket.push({ id: id, name: name, price: price, colour: colour, emoji: emoji, qty: 1 });
+    basket.push({ id: id, name: name, price: price, colour: colour, image: image, qty: 1 });
   }
 
   saveBasket();
@@ -57,51 +55,60 @@ function addToBasket(btn) {
   showFlash();
 }
 
-// ─── Add by product object (for product.html buy now / add buttons) ──
-ffunction addToBasketById(id, name, price, colour, qty, image) {
-  qty = qty || 1;
+// ─── Add by values (used by shop grid and product page) ─────────────────────
+function addToBasketById(id, name, price, colour, qty, image) {
+  qty   = qty   || 1;
   image = image || null;
-  var existing = basket.find(function(i) { return i.id === id; });
+
+  var existing = basket.find(function (i) { return i.id === id; });
   if (existing) {
     existing.qty += qty;
   } else {
     basket.push({ id: id, name: name, price: price, colour: colour, qty: qty, image: image });
   }
+
   saveBasket();
   renderBasket();
   showFlash();
 }
-// ─── Change Quantity ─────────────────────────────────
+
+// ─── Buy now — add then go straight to checkout ──────────────────────────────
+function buyNow(id, name, price, colour, image) {
+  addToBasketById(id, name, price, colour, 1, image);
+  window.location.href = 'checkout.html';
+}
+
+// ─── Change quantity (basket drawer) ────────────────────────────────────────
 function changeQty(id, delta) {
-  const item = basket.find(function(i) { return i.id === id; });
+  var item = basket.find(function (i) { return i.id === id; });
   if (!item) return;
   item.qty += delta;
   if (item.qty <= 0) {
-    basket = basket.filter(function(i) { return i.id !== id; });
+    basket = basket.filter(function (i) { return i.id !== id; });
   }
   saveBasket();
   renderBasket();
 }
 
-// ─── Render Basket ───────────────────────────────────
+// ─── Render basket drawer ───────────────────────────────────────────────────
 function renderBasket() {
-  const itemsEl    = document.getElementById('basketItems');
-  const emptyEl    = document.getElementById('basketEmpty');
-  const totalEl    = document.getElementById('basketTotal');
-  const countEl    = document.getElementById('basketCount');
-  const checkoutEl = document.getElementById('checkoutBtn');
+  var itemsEl    = document.getElementById('basketItems');
+  var emptyEl    = document.getElementById('basketEmpty');
+  var totalEl    = document.getElementById('basketTotal');
+  var countEl    = document.getElementById('basketCount');
+  var checkoutEl = document.getElementById('checkoutBtn');
 
-  if (!itemsEl) return; // drawer not on this page yet
+  if (!itemsEl) return; // drawer not mounted yet
 
-  const totalQty   = basket.reduce(function(s, i) { return s + i.qty; }, 0);
-  const totalPrice = basket.reduce(function(s, i) { return s + i.price * i.qty; }, 0);
+  var totalQty   = basket.reduce(function (s, i) { return s + i.qty; }, 0);
+  var totalPrice = basket.reduce(function (s, i) { return s + i.price * i.qty; }, 0);
 
-  if (countEl)    countEl.textContent  = totalQty;
-  if (totalEl)    totalEl.textContent  = '£' + totalPrice.toFixed(2);
-  if (checkoutEl) checkoutEl.disabled  = basket.length === 0;
+  if (countEl)    countEl.textContent = totalQty;
+  if (totalEl)    totalEl.textContent = '£' + totalPrice.toFixed(2);
+  if (checkoutEl) checkoutEl.disabled = basket.length === 0;
 
-  // Clear existing item cards (keep empty state element)
-  Array.from(itemsEl.children).forEach(function(el) {
+  // Clear item cards (keep empty-state element)
+  Array.from(itemsEl.children).forEach(function (el) {
     if (!el.classList.contains('basket-empty')) el.remove();
   });
 
@@ -112,11 +119,19 @@ function renderBasket() {
 
   if (emptyEl) emptyEl.style.display = 'none';
 
-  basket.forEach(function(item) {
-    const el = document.createElement('div');
+  basket.forEach(function (item) {
+    var el = document.createElement('div');
     el.className = 'basket-item';
+
+    // Image thumbnail: use product image if available, else coloured block
+    var imgContent = item.image
+      ? '<img src="' + item.image + '" alt="' + item.name + '" style="width:100%;height:100%;object-fit:cover;border-radius:8px;">'
+      : '';
+
     el.innerHTML =
-      '<div class="basket-item-img" style="background:' + item.colour + '20;">' + (item.image ? '<img src="' + item.image + '" alt="' + item.name ) +'</div>' +
+      '<div class="basket-item-img" style="background:' + (item.colour || '#EDC1BB') + '20;">' +
+        imgContent +
+      '</div>' +
       '<div class="basket-item-info">' +
         '<p class="basket-item-name">' + item.name + '</p>' +
         '<p class="basket-item-price">£' + (item.price * item.qty).toFixed(2) + '</p>' +
@@ -126,29 +141,25 @@ function renderBasket() {
         '<span class="qty-num">' + item.qty + '</span>' +
         '<button class="qty-btn" onclick="changeQty(\'' + item.id + '\', 1)">+</button>' +
       '</div>';
+
     itemsEl.appendChild(el);
   });
 }
 
-
-
-// ─── Flash Toast ─────────────────────────────────────
-let flashTimer;
+// ─── Flash toast ─────────────────────────────────────────────────────────────
+var flashTimer;
 function showFlash() {
-  const flash = document.getElementById('addFlash');
+  var flash = document.getElementById('addFlash');
   if (!flash) return;
   flash.classList.add('show');
   clearTimeout(flashTimer);
-  flashTimer = setTimeout(function() {
-    flash.classList.remove('show');
-  }, 2000);
+  flashTimer = setTimeout(function () { flash.classList.remove('show'); }, 2000);
 }
 
-// ─── Checkout ────────────────────────────────────────
+// ─── Go to checkout ──────────────────────────────────────────────────────────
 function goToCheckout() {
-  // Wire this to your Stripe checkout URL or checkout.html
   window.location.href = 'checkout.html';
-  }
+}
 
-// ─── Init on page load ───────────────────────────────
+// ─── Init ────────────────────────────────────────────────────────────────────
 document.addEventListener('DOMContentLoaded', loadBasket);
