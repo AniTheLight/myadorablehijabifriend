@@ -445,18 +445,13 @@
     // ─── Add / Buy ────────────────────────────────────
     function handleAddToBasket() {
       if (!currentProduct) return;
-      // If product has variations and none explicitly selected, prompt
-      var product = products[currentProduct.id];
-      if (product && product.variations && !currentProduct.variantSelected) {
-        // First variation is already auto-selected — just proceed
-      }
       addToBasketById(
         currentProduct.id + (currentProduct.variantId ? '-' + currentProduct.variantId : ''),
         currentProduct.name,
         currentProduct.price,
         currentProduct.accentColour || '#e8a0a0',
-        currentProduct.emoji || '🩷',
-        qty
+        qty,
+        currentProduct.image  // ← add this
       );
     }
 
