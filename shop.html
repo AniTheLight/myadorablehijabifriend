@@ -254,9 +254,8 @@
           details: 'Includes two keychain dolls, each approximately 8cm tall. Keyring clips attached. Suitable for ages 3+. Surface wipe clean only. Gift packaging included.',
           related: ['crochet-doll', 'key-chain-plush', 'princess-doll']
         }
-      ];
-    ];
-
+     ];
+    
 
     function basketIcon() {
       return '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">' +
@@ -275,37 +274,37 @@
     }
 
     function renderGrid() {
-      var grid = document.getElementById('productGrid');
-      var html = '';
-      products.forEach(function(p) {
-        var imgHTML = p.image
-          ? '<img src="' + p.image + '" alt="' + p.name + '">'
-          : '<div class="card-placeholder" style="background:' + p.bg + ';">' + dollSVG(p.hijabColour, p.accentColour, 110) + '<span>' + p.name.split('— ')[1] + '</span></div>';
-
-        var badgeHTML = p.badge
-          ? '<span class="card-badge" style="background:' + p.badgeColour + ';">' + p.badge + '</span>'
-          : '';
-
-        html +=
-          '<div class="product-card" onclick="window.location.href=\'product.html?id=' + p.id + '\'">' +
-            '<div class="card-img" style="background:' + p.bg + ';">' +
-              imgHTML +
-              badgeHTML +
-            '</div>' +
-            '<div class="card-body">' +
-              '<p class="card-name">' + p.name + '</p>' +
-              '<p class="card-variant">' + p.variant + '</p>' +
-              '<div class="card-stars"><span class="stars">' + starsHTML(p.stars) + '</span><span class="rev">(' + p.reviews + ')</span></div>' +
-              '<p class="card-price">£' + p.price.toFixed(2) + '</p>' +
-              '<div class="card-btns">' +
-                '<button class="btn-basket" onclick="event.stopPropagation(); addToBasketById(\'' + p.id + '\',\'' + p.name + '\',' + p.price + ',\'' + p.accentColour + '\',\'' + p.emoji + '\',1)" title="Add to basket">' + basketIcon() + '</button>' +
-                '<button class="btn-buy" onclick="event.stopPropagation(); window.location.href=\'product.html?id=' + p.id + '\'">Buy now →</button>' +
+        var grid = document.getElementById('productGrid');
+        var html = '';
+        products.forEach(function(p) {
+          var imgHTML = p.image
+            ? '<img src="' + p.image + '" alt="' + p.name + '">'
+            : '<div class="card-placeholder" style="background:' + p.colour + ';"><span>' + p.name + '</span></div>';
+      
+          var badgeHTML = p.badge
+            ? '<span class="card-badge" style="background:' + p.badgeColour + ';">' + p.badge + '</span>'
+            : '';
+      
+          html +=
+            '<div class="product-card" onclick="window.location.href=\'product.html?id=' + p.id + '\'">' +
+              '<div class="card-img" style="background:' + p.colour + ';">' +
+                imgHTML +
+                badgeHTML +
               '</div>' +
-            '</div>' +
-          '</div>';
-      });
-      grid.innerHTML = html;
-    }
+              '<div class="card-body">' +
+                '<p class="card-name">' + p.name + '</p>' +
+                '<p class="card-variant">' + p.variant + '</p>' +
+                '<div class="card-stars"><span class="stars">' + starsHTML(p.stars) + '</span><span class="rev">(' + p.reviews + ')</span></div>' +
+                '<p class="card-price">£' + p.price.toFixed(2) + '</p>' +
+                '<div class="card-btns">' +
+                  '<button class="btn-basket" onclick="event.stopPropagation(); addToBasketById(\'' + p.id + '\',\'' + p.name + '\',' + p.price + ',\'' + p.accentColour + '\',\'\'  ,1)" title="Add to basket">' + basketIcon() + '</button>' +
+                  '<button class="btn-buy" onclick="event.stopPropagation(); window.location.href=\'product.html?id=' + p.id + '\'">Buy now →</button>' +
+                '</div>' +
+              '</div>' +
+            '</div>';
+        });
+        grid.innerHTML = html;
+      }
 
     document.addEventListener('DOMContentLoaded', renderGrid);
   </script>
