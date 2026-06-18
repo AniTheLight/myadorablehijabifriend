@@ -14,8 +14,9 @@
     html { scroll-behavior: smooth; }
     body { font-family: 'Nunito', sans-serif; background: #f9f3f1; -webkit-font-smoothing: antialiased; }
     .nav { display: flex; justify-content: space-between; align-items: center; padding: 1rem 2.5rem; background: #E7DFE1; border-bottom: 2px solid #EDC1BB; position: sticky; top: 0; z-index: 100; }
-    .nav-shop { font-size: 13px; font-weight: 700; color: #7e98a8; text-decoration: none; transition: color 0.2s; }
-    .nav-shop:hover { color: #CD7250; }
+    .nav-links { display: flex; gap: 2rem; list-style: none; }
+    .nav-links a { font-size: 13px; font-weight: 700; color: #7e98a8; text-decoration: none; transition: color 0.2s; }
+    .nav-links a:hover { color: #CD7250; }
     .nav-basket { position: relative; display: flex; align-items: center; color: #7e98a8; cursor: pointer; transition: color 0.2s; }
     .nav-basket:hover { color: #CD7250; }
     .basket-count { position: absolute; top: -6px; right: -8px; background: #CD7250; color: #fff; font-size: 9px; font-weight: 900; width: 16px; height: 16px; border-radius: 50%; display: flex; align-items: center; justify-content: center; }
@@ -39,7 +40,9 @@
     .float-field input:focus, .float-field select:focus, .float-field textarea:focus { border-color: #CD7250; }
     .float-field label { position: absolute; left: 15px; top: 50%; transform: translateY(-50%); font-size: 14px; color: #bbb; font-weight: 700; pointer-events: none; transition: all 0.15s ease; }
     .float-field textarea ~ label { top: 16px; transform: none; }
-    .float-field input:focus ~ label, .float-field input:not(:placeholder-shown) ~ label, .float-field select:focus ~ label, .float-field textarea:focus ~ label, .float-field textarea:not(:placeholder-shown) ~ label { top: 7px; transform: none; font-size: 9px; letter-spacing: 1px; text-transform: uppercase; color: #e891a1; font-weight: 900; }
+    .float-field input:focus ~ label, .float-field input:not(:placeholder-shown) ~ label,
+    .float-field select:focus ~ label,
+    .float-field textarea:focus ~ label, .float-field textarea:not(:placeholder-shown) ~ label { top: 7px; transform: none; font-size: 9px; letter-spacing: 1px; text-transform: uppercase; color: #e891a1; font-weight: 900; }
     .float-field textarea { resize: none; height: 90px; padding-top: 20px; }
     .checkbox-row { display: flex; align-items: center; gap: 10px; margin-top: 8px; }
     .checkbox-row input { width: 15px; height: 15px; accent-color: #e891a1; }
@@ -55,18 +58,19 @@
     .card-fields-row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
     .pay-btn { display: block; width: 100%; background: #e891a1; color: #fff; font-family: 'Nunito', sans-serif; font-weight: 900; font-size: 16px; padding: 16px; border-radius: 50px; border: none; cursor: pointer; box-shadow: 0 5px 0 #c4607a; text-align: center; transition: background 0.2s, transform 0.1s, box-shadow 0.1s; margin-top: 18px; }
     .pay-btn:hover { background: #CD7250; transform: translateY(2px); box-shadow: 0 3px 0 #9a4f2f; }
+    .pay-btn:disabled { background: #ccc; box-shadow: 0 3px 0 #aaa; cursor: not-allowed; transform: none; }
     .secure-note { display: flex; align-items: center; justify-content: center; gap: 6px; margin-top: 12px; font-size: 12px; color: #aaa; font-weight: 700; }
     .order-card { background: #f9f3f1; border-radius: 20px; padding: 22px; border: 2px solid #e891a1; position: sticky; top: 90px; }
     .order-title { font-family: 'Cormorant Garamond', serif; font-size: 22px; font-weight: 300; color: #CD7250; margin-bottom: 18px; }
     .order-item { display: flex; align-items: flex-start; gap: 13px; padding: 13px 0; border-bottom: 1.5px solid #f5dde5; }
     .order-item:last-of-type { border-bottom: none; }
-    .item-img { width: 54px; height: 54px; border-radius: 12px; background: #f5ddd8; display: flex; align-items: center; justify-content: center; font-size: 20px; flex-shrink: 0; overflow: hidden; }
+    .item-img { width: 54px; height: 54px; border-radius: 12px; background: #f5ddd8; display: flex; align-items: center; justify-content: center; flex-shrink: 0; overflow: hidden; }
     .item-img img { width: 100%; height: 100%; object-fit: cover; }
     .item-body { flex: 1; min-width: 0; }
     .item-top-row { display: flex; align-items: flex-start; justify-content: space-between; gap: 8px; margin-bottom: 8px; }
-    .item-name { font-size: 13px; font-weight: 900; color: #444; line-height: 1.3; }
+    .item-name    { font-size: 13px; font-weight: 900; color: #444; line-height: 1.3; }
     .item-variant { font-size: 11px; color: #aaa; font-weight: 700; margin-top: 2px; }
-    .remove-btn { background: none; border: none; cursor: pointer; color: #e891a1; display: flex; align-items: center; flex-shrink: 0; transition: color 0.15s; }
+    .remove-btn   { background: none; border: none; cursor: pointer; color: #e891a1; display: flex; align-items: center; flex-shrink: 0; transition: color 0.15s; }
     .remove-btn:hover { color: #CD7250; }
     .item-bottom-row { display: flex; align-items: center; justify-content: space-between; }
     .item-qty { display: flex; align-items: center; gap: 8px; }
@@ -90,13 +94,13 @@
     .empty-msg a { color: #e891a1; font-weight: 900; text-decoration: none; }
     .footer { background: #7e98a8; padding: 2.5rem 2rem; text-align: center; }
     .footer-title { font-family: 'Cooper Black', serif; font-size: 20px; color: #fff; margin-bottom: 0.3rem; }
-    .footer-sub { font-family: 'Playfair Display', serif; font-size: 14px; font-style: italic; color: #E7DFE1; margin-bottom: 1.5rem; }
+    .footer-sub   { font-family: 'Playfair Display', serif; font-size: 14px; font-style: italic; color: #E7DFE1; margin-bottom: 1.5rem; }
     .footer-socials { display: flex; justify-content: center; gap: 1rem; flex-wrap: wrap; margin-bottom: 1.5rem; }
     .social-btn { display: inline-flex; align-items: center; gap: 8px; background: #adc2cf; color: #fff; font-family: 'Nunito', sans-serif; font-weight: 700; font-size: 13px; padding: 10px 20px; border-radius: 50px; text-decoration: none; transition: background 0.2s; }
     .social-btn:hover { background: #E7DFE1; color: #7e98a8; }
     .footer-divider { border: none; border-top: 1px solid #adc2cf; margin: 0 auto 1.5rem; width: 50%; }
-    .contact-box { background: #adc2cf; border-radius: 16px; display: inline-block; padding: 14px 28px; }
-    .footer-copy { font-size: 11px; color: #dde8ef; margin-top: 1.5rem; opacity: 0.7; }
+    .contact-box  { background: #adc2cf; border-radius: 16px; display: inline-block; padding: 14px 28px; }
+    .footer-copy  { font-size: 11px; color: #dde8ef; margin-top: 1.5rem; opacity: 0.7; }
     @media (max-width: 768px) {
       .nav { padding: 1rem 1.25rem; }
       .breadcrumb { padding: 1rem 1.25rem 0; }
@@ -114,52 +118,22 @@
 </head>
 <body>
 
-  <nav class="nav">
-    <a href="shop.html" class="nav-shop">Shop</a>
-    <a class="nav-basket" onclick="event.preventDefault(); openBasket();">
-      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-        <path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/>
-        <line x1="3" y1="6" x2="21" y2="6"/>
-        <path d="M16 10a4 4 0 01-8 0"/>
-      </svg>
-      <span class="basket-count" id="basketCount">0</span>
-    </a>
-  </nav>
-
-  <div class="basket-overlay" id="basketOverlay" onclick="closeBasket()"></div>
-  <div class="basket-drawer" id="basketDrawer">
-    <div class="basket-header">
-      <span class="basket-title">Your Basket</span>
-      <button class="basket-close" onclick="closeBasket()">
-        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round">
-          <line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/>
-        </svg>
-      </button>
-    </div>
-    <div class="basket-items" id="basketItems">
-      <div class="basket-empty" id="basketEmpty">
-        <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="#ccc" stroke-width="1.5" stroke-linecap="round"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg>
-        <p>Your basket is empty</p>
-        <p style="font-size:12px;font-weight:400;color:#ccc;">Add a friend to get started!</p>
-      </div>
-    </div>
-    <div class="basket-footer">
-      <div class="basket-total-row">
-        <span class="basket-total-label">Total</span>
-        <span class="basket-total-price" id="basketTotal">£0.00</span>
-      </div>
-      <button class="checkout-btn" id="checkoutBtn" onclick="goToCheckout()" disabled>Continue to checkout</button>
-    </div>
-  </div>
-  <div class="add-flash" id="addFlash">✦ Added to basket!</div>
+  <div id="navMount"></div>
 
   <div id="pageContent"></div>
 
+  <script src="products.js"></script>
   <script src="basket.js"></script>
+  <script src="nav.js"></script>
+
   <script>
-    function getTotal() { return basket.reduce(function(s,i){return s+i.price*i.qty;},0); }
-    function getGrand() { var t=getTotal(); return t>=25?t:t+3.99; }
-    function getShipping() { return getTotal()>=25?'Free':'£3.99'; }
+    function getTotal()    { return basket.reduce(function(s,i){ return s + i.price * i.qty; }, 0); }
+    function getShipping() { return getTotal() >= 25 ? 'Free' : '£3.99'; }
+    function getGrand()    { var t = getTotal(); return t >= 25 ? t : t + 3.99; }
+
+    function removeSVG() {
+      return '<svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>';
+    }
 
     function renderCheckout() {
       var items = '';
@@ -167,13 +141,17 @@
         items = '<div class="empty-msg"><p>Your basket is empty.</p><a href="index.html">← Continue shopping</a></div>';
       } else {
         basket.forEach(function(item) {
+          var imgHTML = item.image
+            ? '<img src="' + item.image + '" alt="' + item.name + '">'
+            : '';
+
           items +=
             '<div class="order-item">' +
-              '<div class="item-img">' + item.emoji + '</div>' +
+              '<div class="item-img" style="background:' + (item.colour || '#EDC1BB') + '20;">' + imgHTML + '</div>' +
               '<div class="item-body">' +
                 '<div class="item-top-row">' +
                   '<div><div class="item-name">' + item.name + '</div><div class="item-variant">Keychain doll</div></div>' +
-                  '<button class="remove-btn" onclick="removeItem(\'' + item.id + '\')"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button>' +
+                  '<button class="remove-btn" onclick="removeItem(\'' + item.id + '\')">' + removeSVG() + '</button>' +
                 '</div>' +
                 '<div class="item-bottom-row">' +
                   '<div class="item-qty">' +
@@ -189,12 +167,11 @@
       }
 
       document.getElementById('pageContent').innerHTML =
-        '<div class="breadcrumb"><a href="index.html">Home</a> <span>›</span> <a href="index.html">Shop</a> <span>›</span> Checkout</div>' +
+        '<div class="breadcrumb"><a href="index.html">Home</a> <span>›</span> <a href="shop.html">Shop</a> <span>›</span> Checkout</div>' +
         '<div class="checkout-grid">' +
           '<div class="left-col">' +
             '<div class="card">' +
               '<div class="card-title">Contact details</div>' +
-              '<div class="sign-in-row"><p>Already have an account?</p><button class="sign-btn" onclick="alert(\'Sign in coming soon!\')">Sign in</button></div>' +
               '<div class="section-label">Personal info</div>' +
               '<div class="form-grid">' +
                 '<div class="float-field"><input type="text" placeholder=" " id="fn" required><label for="fn">First name</label></div>' +
@@ -256,26 +233,26 @@
             '<a class="social-btn" href="#">Facebook</a>' +
           '</div>' +
           '<hr class="footer-divider"/>' +
-          '<div class="contact-box"><p style="font-size:13px;color:#fff;font-weight:900;margin-bottom:4px;">Get in touch 💌</p><p style="font-size:13px;color:#fff;font-weight:700;">hello@myadorablehijabifriend.com</p></div>' +
+          '<div class="contact-box"><p style="font-size:13px;color:#fff;font-weight:900;margin-bottom:4px;">Get in touch</p><p style="font-size:13px;color:#fff;font-weight:700;">hello@myadorablehijabifriend.com</p></div>' +
           '<p class="footer-copy">© 2025 My Adorable Hijabi Friend · Made with love in the UK</p>' +
         '</footer>';
     }
 
     function removeItem(id) {
-      basket = basket.filter(function(i){return i.id!==id;});
+      basket = basket.filter(function(i){ return i.id !== id; });
       saveBasket(); renderBasket(); renderCheckout();
     }
 
     function adjustQty(id, delta) {
-      var item = basket.find(function(i){return i.id===id;});
+      var item = basket.find(function(i){ return i.id === id; });
       if (!item) return;
       item.qty += delta;
-      if (item.qty <= 0) basket = basket.filter(function(i){return i.id!==id;});
+      if (item.qty <= 0) basket = basket.filter(function(i){ return i.id !== id; });
       saveBasket(); renderBasket(); renderCheckout();
     }
 
     function selectPay(el) {
-      document.querySelectorAll('.pay-option').forEach(function(o){o.classList.remove('active');});
+      document.querySelectorAll('.pay-option').forEach(function(o){ o.classList.remove('active'); });
       el.classList.add('active');
       el.querySelector('input[type=radio]').checked = true;
       var cf = document.getElementById('cardFields');
@@ -289,7 +266,7 @@
 
     async function handlePayment() {
       if (basket.length === 0) { alert('Your basket is empty!'); return; }
-    
+
       var required = [
         { id: 'fn', label: 'First name' },
         { id: 'sn', label: 'Surname' },
@@ -299,7 +276,7 @@
         { id: 'ci', label: 'City' },
         { id: 'pc', label: 'Postcode' }
       ];
-    
+
       for (var i = 0; i < required.length; i++) {
         var el = document.getElementById(required[i].id);
         if (el && !el.value.trim()) {
@@ -308,11 +285,11 @@
           return;
         }
       }
-    
+
       var btn = document.getElementById('payBtn');
       btn.textContent = 'Processing...';
       btn.disabled = true;
-    
+
       try {
         var response = await fetch('/api/create-checkout', {
           method: 'POST',
@@ -323,9 +300,9 @@
             customerName: document.getElementById('fn').value.trim() + ' ' + document.getElementById('sn').value.trim()
           })
         });
-    
+
         var data = await response.json();
-    
+
         if (data.url) {
           localStorage.removeItem('mahf_basket');
           window.location.href = data.url;
@@ -337,10 +314,6 @@
         btn.disabled = false;
         alert('Something went wrong. Please try again.');
       }
-    }
-      // ── Add your Stripe Payment Link or serverless function here ──
-      // window.location.href = 'https://buy.stripe.com/YOUR_LINK';
-      alert('Wire your Stripe key here in handlePayment() to go live!');
     }
 
     document.addEventListener('DOMContentLoaded', renderCheckout);
