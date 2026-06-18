@@ -13,48 +13,37 @@
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     html { scroll-behavior: smooth; }
     body { font-family: 'Nunito', sans-serif; background: #f9f3f1; -webkit-font-smoothing: antialiased; }
-
-    /* ─── Nav ───────────────────────────────────────── */
     .nav { display: flex; justify-content: space-between; align-items: center; padding: 1rem 2.5rem; background: #E7DFE1; border-bottom: 2px solid #EDC1BB; position: sticky; top: 0; z-index: 100; }
     .nav-shop { font-size: 13px; font-weight: 700; color: #7e98a8; text-decoration: none; transition: color 0.2s; }
     .nav-shop:hover { color: #CD7250; }
     .nav-basket { position: relative; display: flex; align-items: center; color: #7e98a8; cursor: pointer; transition: color 0.2s; }
     .nav-basket:hover { color: #CD7250; }
     .basket-count { position: absolute; top: -6px; right: -8px; background: #CD7250; color: #fff; font-size: 9px; font-weight: 900; width: 16px; height: 16px; border-radius: 50%; display: flex; align-items: center; justify-content: center; }
-
-    /* ─── Hero ───────────────────────────────────────── */
     .hero-banner { background: #EDC1BB; padding: 3.5rem 2rem 3rem; text-align: center; position: relative; overflow: hidden; }
     .hero-banner::before { content: ''; position: absolute; width: 340px; height: 340px; border-radius: 50%; background: #E99075; opacity: 0.12; top: -80px; right: -60px; }
     .shop-eyebrow { font-size: 11px; font-weight: 700; letter-spacing: 3px; color: #CD7250; text-transform: uppercase; margin-bottom: 0.6rem; }
     .shop-title { font-family: 'Cooper Black', serif; font-size: clamp(40px, 8vw, 64px); color: #fff; text-shadow: 0 5px 0 #CD7250; margin-bottom: 0.5rem; }
     .shop-sub { font-family: 'Playfair Display', serif; font-size: 16px; font-style: italic; color: #CD7250; }
-
-    /* ─── Grid ───────────────────────────────────────── */
-    .shop-body { padding: 2rem 2.5rem 4rem; max-width: 1040px; margin: 0 auto; }
+    .shop-body { padding: 2rem 2.5rem 4rem; max-width: 1100px; margin: 0 auto; }
     .product-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
-
-    /* ─── Product Card ───────────────────────────────── */
     .product-card { background: #fff; border-radius: 16px; border: 1.5px solid #f0ddd8; overflow: hidden; cursor: pointer; display: flex; flex-direction: column; transition: transform 0.2s, box-shadow 0.2s; }
     .product-card:hover { transform: translateY(-4px); box-shadow: 0 8px 24px rgba(0,0,0,0.08); }
-    .card-img { aspect-ratio: 1/1; display: flex; align-items: center; justify-content: center; position: relative; overflow: hidden; }
+    .card-img { aspect-ratio: 1/1; display: flex; align-items: center; justify-content: center; position: relative; overflow: hidden; background: #f9f3f1; }
     .card-img img { width: 100%; height: 100%; object-fit: cover; }
-    .card-placeholder { display: flex; align-items: center; justify-content: center; flex-direction: column; gap: 8px; width: 100%; height: 100%; opacity: 0.35; }
-    .card-placeholder span { font-size: 10px; font-weight: 700; color: #CD7250; text-transform: uppercase; letter-spacing: 1px; }
+    .card-placeholder { display: flex; align-items: center; justify-content: center; width: 100%; height: 100%; font-size: 48px; }
     .card-badge { position: absolute; top: 10px; left: 10px; color: #fff; font-size: 9px; font-weight: 900; padding: 3px 9px; border-radius: 50px; text-transform: uppercase; letter-spacing: 0.5px; }
-    .card-body { padding: 12px 14px; display: flex; flex-direction: column; flex: 1; }
-    .card-name { font-size: 13px; font-weight: 900; color: #444; margin-bottom: 2px; line-height: 1.3; }
-    .card-variant { font-size: 10px; color: #aaa; font-weight: 700; margin-bottom: 6px; }
-    .card-stars { display: flex; align-items: center; gap: 4px; margin-bottom: 6px; }
-    .card-stars .stars { font-size: 11px; color: #E99075; }
-    .card-stars .rev { font-size: 10px; color: #bbb; font-weight: 700; }
-    .card-price { font-family: 'Cormorant Garamond', serif; font-size: 20px; font-weight: 600; color: #CD7250; margin-bottom: 10px; }
+    .card-body { padding: 14px 16px; display: flex; flex-direction: column; flex: 1; }
+    .card-name { font-size: 14px; font-weight: 900; color: #444; margin-bottom: 2px; line-height: 1.3; }
+    .card-variant { font-size: 11px; color: #aaa; font-weight: 700; margin-bottom: 6px; }
+    .card-stars { display: flex; align-items: center; gap: 4px; margin-bottom: 8px; }
+    .card-stars .stars { font-size: 12px; color: #E99075; }
+    .card-stars .rev { font-size: 11px; color: #bbb; font-weight: 700; }
+    .card-price { font-family: 'Cormorant Garamond', serif; font-size: 22px; font-weight: 600; color: #CD7250; margin-bottom: 12px; }
     .card-btns { display: flex; gap: 8px; align-items: center; margin-top: auto; }
-    .btn-basket { background: #e891a1; color: #fff; border: none; cursor: pointer; border-radius: 10px; width: 36px; height: 36px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; transition: background 0.15s; }
+    .btn-basket { background: #e891a1; color: #fff; border: none; cursor: pointer; border-radius: 10px; width: 38px; height: 38px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; transition: background 0.15s; }
     .btn-basket:hover { background: #CD7250; }
-    .btn-buy { background: #e891a1; color: #fff; font-family: 'Nunito', sans-serif; font-weight: 900; font-size: 11px; height: 36px; border-radius: 10px; border: none; cursor: pointer; flex: 1; display: flex; align-items: center; justify-content: center; transition: background 0.15s; box-shadow: 0 3px 0 #c4607a; white-space: nowrap; letter-spacing: 0.3px; }
+    .btn-buy { background: #e891a1; color: #fff; font-family: 'Nunito', sans-serif; font-weight: 900; font-size: 12px; height: 38px; border-radius: 10px; border: none; cursor: pointer; flex: 1; display: flex; align-items: center; justify-content: center; transition: background 0.15s; box-shadow: 0 3px 0 #c4607a; white-space: nowrap; letter-spacing: 0.3px; }
     .btn-buy:hover { background: #CD7250; transform: translateY(1px); box-shadow: 0 2px 0 #9a4f2f; }
-
-    /* ─── Footer ─────────────────────────────────────── */
     .footer { background: #7e98a8; padding: 3rem 2rem 2.5rem; text-align: center; }
     .footer-title { font-family: 'Cooper Black', serif; font-size: 24px; color: #fff; margin-bottom: 0.4rem; }
     .footer-sub { font-family: 'Playfair Display', serif; font-size: 15px; font-style: italic; color: #E7DFE1; margin-bottom: 1.75rem; }
@@ -64,8 +53,9 @@
     .footer-divider { border: none; border-top: 1px solid #adc2cf; margin: 0 auto 1.75rem; width: 50%; }
     .contact-box { background: #adc2cf; border-radius: 18px; display: inline-block; padding: 16px 32px; }
     .footer-copy { font-size: 11px; color: #dde8ef; margin-top: 1.75rem; opacity: 0.7; }
-
-    /* ─── Responsive ─────────────────────────────────── */
+    @media (max-width: 900px) {
+      .product-grid { grid-template-columns: repeat(2, 1fr); gap: 14px; }
+    }
     @media (max-width: 768px) {
       .nav { padding: 1rem 1.25rem; }
       .hero-banner { padding: 2.5rem 1.25rem 2rem; }
@@ -76,18 +66,11 @@
       .social-btn { justify-content: center; }
       .footer-divider { width: 80%; }
     }
-    @media (max-width: 400px) {
-      .product-grid { grid-template-columns: repeat(2, 1fr); gap: 10px; }
-      .card-name { font-size: 11px; }
-    }
   </style>
 </head>
 <body>
 
-  <!-- Basket Overlay -->
   <div class="basket-overlay" id="basketOverlay" onclick="closeBasket()"></div>
-
-  <!-- Basket Drawer -->
   <div class="basket-drawer" id="basketDrawer">
     <div class="basket-header">
       <span class="basket-title">Your Basket</span>
@@ -114,7 +97,6 @@
   </div>
   <div class="add-flash" id="addFlash">✦ Added to basket!</div>
 
-  <!-- Nav -->
   <nav class="nav">
     <a href="index.html" class="nav-shop">Home</a>
     <a class="nav-basket" onclick="event.preventDefault(); openBasket();">
@@ -127,35 +109,23 @@
     </a>
   </nav>
 
-  <!-- Hero -->
   <div class="hero-banner">
     <p class="shop-eyebrow">✦ find your perfect friend ✦</p>
     <h1 class="shop-title">Shop</h1>
     <p class="shop-sub">Keychains made with love, designed for joy</p>
   </div>
 
-  <!-- Product Grid -->
   <div class="shop-body">
     <div class="product-grid" id="productGrid"></div>
   </div>
 
-  <!-- Footer -->
   <footer class="footer">
     <p class="footer-title">Stay in the loop ✦</p>
     <p class="footer-sub">Follow along for new drops, behind-the-scenes &amp; community love</p>
     <div class="footer-socials">
-      <a class="social-btn" href="#">
-        <svg width="16" height="16" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
-        Instagram
-      </a>
-      <a class="social-btn" href="#">
-        <svg width="16" height="16" fill="currentColor" viewBox="0 0 24 24"><path d="M19.59 6.69a4.83 4.83 0 01-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 01-2.88 2.5 2.89 2.89 0 01-2.89-2.89 2.89 2.89 0 012.89-2.89c.28 0 .54.04.79.1V9.01a6.33 6.33 0 00-.79-.05 6.34 6.34 0 00-6.34 6.34 6.34 6.34 0 006.34 6.34 6.34 6.34 0 006.33-6.34V8.69a8.18 8.18 0 004.78 1.52V6.76a4.85 4.85 0 01-1.01-.07z"/></svg>
-        TikTok
-      </a>
-      <a class="social-btn" href="#">
-        <svg width="16" height="16" fill="currentColor" viewBox="0 0 24 24"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
-        Facebook
-      </a>
+      <a class="social-btn" href="#"><svg width="16" height="16" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg> Instagram</a>
+      <a class="social-btn" href="#"><svg width="16" height="16" fill="currentColor" viewBox="0 0 24 24"><path d="M19.59 6.69a4.83 4.83 0 01-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 01-2.88 2.5 2.89 2.89 0 01-2.89-2.89 2.89 2.89 0 012.89-2.89c.28 0 .54.04.79.1V9.01a6.33 6.33 0 00-.79-.05 6.34 6.34 0 00-6.34 6.34 6.34 6.34 0 006.34 6.34 6.34 6.34 0 006.33-6.34V8.69a8.18 8.18 0 004.78 1.52V6.76a4.85 4.85 0 01-1.01-.07z"/></svg> TikTok</a>
+      <a class="social-btn" href="#"><svg width="16" height="16" fill="currentColor" viewBox="0 0 24 24"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg> Facebook</a>
     </div>
     <hr class="footer-divider"/>
     <div class="contact-box">
@@ -165,8 +135,16 @@
     <p class="footer-copy">© 2025 My Adorable Hijabi Friend · Made with love in the UK</p>
   </footer>
 
+  
   <script src="basket.js"></script>
   <script>
+<<<<<<< HEAD
+    function starsHTML(count) {
+      var s = '';
+      for (var i = 1; i <= 5; i++) { s += i <= count ? '★' : '☆'; }
+      return s;
+    }
+=======
      var products = [
         {
           id: 'crochet-doll',
@@ -256,25 +234,41 @@
         }
      ];
     
+>>>>>>> 0c8ceb6f8ac4c66bfd4768594458657e74698de6
 
     function basketIcon() {
-      return '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">' +
-        '<path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/>' +
-        '<line x1="3" y1="6" x2="21" y2="6"/>' +
-        '<path d="M16 10a4 4 0 01-8 0"/>' +
-        '</svg>';
-    }
-
-    function starsHTML(count) {
-      var s = '';
-      for (var i = 1; i <= 5; i++) {
-        s += i <= count ? '★' : '☆';
-      }
-      return s;
+      return '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg>';
     }
 
     function renderGrid() {
-        var grid = document.getElementById('productGrid');
+<<<<<<< HEAD
+      var grid = document.getElementById('productGrid');
+      var html = '';
+
+      products.forEach(function(p) {
+        var imgHTML = p.image
+          ? '<img src="' + p.image + '" alt="' + p.name + '">'
+          : '<div class="card-placeholder">' + p.emoji + '</div>';
+
+        html +=
+          '<div class="product-card" onclick="window.location.href=\'product.html?id=' + p.id + '\'">' +
+            '<div class="card-img" style="background:' + p.colour + ';">' + imgHTML + '</div>' +
+            '<div class="card-body">' +
+              '<p class="card-name">' + p.name + '</p>' +
+              '<p class="card-variant">' + p.variant + '</p>' +
+              '<div class="card-stars"><span class="stars">' + starsHTML(p.stars) + '</span><span class="rev">(' + p.reviews + ')</span></div>' +
+              '<p class="card-price">£' + p.price.toFixed(2) + '</p>' +
+              '<div class="card-btns">' +
+                '<button class="btn-basket" onclick="event.stopPropagation(); addToBasketById(\'' + p.id + '\',\'' + p.name + '\',' + p.price + ',\'' + p.accentColour + '\',\'' + p.emoji + '\',1)" title="Add to basket">' + basketIcon() + '</button>' +
+                '<button class="btn-buy" onclick="event.stopPropagation(); window.location.href=\'product.html?id=' + p.id + '\'">Buy now →</button>' +
+              '</div>' +
+            '</div>' +
+          '</div>';
+      });
+
+      grid.innerHTML = html;
+    }
+    var grid = document.getElementById('productGrid');
         var html = '';
         products.forEach(function(p) {
           var imgHTML = p.image
@@ -305,7 +299,6 @@
         });
         grid.innerHTML = html;
       }
-
     document.addEventListener('DOMContentLoaded', renderGrid);
   </script>
 </body>
