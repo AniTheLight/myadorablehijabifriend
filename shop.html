@@ -13,49 +13,59 @@
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     html { scroll-behavior: smooth; }
     body { font-family: 'Nunito', sans-serif; background: #f9f3f1; -webkit-font-smoothing: antialiased; }
+
+    /* ── Nav (shared via nav.js) ── */
     .nav { display: flex; justify-content: space-between; align-items: center; padding: 1rem 2.5rem; background: #E7DFE1; border-bottom: 2px solid #EDC1BB; position: sticky; top: 0; z-index: 100; }
-    .nav-shop { font-size: 13px; font-weight: 700; color: #7e98a8; text-decoration: none; transition: color 0.2s; }
-    .nav-shop:hover { color: #CD7250; }
-    .nav-basket { position: relative; display: flex; align-items: center; color: #7e98a8; cursor: pointer; transition: color 0.2s; }
+    .nav-links { display: flex; gap: 2rem; list-style: none; }
+    .nav-links a { font-size: 13px; font-weight: 700; color: #7e98a8; text-decoration: none; letter-spacing: 0.5px; transition: color 0.2s; }
+    .nav-links a:hover { color: #CD7250; }
+    .nav-basket { display: flex; align-items: center; justify-content: center; position: relative; cursor: pointer; color: #7e98a8; transition: color 0.2s; text-decoration: none; }
     .nav-basket:hover { color: #CD7250; }
     .basket-count { position: absolute; top: -6px; right: -8px; background: #CD7250; color: #fff; font-size: 9px; font-weight: 900; width: 16px; height: 16px; border-radius: 50%; display: flex; align-items: center; justify-content: center; }
+
+    /* ── Hero banner ── */
     .hero-banner { background: #EDC1BB; padding: 3.5rem 2rem 3rem; text-align: center; position: relative; overflow: hidden; }
     .hero-banner::before { content: ''; position: absolute; width: 340px; height: 340px; border-radius: 50%; background: #E99075; opacity: 0.12; top: -80px; right: -60px; }
     .shop-eyebrow { font-size: 11px; font-weight: 700; letter-spacing: 3px; color: #CD7250; text-transform: uppercase; margin-bottom: 0.6rem; }
     .shop-title { font-family: 'Cooper Black', serif; font-size: clamp(40px, 8vw, 64px); color: #fff; text-shadow: 0 5px 0 #CD7250; margin-bottom: 0.5rem; }
     .shop-sub { font-family: 'Playfair Display', serif; font-size: 16px; font-style: italic; color: #CD7250; }
+
+    /* ── Product grid ── */
     .shop-body { padding: 2rem 2.5rem 4rem; max-width: 1100px; margin: 0 auto; }
     .product-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
     .product-card { background: #fff; border-radius: 16px; border: 1.5px solid #f0ddd8; overflow: hidden; cursor: pointer; display: flex; flex-direction: column; transition: transform 0.2s, box-shadow 0.2s; }
     .product-card:hover { transform: translateY(-4px); box-shadow: 0 8px 24px rgba(0,0,0,0.08); }
-    .card-img { aspect-ratio: 1/1; display: flex; align-items: center; justify-content: center; position: relative; overflow: hidden; background: #f9f3f1; }
+    .card-img { aspect-ratio: 1/1; display: flex; align-items: center; justify-content: center; position: relative; overflow: hidden; }
     .card-img img { width: 100%; height: 100%; object-fit: cover; }
-    .card-placeholder { display: flex; align-items: center; justify-content: center; width: 100%; height: 100%; font-size: 48px; }
+    /* Placeholder for gift set (no image yet) */
+    .card-img-placeholder { width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; font-family: 'Nunito', sans-serif; font-size: 13px; font-weight: 700; color: #CD7250; opacity: 0.5; }
     .card-badge { position: absolute; top: 10px; left: 10px; color: #fff; font-size: 9px; font-weight: 900; padding: 3px 9px; border-radius: 50px; text-transform: uppercase; letter-spacing: 0.5px; }
     .card-body { padding: 14px 16px; display: flex; flex-direction: column; flex: 1; }
-    .card-name { font-size: 14px; font-weight: 900; color: #444; margin-bottom: 2px; line-height: 1.3; }
+    .card-name    { font-size: 14px; font-weight: 900; color: #444; margin-bottom: 2px; line-height: 1.3; }
     .card-variant { font-size: 11px; color: #aaa; font-weight: 700; margin-bottom: 6px; }
-    .card-stars { display: flex; align-items: center; gap: 4px; margin-bottom: 8px; }
+    .card-stars   { display: flex; align-items: center; gap: 4px; margin-bottom: 8px; }
     .card-stars .stars { font-size: 12px; color: #E99075; }
-    .card-stars .rev { font-size: 11px; color: #bbb; font-weight: 700; }
-    .card-price { font-family: 'Cormorant Garamond', serif; font-size: 22px; font-weight: 600; color: #CD7250; margin-bottom: 12px; }
-    .card-btns { display: flex; gap: 8px; align-items: center; margin-top: auto; }
+    .card-stars .rev   { font-size: 11px; color: #bbb; font-weight: 700; }
+    .card-price   { font-family: 'Cormorant Garamond', serif; font-size: 22px; font-weight: 600; color: #CD7250; margin-bottom: 12px; }
+    .card-btns    { display: flex; gap: 8px; align-items: center; margin-top: auto; }
     .btn-basket { background: #e891a1; color: #fff; border: none; cursor: pointer; border-radius: 10px; width: 38px; height: 38px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; transition: background 0.15s; }
     .btn-basket:hover { background: #CD7250; }
-    .btn-buy { background: #e891a1; color: #fff; font-family: 'Nunito', sans-serif; font-weight: 900; font-size: 12px; height: 38px; border-radius: 10px; border: none; cursor: pointer; flex: 1; display: flex; align-items: center; justify-content: center; transition: background 0.15s; box-shadow: 0 3px 0 #c4607a; white-space: nowrap; letter-spacing: 0.3px; }
+    .btn-buy    { background: #e891a1; color: #fff; font-family: 'Nunito', sans-serif; font-weight: 900; font-size: 12px; height: 38px; border-radius: 10px; border: none; cursor: pointer; flex: 1; display: flex; align-items: center; justify-content: center; transition: background 0.15s; box-shadow: 0 3px 0 #c4607a; white-space: nowrap; letter-spacing: 0.3px; }
     .btn-buy:hover { background: #CD7250; transform: translateY(1px); box-shadow: 0 2px 0 #9a4f2f; }
+
+    /* ── Footer ── */
     .footer { background: #7e98a8; padding: 3rem 2rem 2.5rem; text-align: center; }
     .footer-title { font-family: 'Cooper Black', serif; font-size: 24px; color: #fff; margin-bottom: 0.4rem; }
-    .footer-sub { font-family: 'Playfair Display', serif; font-size: 15px; font-style: italic; color: #E7DFE1; margin-bottom: 1.75rem; }
+    .footer-sub   { font-family: 'Playfair Display', serif; font-size: 15px; font-style: italic; color: #E7DFE1; margin-bottom: 1.75rem; }
     .footer-socials { display: flex; justify-content: center; gap: 1rem; flex-wrap: wrap; margin-bottom: 1.75rem; }
     .social-btn { display: inline-flex; align-items: center; gap: 8px; background: #adc2cf; color: #fff; font-family: 'Nunito', sans-serif; font-weight: 700; font-size: 13px; padding: 11px 22px; border-radius: 50px; text-decoration: none; transition: background 0.2s; }
     .social-btn:hover { background: #E7DFE1; color: #7e98a8; }
     .footer-divider { border: none; border-top: 1px solid #adc2cf; margin: 0 auto 1.75rem; width: 50%; }
-    .contact-box { background: #adc2cf; border-radius: 18px; display: inline-block; padding: 16px 32px; }
-    .footer-copy { font-size: 11px; color: #dde8ef; margin-top: 1.75rem; opacity: 0.7; }
-    @media (max-width: 900px) {
-      .product-grid { grid-template-columns: repeat(2, 1fr); gap: 14px; }
-    }
+    .contact-box  { background: #adc2cf; border-radius: 18px; display: inline-block; padding: 16px 32px; }
+    .footer-copy  { font-size: 11px; color: #dde8ef; margin-top: 1.75rem; opacity: 0.7; }
+
+    /* ── Responsive ── */
+    @media (max-width: 900px) { .product-grid { grid-template-columns: repeat(2, 1fr); gap: 14px; } }
     @media (max-width: 768px) {
       .nav { padding: 1rem 1.25rem; }
       .hero-banner { padding: 2.5rem 1.25rem 2rem; }
@@ -70,44 +80,7 @@
 </head>
 <body>
 
-  <div class="basket-overlay" id="basketOverlay" onclick="closeBasket()"></div>
-  <div class="basket-drawer" id="basketDrawer">
-    <div class="basket-header">
-      <span class="basket-title">Your Basket</span>
-      <button class="basket-close" onclick="closeBasket()">
-        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round">
-          <line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/>
-        </svg>
-      </button>
-    </div>
-    <div class="basket-items" id="basketItems">
-      <div class="basket-empty" id="basketEmpty">
-        <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="#ccc" stroke-width="1.5" stroke-linecap="round"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg>
-        <p>Your basket is empty</p>
-        <p style="font-size:12px;font-weight:400;color:#ccc;">Add a friend to get started!</p>
-      </div>
-    </div>
-    <div class="basket-footer">
-      <div class="basket-total-row">
-        <span class="basket-total-label">Total</span>
-        <span class="basket-total-price" id="basketTotal">£0.00</span>
-      </div>
-      <button class="checkout-btn" id="checkoutBtn" onclick="goToCheckout()" disabled>Continue to checkout →</button>
-    </div>
-  </div>
-  <div class="add-flash" id="addFlash">✦ Added to basket!</div>
-
-  <nav class="nav">
-    <a href="index.html" class="nav-shop">Home</a>
-    <a class="nav-basket" onclick="event.preventDefault(); openBasket();">
-      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-        <path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/>
-        <line x1="3" y1="6" x2="21" y2="6"/>
-        <path d="M16 10a4 4 0 01-8 0"/>
-      </svg>
-      <span class="basket-count" id="basketCount">0</span>
-    </a>
-  </nav>
+  <div id="navMount"></div>
 
   <div class="hero-banner">
     <p class="shop-eyebrow">✦ find your perfect friend ✦</p>
@@ -123,152 +96,78 @@
     <p class="footer-title">Stay in the loop ✦</p>
     <p class="footer-sub">Follow along for new drops, behind-the-scenes &amp; community love</p>
     <div class="footer-socials">
-      <a class="social-btn" href="#"><svg width="16" height="16" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg> Instagram</a>
-      <a class="social-btn" href="#"><svg width="16" height="16" fill="currentColor" viewBox="0 0 24 24"><path d="M19.59 6.69a4.83 4.83 0 01-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 01-2.88 2.5 2.89 2.89 0 01-2.89-2.89 2.89 2.89 0 012.89-2.89c.28 0 .54.04.79.1V9.01a6.33 6.33 0 00-.79-.05 6.34 6.34 0 00-6.34 6.34 6.34 6.34 0 006.34 6.34 6.34 6.34 0 006.33-6.34V8.69a8.18 8.18 0 004.78 1.52V6.76a4.85 4.85 0 01-1.01-.07z"/></svg> TikTok</a>
-      <a class="social-btn" href="#"><svg width="16" height="16" fill="currentColor" viewBox="0 0 24 24"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg> Facebook</a>
+      <a class="social-btn" href="#">
+        <svg width="16" height="16" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
+        Instagram
+      </a>
+      <a class="social-btn" href="#">
+        <svg width="16" height="16" fill="currentColor" viewBox="0 0 24 24"><path d="M19.59 6.69a4.83 4.83 0 01-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 01-2.88 2.5 2.89 2.89 0 01-2.89-2.89 2.89 2.89 0 012.89-2.89c.28 0 .54.04.79.1V9.01a6.33 6.33 0 00-.79-.05 6.34 6.34 0 00-6.34 6.34 6.34 6.34 0 006.34 6.34 6.34 6.34 0 006.33-6.34V8.69a8.18 8.18 0 004.78 1.52V6.76a4.85 4.85 0 01-1.01-.07z"/></svg>
+        TikTok
+      </a>
+      <a class="social-btn" href="#">
+        <svg width="16" height="16" fill="currentColor" viewBox="0 0 24 24"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
+        Facebook
+      </a>
     </div>
     <hr class="footer-divider"/>
     <div class="contact-box">
-      <p style="font-size:13px;color:#fff;font-weight:900;margin-bottom:4px;">Get in touch 💌</p>
+      <p style="font-size:13px;color:#fff;font-weight:900;margin-bottom:4px;">Get in touch</p>
       <p style="font-size:13px;color:#fff;font-weight:700;">hello@myadorablehijabifriend.com</p>
     </div>
     <p class="footer-copy">© 2025 My Adorable Hijabi Friend · Made with love in the UK</p>
   </footer>
-<script src="basket.js"></script>
-<script>
-  function starsHTML(count) {
-    var s = '';
-    for (var i = 1; i <= 5; i++) { s += i <= count ? '★' : '☆'; }
-    return s;
-  }
 
-  var products = [
-    {
-      id: 'crochet-doll',
-      name: 'My Hijabi Crochet Keychain',
-      variant: 'Handmade crochet keychain',
-      price: 9.99,
-      colour: '#f5ddd8',
-      accentColour: '#e8a0a0',
-      stars: 5,
-      reviews: 107,
-      badge: null,
-      image: 'images/crochetdolls/crochetdollsfront.jpg',
-      thumbImages: ['images/crochetdolls/crochetdollsfront.jpg', 'images/crochetdolls/darker-skin-single.png', null],
-      description: "Bring a little handmade charm wherever you go with our adorable Mini Hijabi Crochet Keychain! Lovingly crafted from soft yarn, each tiny hijabi doll features a sweet design that celebrates modesty, creativity, and cultural identity. Perfect for children and adults alike, this lightweight crochet companion comes with a detachable keychain clip.",
-      details: 'Soft, detachable durable keychain doll approximately 8cm tall. Attached keyring clip. Suitable for ages 3+. Surface wipe clean only.',
-      variations: [
-        { id: 'crochet-doll-light', label: 'Light skin', colour: '#F5C9A0', price: 9.99, image: 'images/crochetdolls/crochetdollsfront.jpg', thumbImages: ['images/crochetdolls/crochetdollsfront.jpg', 'images/crochetdolls/darker-skin-single.png', null] },
-        { id: 'crochet-doll-dark', label: 'Dark skin', colour: '#8B5E3C', price: 9.99, image: 'images/crochetdolls/darker-skin-single.png', thumbImages: ['images/crochetdolls/darker-skin-single.png', 'images/crochetdolls/crochetdollsfront.jpg', null] }
-      ],
-      related: ['key-chain-plush', 'princess-doll', 'rainbow-skirt']
-    },
-    {
-      id: 'key-chain-plush',
-      name: 'My Hijabi Plush Buddy Keychain',
-      variant: 'Plush keychain doll',
-      price: 12.99,
-      colour: '#dceaf2',
-      accentColour: '#adc2cf',
-      stars: 5,
-      reviews: 89,
-      badge: null,
-      image: 'images/keychain/greenbagfile.png',
-      thumbImages: ['images/keychain/greenbagfile.png', 'images/keychain/frontdollkey.png', 'images/keychain/backdollkey.png'],
-      description: 'The Hijabi Plush Buddy is the perfect companion for your little one. Small enough to travel everywhere, meaningful enough to treasure always. The detachable keychain clip allows children to attach their plushie to backpacks, lunch bags, pencil cases, or keys.',
-      details: 'Soft, durable keychain doll approximately 8cm tall. Attached keyring clip. Suitable for ages 3+. Surface wipe clean only.',
-      related: ['crochet-doll', 'princess-doll', 'rainbow-skirt']
-    },
-    {
-      id: 'princess-doll',
-      name: 'My Hijabi Princess Friend',
-      variant: 'Princess keychain doll',
-      price: 14.99,
-      colour: '#fdf0e8',
-      accentColour: '#EDC1BB',
-      stars: 5,
-      reviews: 62,
-      badge: null,
-      image: 'images/princessdoll/princessdollfront.jpg',
-      thumbImages: ['images/princessdoll/princessdollfront.jpg', null, null],
-      description: 'Every child deserves to see themselves in the stories they imagine. Our beautiful Hijabi Princess Doll is designed to inspire confidence, creativity, and endless adventures through play. Dressed in a lovely hijab and wearing a sparkling crown, she encourages children to dream big.',
-      details: 'Soft, durable. Attached keyring clip. Suitable for ages 3+. Surface wipe clean only.',
-      related: ['crochet-doll', 'key-chain-plush', 'rainbow-skirt']
-    },
-    {
-      id: 'rainbow-skirt',
-      name: 'My Hijabi Sparkle Friend',
-      variant: 'Sparkle keychain doll',
-      price: 14.99,
-      colour: '#ede8f5',
-      accentColour: '#c8bde8',
-      stars: 5,
-      reviews: 74,
-      badge: null,
-      image: 'images/rainbowskirtdoll/rainbowskirtfrontimg.jpg',
-      thumbImages: ['images/rainbowskirtdoll/rainbowskirtfrontimg.jpg', 'images/rainbowskirtdoll/frontmainrainbow.jpg', null],
-      description: 'Meet My Hijabi Sparkle Friend — a magical companion full of colour, imagination, and sparkle! Dressed in a glittery pink top, a beautiful rainbow tutu, and a soft detachable hijab, she is ready for every adventure.',
-      details: 'Soft, durable keychain doll approximately 8cm tall. Attached keyring clip. Suitable for ages 3+. Surface wipe clean only.',
-      related: ['crochet-doll', 'key-chain-plush', 'princess-doll']
-    },
-    {
-      id: 'gift-set',
-      name: 'Hijabi Friend — Gift Set of 2',
-      variant: '2 keychains included',
-      price: 22.99,
-      colour: '#f5f0f8',
-      accentColour: '#EDC1BB',
-      hijabColour: '#CD7250',
-      stars: 5,
-      reviews: 43,
-      badge: 'Best value',
-      badgeColour: '#E99075',
-      image: null,
-      thumbImages: [null, null, null],
-      description: "Can't choose just one? This beautiful gift set includes two Hijabi Friend keychains — the perfect pair for sisters, best friends, or anyone who deserves a little extra love. Comes beautifully packaged and ready to gift.",
-      details: 'Includes two keychain dolls, each approximately 8cm tall. Keyring clips attached. Suitable for ages 3+. Surface wipe clean only. Gift packaging included.',
-      related: ['crochet-doll', 'key-chain-plush', 'princess-doll']
+  <script src="products.js"></script>
+  <script src="basket.js"></script>
+  <script src="nav.js"></script>
+  <script>
+    function starsHTML(count) {
+      var s = '';
+      for (var i = 1; i <= 5; i++) { s += i <= count ? '★' : '☆'; }
+      return s;
     }
-  ];
 
-  function basketIcon() {
-    return '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg>';
-  }
+    function basketIcon() {
+      return '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg>';
+    }
 
-  document.addEventListener('DOMContentLoaded', function() {
-    var grid = document.getElementById('productGrid');
-    var html = '';
+    document.addEventListener('DOMContentLoaded', function () {
+      var grid = document.getElementById('productGrid');
+      var html = '';
 
-    products.forEach(function(p) {
-      var imgHTML = p.image
-        ? '<img src="' + p.image + '" alt="' + p.name + '">'
-        : '<div class="card-placeholder"><span>' + p.name + '</span></div>';
+      MAHF_PRODUCTS.forEach(function (p) {
+        var imgHTML = p.image
+          ? '<img src="' + p.image + '" alt="' + p.name + '">'
+          : '<div class="card-img-placeholder">' + p.name + '</div>';
 
-      var badgeHTML = p.badge
-        ? '<span class="card-badge" style="background:' + p.badgeColour + ';">' + p.badge + '</span>'
-        : '';
+        var badgeHTML = p.badge
+          ? '<span class="card-badge" style="background:' + p.badgeColour + ';">' + p.badge + '</span>'
+          : '';
 
-      html +=
-        '<div class="product-card" onclick="window.location.href=\'product.html?id=' + p.id + '\'">' +
-          '<div class="card-img" style="background:' + p.colour + ';">' +
-            imgHTML +
-            badgeHTML +
-          '</div>' +
-          '<div class="card-body">' +
-            '<p class="card-name">' + p.name + '</p>' +
-            '<p class="card-variant">' + p.variant + '</p>' +
-            '<div class="card-stars"><span class="stars">' + starsHTML(p.stars) + '</span><span class="rev">(' + p.reviews + ')</span></div>' +
-            '<p class="card-price">£' + p.price.toFixed(2) + '</p>' +
-            '<div class="card-btns">' +
-              '<button class="btn-basket" onclick="event.stopPropagation(); addToBasketById(\'' + p.id + '\',\'' + p.name + '\',' + p.price + ',\'' + p.accentColour + '\',\'\',1)" title="Add to basket">' + basketIcon() + '</button>' +
-              '<button class="btn-buy" onclick="event.stopPropagation(); window.location.href=\'product.html?id=' + p.id + '\'">Buy now →</button>' +
+        var imgStr   = p.image  ? p.image.replace(/'/g, "\\'")  : '';
+        var nameStr  = p.name.replace(/'/g, "\\'");
+        var colStr   = (p.accentColour || '#EDC1BB').replace(/'/g, "\\'");
+
+        html +=
+          '<div class="product-card" onclick="window.location.href=\'product.html?id=' + p.id + '\'">' +
+            '<div class="card-img" style="background:' + p.colour + ';">' +
+              imgHTML + badgeHTML +
             '</div>' +
-          '</div>' +
-        '</div>';
-    });
+            '<div class="card-body">' +
+              '<p class="card-name">' + p.name + '</p>' +
+              '<p class="card-variant">' + p.variant + '</p>' +
+              '<div class="card-stars"><span class="stars">' + starsHTML(p.stars) + '</span><span class="rev">(' + p.reviews + ')</span></div>' +
+              '<p class="card-price">£' + p.price.toFixed(2) + '</p>' +
+              '<div class="card-btns">' +
+                '<button class="btn-basket" onclick="event.stopPropagation(); addToBasketById(\'' + p.id + '\',\'' + nameStr + '\',' + p.price + ',\'' + colStr + '\',1,\'' + imgStr + '\')" title="Add to basket">' + basketIcon() + '</button>' +
+                '<button class="btn-buy" onclick="event.stopPropagation(); buyNow(\'' + p.id + '\',\'' + nameStr + '\',' + p.price + ',\'' + colStr + '\',\'' + imgStr + '\')">Buy now →</button>' +
+              '</div>' +
+            '</div>' +
+          '</div>';
+      });
 
-    grid.innerHTML = html;
-  });
-</script>
+      grid.innerHTML = html;
+    });
+  </script>
 </body>
 </html>
