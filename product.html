@@ -10,44 +10,29 @@
   <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;700;900&family=Playfair+Display:ital,wght@1,700&family=Cormorant+Garamond:wght@300;400;600&display=swap" rel="stylesheet">
   <link href="https://fonts.cdnfonts.com/css/cooper-black" rel="stylesheet">
   <style>
-    /* ─── Variations ─────────────────────────────────── */
     .variations-label { font-size: 10px; font-weight: 900; letter-spacing: 2px; text-transform: uppercase; color: #7e98a8; margin-bottom: 10px; }
     .variations-row { display: flex; gap: 10px; flex-wrap: wrap; margin-bottom: 0.5rem; }
-    .variation-btn {
-      display: flex; align-items: center; gap: 8px;
-      padding: 8px 14px; border-radius: 50px;
-      border: 2px solid #f0ddd8; background: #fff;
-      cursor: pointer; font-family: 'Nunito', sans-serif;
-      font-size: 12px; font-weight: 700; color: #555;
-      transition: border-color 0.15s, background 0.15s;
-    }
+    .variation-btn { display: flex; align-items: center; gap: 8px; padding: 8px 14px; border-radius: 50px; border: 2px solid #f0ddd8; background: #fff; cursor: pointer; font-family: 'Nunito', sans-serif; font-size: 12px; font-weight: 700; color: #555; transition: border-color 0.15s, background 0.15s; }
     .variation-btn:hover { border-color: #CD7250; }
     .variation-btn.active { border-color: #CD7250; background: #fdf5f3; color: #CD7250; }
     .variation-swatch { width: 16px; height: 16px; border-radius: 50%; border: 1.5px solid rgba(0,0,0,0.1); flex-shrink: 0; }
-
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     html { scroll-behavior: smooth; }
     body { font-family: 'Nunito', sans-serif; background: #EDC1BB; -webkit-font-smoothing: antialiased; }
-    .nav { display: flex; justify-content: flex-end; align-items: center; padding: 1rem 2.5rem; background: #E7DFE1; border-bottom: 2px solid #EDC1BB; gap: 24px; position: sticky; top: 0; z-index: 100; }
+    .nav { display: flex; justify-content: space-between; align-items: center; padding: 1rem 2.5rem; background: #E7DFE1; border-bottom: 2px solid #EDC1BB; gap: 24px; position: sticky; top: 0; z-index: 100; }
     .nav-links { display: flex; gap: 2rem; list-style: none; }
     .nav-links a { font-size: 13px; font-weight: 700; color: #7e98a8; text-decoration: none; transition: color 0.2s; }
     .nav-links a:hover { color: #CD7250; }
     .nav-basket { position: relative; display: flex; align-items: center; color: #7e98a8; text-decoration: none; transition: color 0.2s; cursor: pointer; }
     .nav-basket:hover { color: #CD7250; }
     .basket-count { position: absolute; top: -6px; right: -8px; background: #CD7250; color: #fff; font-size: 9px; font-weight: 900; width: 16px; height: 16px; border-radius: 50%; display: flex; align-items: center; justify-content: center; }
-    .hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; padding: 4px; }
-    .hamburger span { display: block; width: 22px; height: 2px; background: #7e98a8; border-radius: 2px; }
-    .mobile-menu { display: none; flex-direction: column; background: #E7DFE1; border-bottom: 2px solid #EDC1BB; max-height: 0; overflow: hidden; transition: max-height 0.3s ease, padding 0.3s ease; }
-    .mobile-menu.open { max-height: 200px; padding: 1rem 0; }
-    .mobile-menu a { font-size: 14px; font-weight: 700; color: #7e98a8; text-decoration: none; padding: 0.6rem 1.5rem; display: block; }
-    .mobile-menu a:hover { color: #CD7250; }
     .breadcrumb { padding: 1rem 2.5rem 0; font-size: 11px; color: #CD7250; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; opacity: 0.7; }
     .breadcrumb a { color: #CD7250; text-decoration: none; }
     .product-section { display: grid; grid-template-columns: 1fr 1fr; gap: 0; background: #EDC1BB; padding: 2rem 2.5rem 3rem; }
     .product-img-col { padding-right: 2rem; }
     .product-img-main { border-radius: 20px; aspect-ratio: 1/1; display: flex; align-items: center; justify-content: center; overflow: hidden; position: relative; }
     .product-img-main img { width: 100%; height: 100%; object-fit: cover; border-radius: 20px; }
-    .img-placeholder { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 10px; width: 100%; height: 100%; border-radius: 20px; }
+    .img-placeholder { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 10px; width: 100%; height: 100%; border-radius: 20px; background: #f5f0f8; }
     .img-placeholder span { font-size: 11px; font-weight: 700; color: #CD7250; text-transform: uppercase; letter-spacing: 1px; opacity: 0.5; }
     .thumb-row { display: flex; gap: 10px; margin-top: 12px; }
     .thumb { width: 64px; height: 64px; border-radius: 12px; border: 2px solid transparent; cursor: pointer; display: flex; align-items: center; justify-content: center; font-size: 9px; color: #CD7250; font-weight: 700; text-transform: uppercase; text-align: center; line-height: 1.4; transition: border-color 0.2s; overflow: hidden; }
@@ -56,22 +41,22 @@
     .inline-stars { display: flex; align-items: center; gap: 6px; }
     .inline-stars .stars { display: flex; gap: 1px; }
     .inline-stars .star { color: #E99075; font-size: 14px; }
-    .inline-stars .avg { font-size: 11px; font-weight: 700; color: #CD7250; }
+    .inline-stars .avg   { font-size: 11px; font-weight: 700; color: #CD7250; }
     .inline-stars .count { font-size: 10px; color: #aaa; font-weight: 700; }
     .review-chevron { display: flex; align-items: center; justify-content: center; width: 20px; height: 20px; background: #EDC1BB; border-radius: 50%; text-decoration: none; color: #CD7250; font-size: 13px; font-weight: 900; transform: rotate(90deg); transition: background 0.2s; }
     .review-chevron:hover { background: #CD7250; color: #fff; }
     .product-info-col { padding-left: 1rem; display: flex; flex-direction: column; gap: 1.1rem; }
     .product-eyebrow { font-size: 10px; font-weight: 700; letter-spacing: 3px; color: #7e98a8; text-transform: uppercase; }
-    .product-name { font-family: 'Cormorant Garamond', serif; font-size: clamp(26px, 3vw, 36px); font-weight: 300; color: #CD7250; line-height: 1.1; }
+    .product-name  { font-family: 'Cormorant Garamond', serif; font-size: clamp(26px, 3vw, 36px); font-weight: 300; color: #CD7250; line-height: 1.1; }
     .product-price { font-family: 'Cormorant Garamond', serif; font-size: 26px; font-weight: 600; color: #CD7250; }
-    .product-desc { font-size: 14px; color: #a0756a; line-height: 1.85; }
-    .qty-wrapper { display: flex; align-items: center; gap: 12px; }
-    .qty-label { font-size: 10px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: #7e98a8; }
+    .product-desc  { font-size: 14px; color: #a0756a; line-height: 1.85; }
+    .qty-wrapper  { display: flex; align-items: center; gap: 12px; }
+    .qty-label    { font-size: 10px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: #7e98a8; }
     .qty-controls { display: flex; align-items: center; background: #fff; border-radius: 50px; overflow: hidden; }
-    .qty-btn { background: #e891a1; border: none; width: 32px; height: 32px; font-size: 18px; font-weight: 900; color: #fff; cursor: pointer; display: flex; align-items: center; justify-content: center; flex-shrink: 0; transition: background 0.15s; line-height: 1; }
+    .qty-btn      { background: #e891a1; border: none; width: 32px; height: 32px; font-size: 18px; font-weight: 900; color: #fff; cursor: pointer; display: flex; align-items: center; justify-content: center; flex-shrink: 0; transition: background 0.15s; line-height: 1; }
     .qty-btn:hover { background: #CD7250; }
     .qty-btn.minus { border-radius: 50px 0 0 50px; }
-    .qty-btn.plus { border-radius: 0 50px 50px 0; }
+    .qty-btn.plus  { border-radius: 0 50px 50px 0; }
     .qty-num { width: 32px; text-align: center; font-size: 14px; font-weight: 900; color: #e891a1; background: #fff; }
     .btn-row { display: flex; gap: 10px; }
     .add-btn { background: #E99075; color: #fff; font-family: 'Nunito', sans-serif; font-weight: 900; font-size: 14px; padding: 13px 0; border-radius: 50px; border: none; cursor: pointer; flex: 1; box-shadow: 0 4px 0 #b86840; transition: background 0.2s, transform 0.1s, box-shadow 0.1s; }
@@ -82,68 +67,65 @@
     .accordion-item { border-bottom: 1.5px solid #d4a090; }
     .accordion-header { display: flex; justify-content: space-between; align-items: center; padding: 12px 0; cursor: pointer; }
     .accordion-header span { font-size: 11px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: #a0756a; }
-    .accordion-header i { font-size: 16px; color: #CD7250; }
+    .accordion-icon { font-size: 18px; color: #CD7250; font-style: normal; }
     .accordion-body { font-size: 13px; color: #a0756a; line-height: 1.85; padding-bottom: 12px; display: none; }
     .accordion-body.open { display: block; }
     .acc-badges { display: flex; gap: 12px; margin-bottom: 12px; }
-    .acc-badge { display: flex; flex-direction: column; align-items: center; gap: 4px; flex: 1; background: #fdf5f3; border-radius: 12px; padding: 10px 6px; }
-    .acc-badge-icon { font-size: 18px; }
+    .acc-badge  { display: flex; flex-direction: column; align-items: center; gap: 4px; flex: 1; background: #fdf5f3; border-radius: 12px; padding: 10px 6px; }
+    .acc-badge-icon  { font-size: 18px; }
     .acc-badge-title { font-size: 10px; font-weight: 900; color: #CD7250; text-align: center; }
-    .acc-badge-sub { font-size: 9px; color: #a0756a; text-align: center; line-height: 1.4; }
+    .acc-badge-sub   { font-size: 9px; color: #a0756a; text-align: center; line-height: 1.4; }
     .related-section { background: #fff; padding: 3rem 2.5rem; }
     .section-eyebrow { font-size: 10px; font-weight: 700; letter-spacing: 3px; color: #7e98a8; text-transform: uppercase; text-align: center; margin-bottom: 6px; }
     .section-title { font-family: 'Cormorant Garamond', serif; font-size: clamp(24px, 4vw, 34px); font-weight: 300; color: #CD7250; text-align: center; margin-bottom: 2rem; }
     .related-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; }
     .related-card { display: flex; flex-direction: column; align-items: center; gap: 10px; cursor: pointer; text-decoration: none; }
-    .related-img { width: 100%; aspect-ratio: 1/1; border-radius: 18px; display: flex; align-items: center; justify-content: center; transition: transform 0.2s; overflow: hidden; }
+    .related-img  { width: 100%; aspect-ratio: 1/1; border-radius: 18px; display: flex; align-items: center; justify-content: center; transition: transform 0.2s; overflow: hidden; }
     .related-card:hover .related-img { transform: translateY(-4px); }
     .related-img img { width: 100%; height: 100%; object-fit: cover; }
-    .related-name { font-size: 13px; font-weight: 700; color: #555; text-align: center; }
+    .related-name  { font-size: 13px; font-weight: 700; color: #555; text-align: center; }
     .related-price { font-family: 'Cormorant Garamond', serif; font-size: 16px; font-weight: 600; color: #CD7250; }
     .reviews-section { background: #EDC1BB; padding: 3rem 2.5rem; }
     .reviews-grid { display: grid; grid-template-columns: 1fr 1.6fr; gap: 2rem; align-items: start; }
     .review-score-box { background: #fff; border-radius: 20px; padding: 1.5rem; display: flex; flex-direction: column; align-items: center; gap: 8px; }
-    .rscore-big { font-family: 'Cormorant Garamond', serif; font-size: 56px; font-weight: 300; color: #CD7250; line-height: 1; }
+    .rscore-big   { font-family: 'Cormorant Garamond', serif; font-size: 56px; font-weight: 300; color: #CD7250; line-height: 1; }
     .rscore-outof { font-size: 11px; color: #aaa; font-weight: 700; }
     .rscore-stars { display: flex; gap: 3px; }
-    .rscore-star { color: #E99075; font-size: 16px; }
+    .rscore-star  { color: #E99075; font-size: 16px; }
     .rscore-count { font-size: 11px; color: #aaa; font-weight: 700; }
-    .bar-row { display: flex; align-items: center; gap: 8px; margin-bottom: 6px; width: 100%; }
+    .bar-row   { display: flex; align-items: center; gap: 8px; margin-bottom: 6px; width: 100%; }
     .bar-label { font-size: 10px; color: #aaa; font-weight: 700; width: 34px; text-align: right; flex-shrink: 0; }
     .bar-track { flex: 1; height: 6px; background: #f0ebe9; border-radius: 3px; overflow: hidden; }
-    .bar-fill { height: 100%; background: #E99075; border-radius: 3px; }
+    .bar-fill  { height: 100%; background: #E99075; border-radius: 3px; }
     .reviews-list { display: flex; flex-direction: column; gap: 12px; }
     .review-card { background: #fff; border-radius: 16px; padding: 1.1rem 1.25rem; }
-    .review-top { display: flex; justify-content: space-between; align-items: center; margin-bottom: 4px; }
+    .review-top  { display: flex; justify-content: space-between; align-items: center; margin-bottom: 4px; }
     .review-name { font-size: 13px; font-weight: 900; color: #CD7250; }
     .review-date { font-size: 11px; color: #aaa; font-weight: 700; }
     .review-stars { display: flex; gap: 2px; margin-bottom: 8px; }
-    .review-star { color: #E99075; font-size: 12px; }
-    .review-text { font-size: 12px; color: #888; line-height: 1.75; }
+    .review-star  { color: #E99075; font-size: 12px; }
+    .review-text  { font-size: 12px; color: #888; line-height: 1.75; }
     .footer { background: #7e98a8; padding: 3rem 2rem 2.5rem; text-align: center; }
     .footer-title { font-family: 'Cooper Black', serif; font-size: 24px; color: #fff; margin-bottom: 0.4rem; }
-    .footer-sub { font-family: 'Playfair Display', serif; font-size: 15px; font-style: italic; color: #E7DFE1; margin-bottom: 1.75rem; }
+    .footer-sub   { font-family: 'Playfair Display', serif; font-size: 15px; font-style: italic; color: #E7DFE1; margin-bottom: 1.75rem; }
     .footer-socials { display: flex; justify-content: center; gap: 1rem; flex-wrap: wrap; margin-bottom: 1.75rem; }
     .social-btn { display: inline-flex; align-items: center; gap: 8px; background: #adc2cf; color: #fff; font-family: 'Nunito', sans-serif; font-weight: 700; font-size: 13px; padding: 11px 22px; border-radius: 50px; text-decoration: none; transition: background 0.2s; }
     .social-btn:hover { background: #E7DFE1; color: #7e98a8; }
     .footer-divider { border: none; border-top: 1px solid #adc2cf; margin: 0 auto 1.75rem; width: 50%; }
-    .contact-box { background: #adc2cf; border-radius: 18px; display: inline-block; padding: 16px 32px; }
+    .contact-box  { background: #adc2cf; border-radius: 18px; display: inline-block; padding: 16px 32px; }
     .contact-label { font-size: 13px; color: #fff; font-weight: 900; margin-bottom: 4px; }
     .contact-email { font-size: 13px; color: #fff; font-weight: 700; }
-    .footer-copy { font-size: 11px; color: #dde8ef; margin-top: 1.75rem; opacity: 0.7; }
+    .footer-copy  { font-size: 11px; color: #dde8ef; margin-top: 1.75rem; opacity: 0.7; }
     .not-found { min-height: 60vh; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 1rem; text-align: center; padding: 2rem; }
     .not-found h2 { font-family: 'Cormorant Garamond', serif; font-size: 36px; font-weight: 300; color: #CD7250; }
-    .not-found p { font-size: 14px; color: #a0756a; }
-    .not-found a { display: inline-block; background: #CD7250; color: #fff; font-weight: 900; padding: 12px 28px; border-radius: 50px; text-decoration: none; font-size: 14px; margin-top: 0.5rem; }
+    .not-found p  { font-size: 14px; color: #a0756a; }
+    .not-found a  { display: inline-block; background: #CD7250; color: #fff; font-weight: 900; padding: 12px 28px; border-radius: 50px; text-decoration: none; font-size: 14px; margin-top: 0.5rem; }
     @media (max-width: 768px) {
       .nav { padding: 1rem 1.25rem; justify-content: space-between; }
-      .nav-links { display: none; }
-      .hamburger { display: flex; }
       .breadcrumb { padding: 1rem 1.25rem 0; }
       .product-section { grid-template-columns: 1fr; padding: 1.25rem 1.25rem 2rem; }
       .product-img-col { padding-right: 0; margin-bottom: 0.5rem; }
       .product-info-col { padding-left: 0; }
-      .product-name { white-space: normal; }
       .related-section { padding: 2rem 1.25rem; }
       .related-grid { grid-template-columns: repeat(3, 1fr); gap: 0.75rem; }
       .related-name { font-size: 11px; }
@@ -162,166 +144,25 @@
 </head>
 <body>
 
-  <!-- Basket Overlay -->
-  <div class="basket-overlay" id="basketOverlay" onclick="closeBasket()"></div>
+  <div id="navMount"></div>
 
-  <!-- Basket Drawer -->
-  <div class="basket-drawer" id="basketDrawer">
-    <div class="basket-header">
-      <span class="basket-title">Your Basket</span>
-      <button class="basket-close" onclick="closeBasket()">
-        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round">
-          <line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/>
-        </svg>
-      </button>
-    </div>
-    <div class="basket-items" id="basketItems">
-      <div class="basket-empty" id="basketEmpty">
-        <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="#ccc" stroke-width="1.5" stroke-linecap="round"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg>
-        <p>Your basket is empty</p>
-        <p style="font-size:12px;font-weight:400;color:#ccc;">Add a friend to get started!</p>
-      </div>
-    </div>
-    <div class="basket-footer">
-      <div class="basket-total-row">
-        <span class="basket-total-label">Total</span>
-        <span class="basket-total-price" id="basketTotal">£0.00</span>
-      </div>
-      <button class="checkout-btn" id="checkoutBtn" onclick="goToCheckout()" disabled>Continue to checkout →</button>
-    </div>
-  </div>
-
-  <div class="add-flash" id="addFlash">✦ Added to basket!</div>
-
-  <!-- Nav -->
-  <nav class="nav" role="navigation">
-    <ul class="nav-links">
-      <li><a href="shop.html">Shop</a></li>
-    </ul>
-    <a class="nav-basket" aria-label="Basket" onclick="event.preventDefault(); openBasket();">
-      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-        <path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/>
-        <line x1="3" y1="6" x2="21" y2="6"/>
-        <path d="M16 10a4 4 0 01-8 0"/>
-      </svg>
-      <span class="basket-count" id="basketCount">0</span>
-    </a>
-  </nav>
-
-  <div class="mobile-menu" id="mobileMenu">
-    <a href="index.html">Shop</a>
-    <a href="index.html#footer">Contact</a>
-  </div>
-
-  <!-- Page content filled by JS -->
   <div id="pageContent"></div>
 
-  <!-- basket.js MUST load before page script -->
+  <script src="products.js"></script>
   <script src="basket.js"></script>
+  <script src="nav.js"></script>
 
   <script>
-    // ─── Product data ─────────────────────────────────
-    var products = {
-
-      'crochet-doll': {
-        name: 'My Hijabi Crochet Keychain',
-        price: 9.99,
-        colour: '#f5ddd8',
-        accentColour: '#e8a0a0',
-        emoji: '🩷',
-        description: "Bring a little handmade charm wherever you go with our adorable Mini Hijabi Crochet Keychain! Lovingly crafted from soft yarn, each tiny hijabi doll features a sweet design that celebrates modesty, creativity, and cultural identity. Perfect for children and adults alike, this lightweight crochet companion comes with a detachable keychain clip, making it easy to attach to keys, backpacks, handbags, pencil cases, or even display as a decorative keepsake.",
-        details: 'Soft, detachable durable keychain doll approximately 8cm tall. Attached keyring clip. Suitable for ages 3+. Surface wipe clean only.',
-        image: 'images/crochetdolls/crochetdollsfront.jpg',
-        thumbImages: ['images/crochetdolls/crochetdollsfront.jpg', 'images/crochetdolls/darker-skin-single.png', null],
-        variations: [
-          {
-            id: 'crochet-doll-light',
-            label: 'Light skin',
-            colour: '#F5C9A0',
-            price: 9.99,
-            image: 'images/crochetdolls/crochetdollsfront.jpg',
-            thumbImages: ['images/crochetdolls/crochetdollsfront.jpg', 'images/crochetdolls/darker-skin-single.png', null]
-          },
-          {
-            id: 'crochet-doll-dark',
-            label: 'Dark skin',
-            colour: '#8B5E3C',
-            price: 9.99,
-            image: 'images/crochetdolls/darker-skin-single.png',
-            thumbImages: ['images/crochetdolls/darker-skin-single.png', 'images/crochetdolls/crochetdollsfront.jpg', null]
-          }
-        ],
-        related: ['key-chain-plush', 'princess-doll', 'rainbow-skirt']
-      },
-
-      'key-chain-plush': {
-        name: 'My Hijabi Plush Buddy Keychain',
-        price: 12.99,
-        colour: '#dceaf2',
-        accentColour: '#adc2cf',
-        emoji: '💙',
-        description: 'The Hijabi Plush Buddy is the perfect companion for your little one. Small enough to travel everywhere, meaningful enough to treasure always. These cuddly keychains are lightweight and easy to carry. The detachable keychain clip allows children to attach their plushie to backpacks, lunch bags, pencil cases, or keys, so their fluffy friend can join them wherever they go.',
-        details: 'Soft, durable keychain doll approximately 8cm tall. Attached keyring clip. Suitable for ages 3+. Surface wipe clean only.',
-        image: 'images/keychain/greenbagfile.png',
-        thumbImages: ['images/keychain/greenbagfile.png', 'images/keychain/frontdollkey.png', 'images/keychain/backdollkey.png'],
-        related: ['crochet-doll', 'princess-doll', 'rainbow-skirt']
-      },
-
-      'princess-doll': {
-        name: 'My Hijabi Princess Friend',
-        price: 14.99,
-        colour: '#fdf0e8',
-        accentColour: '#EDC1BB',
-        emoji: '🌸',
-        description: 'Every child deserves to see themselves in the stories they imagine. Our beautiful Hijabi Princess Doll is designed to inspire confidence, creativity, and endless adventures through play. Dressed in a lovely hijab and wearing a sparkling crown, this soft and cuddly princess is ready to become a cherished companion. Perfectly sized for hugs, playtime, and bedtime, she encourages children to dream big while celebrating kindness, courage, and individuality.',
-        details: 'Soft, durable. Attached keyring clip. Suitable for ages 3+. Surface wipe clean only.',
-        image: 'images/princessdoll/princessdollfront.jpg',
-        thumbImages: ['images/princessdoll/princessdollfront.jpg', null, null],
-        related: ['crochet-doll', 'key-chain-plush', 'rainbow-skirt']
-      },
-
-      'rainbow-skirt': {
-        name: 'My Hijabi Sparkle Friend',
-        price: 14.99,
-        colour: '#ede8f5',
-        accentColour: '#c8bde8',
-        emoji: '💜',
-        description: 'Meet My Hijabi Sparkle Friend — a magical companion full of colour, imagination, and sparkle! Dressed in a glittery pink top, a beautiful rainbow tutu, and a soft detachable hijab, she is ready to join children on every adventure, from magical tea parties to bedtime stories.',
-        details: 'Soft, durable keychain doll approximately 8cm tall. Attached keyring clip. Suitable for ages 3+. Surface wipe clean only.',
-        image: 'images/rainbowskirtdoll/rainbowskirtfrontimg.jpg',
-        thumbImages: ['images/rainbowskirtdoll/rainbowskirtfrontimg.jpg', 'images/rainbowskirtdoll/frontmainrainbow.jpg', null],
-        related: ['crochet-doll', 'key-chain-plush', 'princess-doll']
-      },
-
-      'gift-set': {
-        name: 'Hijabi Friend — Gift Set of 2',
-        price: 22.99,
-        colour: '#f5f0f8',
-        accentColour: '#EDC1BB',
-        hijabColour: '#CD7250',
-        emoji: '🎁',
-        description: "Can't choose just one? This beautiful gift set includes two Hijabi Friend keychains — the perfect pair for sisters, best friends, or anyone who deserves a little extra love. Comes beautifully packaged and ready to gift.",
-        details: 'Includes two keychain dolls, each approximately 8cm tall. Keyring clips attached. Suitable for ages 3+. Surface wipe clean only. Gift packaging included.',
-        image: null,
-        thumbImages: [null, null, null],
-        related: ['crochet-doll', 'key-chain-plush', 'princess-doll']
-      }
-
-    };
-
     var reviews = [
-      { name: 'Fatima A.', date: 'March 2025', stars: 5, text: 'My daughter absolutely loves this! She clips it onto her school bag and takes it everywhere. So sweet and finally something that looks like her!' },
-      { name: 'Nadia R.', date: 'February 2025', stars: 5, text: "Bought this as an Eid gift and she hasn't put it down since. Brilliant quality and came beautifully packaged too. Will be ordering more!" },
-      { name: 'Zainab M.', date: 'January 2025', stars: 4, text: 'Such a lovely idea. My girls were so excited to have a doll that wears hijab just like them. Really well made and arrived quickly.' }
+      { name: 'Fatima A.',  date: 'March 2025',    stars: 5, text: 'My daughter absolutely loves this! She clips it onto her school bag and takes it everywhere. So sweet and finally something that looks like her!' },
+      { name: 'Nadia R.',   date: 'February 2025', stars: 5, text: "Bought this as an Eid gift and she hasn't put it down since. Brilliant quality and came beautifully packaged too. Will be ordering more!" },
+      { name: 'Zainab M.', date: 'January 2025',  stars: 4, text: 'Such a lovely idea. My girls were so excited to have a doll that wears hijab just like them. Really well made and arrived quickly.' }
     ];
-
     var reviewStats = { avg: 4.8, total: 107, bars: [82, 44, 14, 6, 3] };
 
-    // Current product and qty
     var currentProduct = null;
     var qty = 1;
 
-    // ─── Helpers ──────────────────────────────────────
     function starsHTML(count, size) {
       size = size || 14;
       var html = '';
@@ -333,40 +174,9 @@
       return html;
     }
 
-    function dollSVG(hc, bc, size) {
-      size = size || 130;
-      hc = hc || '#CD7250';
-      bc = bc || '#EDC1BB';
-      return '<svg width="' + size + '" height="' + Math.round(size * 1.23) + '" viewBox="0 0 130 160" xmlns="http://www.w3.org/2000/svg">' +
-        '<ellipse cx="65" cy="50" rx="34" ry="36" fill="#F5C9A0"/>' +
-        '<ellipse cx="65" cy="22" rx="36" ry="24" fill="' + hc + '"/>' +
-        '<ellipse cx="65" cy="34" rx="30" ry="16" fill="' + hc + '"/>' +
-        '<ellipse cx="65" cy="50" rx="34" ry="36" fill="#F5C9A0"/>' +
-        '<ellipse cx="65" cy="28" rx="36" ry="15" fill="' + hc + '"/>' +
-        '<circle cx="54" cy="53" r="4" fill="#5a3210"/>' +
-        '<circle cx="76" cy="53" r="4" fill="#5a3210"/>' +
-        '<circle cx="54" cy="51" r="1.5" fill="#fff" opacity="0.6"/>' +
-        '<circle cx="76" cy="51" r="1.5" fill="#fff" opacity="0.6"/>' +
-        '<path d="M58 67 Q65 73 72 67" stroke="' + hc + '" stroke-width="2" fill="none" stroke-linecap="round"/>' +
-        '<circle cx="65" cy="60" r="3" fill="' + bc + '"/>' +
-        '<rect x="38" y="84" width="54" height="62" rx="14" fill="' + bc + '"/>' +
-        '<rect x="38" y="84" width="54" height="22" rx="11" fill="' + hc + '"/>' +
-        '<ellipse cx="65" cy="82" rx="18" ry="7" fill="#F5C9A0"/>' +
-        '<rect x="18" y="88" width="21" height="40" rx="10" fill="' + bc + '"/>' +
-        '<rect x="91" y="88" width="21" height="40" rx="10" fill="' + bc + '"/>' +
-        '<ellipse cx="38" cy="128" rx="9" ry="4" fill="' + hc + '"/>' +
-        '<ellipse cx="92" cy="128" rx="9" ry="4" fill="' + hc + '"/>' +
-        '<rect x="56" y="144" width="18" height="6" rx="3" fill="' + hc + '"/>' +
-        '<line x1="65" y1="150" x2="65" y2="160" stroke="' + hc + '" stroke-width="2.5"/>' +
-        '<circle cx="65" cy="161" r="4" fill="#7e98a8" stroke="#fff" stroke-width="1.5"/>' +
-        '</svg>';
-    }
-
     function productImgHTML(p) {
       if (p.image) return '<img src="' + p.image + '" alt="' + p.name + '">';
-      return '<div class="img-placeholder" style="background:' + p.colour + ';">' +
-        dollSVG(p.hijabColour, p.accentColour, 130) +
-        '<span>Product image</span></div>';
+      return '<div class="img-placeholder"><span>Image coming soon</span></div>';
     }
 
     function thumbContent(p, index) {
@@ -377,44 +187,36 @@
       return '<span style="font-size:8px;font-weight:700;color:#CD7250;text-transform:uppercase;">' + labels[index] + '</span>';
     }
 
-    // ─── Variations ───────────────────────────────────
     function variationsHTML(product) {
       if (!product.variations || product.variations.length === 0) return '';
       var html = '<p class="variations-label">Choose your friend</p><div class="variations-row">';
-      product.variations.forEach(function(v, i) {
+      product.variations.forEach(function (v, i) {
         html += '<button class="variation-btn' + (i === 0 ? ' active' : '') + '" onclick="selectVariation(\'' + v.id + '\')" id="var-btn-' + v.id + '">' +
-          '<span class="variation-swatch" style="background:' + v.colour + ';"></span>' +
-          v.label +
-        '</button>';
+          '<span class="variation-swatch" style="background:' + v.colour + ';"></span>' + v.label +
+          '</button>';
       });
       html += '</div>';
       return html;
     }
 
     function selectVariation(varId) {
-      var product = products[currentProduct.id];
+      var product = MAHF_PRODUCT_MAP[currentProduct.id];
       if (!product || !product.variations) return;
-
       var variation = null;
       for (var i = 0; i < product.variations.length; i++) {
         if (product.variations[i].id === varId) { variation = product.variations[i]; break; }
       }
       if (!variation) return;
 
-      // Update active button
-      document.querySelectorAll('.variation-btn').forEach(function(btn) {
-        btn.classList.remove('active');
-      });
+      document.querySelectorAll('.variation-btn').forEach(function (btn) { btn.classList.remove('active'); });
       var activeBtn = document.getElementById('var-btn-' + varId);
       if (activeBtn) activeBtn.classList.add('active');
 
-      // Update main image
       var mainImg = document.getElementById('mainImg');
       if (mainImg) mainImg.innerHTML = '<img src="' + variation.image + '" alt="' + variation.label + '">';
 
-      // Update thumbnails
       var thumbs = document.querySelectorAll('.thumb');
-      variation.thumbImages.forEach(function(src, i) {
+      variation.thumbImages.forEach(function (src, i) {
         if (thumbs[i]) {
           if (src) {
             thumbs[i].innerHTML = '<img src="' + src + '" alt="View ' + (i + 1) + '">';
@@ -425,44 +227,40 @@
         }
       });
 
-      // Update currentProduct so basket gets the right name and price
-      currentProduct.name = product.name + ' — ' + variation.label;
-      currentProduct.price = variation.price;
+      currentProduct.name       = product.name + ' — ' + variation.label;
+      currentProduct.price      = variation.price;
+      currentProduct.image      = variation.image;
       currentProduct.thumbImages = variation.thumbImages;
 
-      // Update price display
       var priceEl = document.querySelector('.product-price');
       if (priceEl) priceEl.textContent = '£' + variation.price.toFixed(2);
     }
 
-    // ─── Qty (page-level) ─────────────────────────────
     function changeQtyPage(delta) {
       qty = Math.max(1, qty + delta);
       var el = document.getElementById('qtyNum');
       if (el) el.textContent = qty;
     }
 
-    // ─── Add / Buy ────────────────────────────────────
     function handleAddToBasket() {
       if (!currentProduct) return;
       addToBasketById(
-        currentProduct.id + (currentProduct.variantId ? '-' + currentProduct.variantId : ''),
+        currentProduct.id,
         currentProduct.name,
         currentProduct.price,
         currentProduct.accentColour || '#e8a0a0',
         qty,
-        currentProduct.image  // ← add this
+        currentProduct.image
       );
     }
 
     function handleBuyNow() {
       handleAddToBasket();
-      openBasket();
+      window.location.href = 'checkout.html';
     }
 
-    // ─── Thumb switcher ───────────────────────────────
     function switchThumb(el, index) {
-      document.querySelectorAll('.thumb').forEach(function(t) { t.classList.remove('active'); });
+      document.querySelectorAll('.thumb').forEach(function (t) { t.classList.remove('active'); });
       el.classList.add('active');
       if (currentProduct && currentProduct.thumbImages && currentProduct.thumbImages[index]) {
         document.getElementById('mainImg').innerHTML =
@@ -470,69 +268,59 @@
       }
     }
 
-    // ─── Accordion ────────────────────────────────────
     function toggleAcc(header) {
-      var body = header.nextElementSibling;
-      var icon = header.querySelector('i');
+      var body   = header.nextElementSibling;
+      var icon   = header.querySelector('.accordion-icon');
       var isOpen = body.classList.contains('open');
-      document.querySelectorAll('.accordion-body').forEach(function(b) { b.classList.remove('open'); });
-      document.querySelectorAll('.accordion-header i').forEach(function(i) { i.className = 'ti ti-plus'; });
-      if (!isOpen) { body.classList.add('open'); icon.className = 'ti ti-minus'; }
+      document.querySelectorAll('.accordion-body').forEach(function (b) { b.classList.remove('open'); });
+      document.querySelectorAll('.accordion-icon').forEach(function (i) { i.textContent = '+'; });
+      if (!isOpen) { body.classList.add('open'); icon.textContent = '−'; }
     }
 
-    // ─── Mobile menu ──────────────────────────────────
-    function toggleMenu() {
-      document.getElementById('mobileMenu').classList.toggle('open');
-    }
-
-    // ─── Footer ───────────────────────────────────────
     function footerHTML() {
-      return '<footer class="footer" id="footer">' +
+      return '<footer class="footer">' +
         '<p class="footer-title">Stay in the loop ✦</p>' +
         '<p class="footer-sub">Follow along for new drops, behind-the-scenes &amp; community love</p>' +
         '<div class="footer-socials">' +
-          '<a class="social-btn" href="#"><svg width="16" height="16" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>Instagram</a>' +
-          '<a class="social-btn" href="#"><svg width="16" height="16" fill="currentColor" viewBox="0 0 24 24"><path d="M19.59 6.69a4.83 4.83 0 01-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 01-2.88 2.5 2.89 2.89 0 01-2.89-2.89 2.89 2.89 0 012.89-2.89c.28 0 .54.04.79.1V9.01a6.33 6.33 0 00-.79-.05 6.34 6.34 0 00-6.34 6.34 6.34 6.34 0 006.34 6.34 6.34 6.34 0 006.33-6.34V8.69a8.18 8.18 0 004.78 1.52V6.76a4.85 4.85 0 01-1.01-.07z"/></svg>TikTok</a>' +
-          '<a class="social-btn" href="#"><svg width="16" height="16" fill="currentColor" viewBox="0 0 24 24"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>Facebook</a>' +
+          '<a class="social-btn" href="#">Instagram</a>' +
+          '<a class="social-btn" href="#">TikTok</a>' +
+          '<a class="social-btn" href="#">Facebook</a>' +
         '</div>' +
         '<hr class="footer-divider"/>' +
-        '<div class="contact-box"><p class="contact-label">Get in touch 💌</p><p class="contact-email">hello@myadorablehijabifriend.com</p></div>' +
+        '<div class="contact-box"><p class="contact-label">Get in touch</p><p class="contact-email">hello@myadorablehijabifriend.com</p></div>' +
         '<p class="footer-copy">© 2025 My Adorable Hijabi Friend · Made with love in the UK</p>' +
       '</footer>';
     }
 
-    // ─── Render page ──────────────────────────────────
     function renderPage() {
-      var params = new URLSearchParams(window.location.search);
-      var id = params.get('id');
-      var product = products[id];
+      var params  = new URLSearchParams(window.location.search);
+      var id      = params.get('id');
+      var product = MAHF_PRODUCT_MAP[id];
 
       if (!product) {
         document.getElementById('pageContent').innerHTML =
-          '<div class="not-found"><h2>Oops — we can\'t find that one!</h2><p>The product you\'re looking for doesn\'t exist.</p><a href="index.html">← Back to shop</a></div>' + footerHTML();
+          '<div class="not-found"><h2>Oops — we can\'t find that one!</h2><p>The product you\'re looking for doesn\'t exist.</p><a href="index.html">← Back to home</a></div>' + footerHTML();
         document.title = 'Not Found — My Adorable Hijabi Friend';
         return;
       }
 
       currentProduct = {
-        id: id,
-        name: product.name,
-        price: product.price,
+        id:          id,
+        name:        product.name,
+        price:       product.price,
         accentColour: product.accentColour || '#e8a0a0',
-        emoji: product.emoji || '🩷',
-        thumbImages: product.thumbImages,
-        variantId: null,
-        variantSelected: false
+        image:       product.image,
+        thumbImages: product.thumbImages
       };
 
       document.title = product.name + ' — My Adorable Hijabi Friend';
 
-      var relatedHTML = product.related.map(function(relId) {
-        var rel = products[relId];
+      var relatedHTML = product.related.map(function (relId) {
+        var rel = MAHF_PRODUCT_MAP[relId];
         if (!rel) return '';
         var relImg = rel.image
           ? '<img src="' + rel.image + '" alt="' + rel.name + '">'
-          : dollSVG(rel.hijabColour, rel.accentColour, 70);
+          : '<span style="font-size:11px;font-weight:700;color:#CD7250;opacity:0.5;">No image</span>';
         return '<a class="related-card" href="product.html?id=' + relId + '">' +
           '<div class="related-img" style="background:' + rel.colour + ';">' + relImg + '</div>' +
           '<p class="related-name">' + rel.name + '</p>' +
@@ -540,7 +328,7 @@
         '</a>';
       }).join('');
 
-      var topReviewsHTML = reviews.map(function(r) {
+      var topReviewsHTML = reviews.map(function (r) {
         return '<div class="review-card"><div class="review-top"><span class="review-name">' + r.name + '</span><span class="review-date">' + r.date + '</span></div><div class="review-stars">' + starsHTML(r.stars, 12) + '</div><p class="review-text">' + r.text + '</p></div>';
       }).join('');
 
@@ -567,9 +355,9 @@
             '<div class="qty-wrapper"><span class="qty-label">Qty</span><div class="qty-controls"><button class="qty-btn minus" onclick="changeQtyPage(-1)">−</button><span class="qty-num" id="qtyNum">1</span><button class="qty-btn plus" onclick="changeQtyPage(1)">+</button></div></div>' +
             '<div class="btn-row"><button class="add-btn" onclick="handleAddToBasket()">Add to basket</button><button class="buy-btn" onclick="handleBuyNow()">Buy now →</button></div>' +
             '<div class="accordion">' +
-              '<div class="accordion-item"><div class="accordion-header" onclick="toggleAcc(this)"><span>Details &amp; Materials</span><i class="ti ti-plus"></i></div>' +
+              '<div class="accordion-item"><div class="accordion-header" onclick="toggleAcc(this)"><span>Details &amp; Materials</span><i class="accordion-icon">+</i></div>' +
               '<div class="accordion-body"><div class="acc-badges"><div class="acc-badge"><span class="acc-badge-icon">🎀</span><p class="acc-badge-title">Gift ready</p><p class="acc-badge-sub">Free gift wrapping on request</p></div><div class="acc-badge"><span class="acc-badge-icon">📦</span><p class="acc-badge-title">Ships fast</p><p class="acc-badge-sub">Dispatched within 2 working days</p></div><div class="acc-badge"><span class="acc-badge-icon">🚚</span><p class="acc-badge-title">Free shipping</p><p class="acc-badge-sub">On UK orders over £25</p></div></div>' + product.details + '</div></div>' +
-              '<div class="accordion-item"><div class="accordion-header" onclick="toggleAcc(this)"><span>Shipping &amp; Returns</span><i class="ti ti-plus"></i></div><div class="accordion-body">Standard UK delivery 3–5 working days. Free shipping on orders over £25. Returns accepted within 14 days of receipt in original condition.</div></div>' +
+              '<div class="accordion-item"><div class="accordion-header" onclick="toggleAcc(this)"><span>Shipping &amp; Returns</span><i class="accordion-icon">+</i></div><div class="accordion-body">Standard UK delivery 3–5 working days. Free shipping on orders over £25. Returns accepted within 14 days of receipt in original condition.</div></div>' +
             '</div>' +
           '</div>' +
         '</section>' +
@@ -587,7 +375,6 @@
         '</section>' +
         footerHTML();
 
-      // Auto-select first variation if product has them
       if (product.variations && product.variations.length > 0) {
         selectVariation(product.variations[0].id);
       }
