@@ -10,6 +10,21 @@
   <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;700;900&family=Playfair+Display:ital,wght@1,700&family=Cormorant+Garamond:wght@300;400;600&display=swap" rel="stylesheet">
   <link href="https://fonts.cdnfonts.com/css/cooper-black" rel="stylesheet">
   <style>
+    /* ─── Variations ─────────────────────────────────── */
+    .variations-label { font-size: 10px; font-weight: 900; letter-spacing: 2px; text-transform: uppercase; color: #7e98a8; margin-bottom: 10px; }
+    .variations-row { display: flex; gap: 10px; flex-wrap: wrap; margin-bottom: 0.5rem; }
+    .variation-btn {
+      display: flex; align-items: center; gap: 8px;
+      padding: 8px 14px; border-radius: 50px;
+      border: 2px solid #f0ddd8; background: #fff;
+      cursor: pointer; font-family: 'Nunito', sans-serif;
+      font-size: 12px; font-weight: 700; color: #555;
+      transition: border-color 0.15s, background 0.15s;
+    }
+    .variation-btn:hover { border-color: #CD7250; }
+    .variation-btn.active { border-color: #CD7250; background: #fdf5f3; color: #CD7250; }
+    .variation-swatch { width: 16px; height: 16px; border-radius: 50%; border: 1.5px solid rgba(0,0,0,0.1); flex-shrink: 0; }
+
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     html { scroll-behavior: smooth; }
     body { font-family: 'Nunito', sans-serif; background: #EDC1BB; -webkit-font-smoothing: antialiased; }
@@ -178,12 +193,12 @@
 
   <div class="add-flash" id="addFlash">✦ Added to basket!</div>
 
-   <!-- Nav -->
+  <!-- Nav -->
   <nav class="nav" role="navigation">
     <ul class="nav-links">
       <li><a href="shop.html">Shop</a></li>
     </ul>
-    <a href="#" class="nav-basket" aria-label="Basket" onclick="openBasket(event)">
+    <a class="nav-basket" aria-label="Basket" onclick="event.preventDefault(); openBasket();">
       <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
         <path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/>
         <line x1="3" y1="6" x2="21" y2="6"/>
@@ -192,7 +207,6 @@
       <span class="basket-count" id="basketCount">0</span>
     </a>
   </nav>
-
 
   <div class="mobile-menu" id="mobileMenu">
     <a href="index.html">Shop</a>
@@ -208,24 +222,17 @@
   <script>
     // ─── Product data ─────────────────────────────────
     var products = {
+
       'crochet-doll': {
-        name: 'My Hijabi Crochet keychain',
+        name: 'My Hijabi Crochet Keychain',
         price: 9.99,
         colour: '#f5ddd8',
-        description: "Bring a little handmade charm wherever you go with our adorable Mini Hijabi Crochet Keychain! Lovingly crafted from soft yarn, each tiny hijabi doll features a sweet design that celebrates modesty, creativity, and cultural identity.Perfect for children and adults alike, this lightweight crochet companion comes with a detachable keychain clip, making it easy to attach to keys, backpacks, handbags, pencil cases, or even display as a decorative keepsake. Children will love carrying their mini friend on adventures, while adults can enjoy a meaningful and unique accessory that adds personality to everyday items. ",
+        accentColour: '#e8a0a0',
+        emoji: '🩷',
+        description: "Bring a little handmade charm wherever you go with our adorable Mini Hijabi Crochet Keychain! Lovingly crafted from soft yarn, each tiny hijabi doll features a sweet design that celebrates modesty, creativity, and cultural identity. Perfect for children and adults alike, this lightweight crochet companion comes with a detachable keychain clip, making it easy to attach to keys, backpacks, handbags, pencil cases, or even display as a decorative keepsake.",
         details: 'Soft, detachable durable keychain doll approximately 8cm tall. Attached keyring clip. Suitable for ages 3+. Surface wipe clean only.',
         image: 'images/crochetdolls/crochetdollsfront.jpg',
-        thumbImages: ['images/crochetdolls/crochetdollsfront.jpg', 'images/crochetdolls/darker-skin-single.png'],
-        related: ['sky-blue', 'blush-peach', 'soft-lilac']
-      },
-      'key-chain-plush': {
-        name: 'My Hijabi Plush Buddy keychain',
-        price: 12.99,
-        colour: '#dceaf2',
-        description: 'The Hijabi Plush Buddy is the perfect companion for your little one. Small enough to travel everywhere, meaningful enough to treasure always.These cuddly keychains are lightweight and easy to carry. The detachable keychain clip allows children to attach their plushie to backpacks, lunch bags, pencil cases, or keys, so their fluffy friend can join them wherever they go.',
-        details: 'Soft, durable keychain doll approximately 8cm tall. Attached keyring clip. Suitable for ages 3+. Surface wipe clean only.',
-        image: 'images/keychain/greenbagfile.png',
-        thumbImages: ['images/keychain/greenbagfile.png', 'images/keychain/frontdollkey.png', 'images/keychain/backdollkey.png'],
+        thumbImages: ['images/crochetdolls/crochetdollsfront.jpg', 'images/crochetdolls/darker-skin-single.png', null],
         variations: [
           {
             id: 'crochet-doll-light',
@@ -233,7 +240,7 @@
             colour: '#F5C9A0',
             price: 9.99,
             image: 'images/crochetdolls/crochetdollsfront.jpg',
-            thumbImages: ['images/crochetdolls/crochetdollsfront.jpg', 'images/crochetdolls/darker-skin-single.png']
+            thumbImages: ['images/crochetdolls/crochetdollsfront.jpg', 'images/crochetdolls/darker-skin-single.png', null]
           },
           {
             id: 'crochet-doll-dark',
@@ -241,31 +248,51 @@
             colour: '#8B5E3C',
             price: 9.99,
             image: 'images/crochetdolls/darker-skin-single.png',
-            thumbImages: ['images/crochetdolls/darker-skin-single.png', 'images/crochetdolls/crochetdollsfront.jpg']
+            thumbImages: ['images/crochetdolls/darker-skin-single.png', 'images/crochetdolls/crochetdollsfront.jpg', null]
           }
         ],
-        related: ['soft-pink', 'sky-blue', 'blush-peach']
+        related: ['key-chain-plush', 'princess-doll', 'rainbow-skirt']
       },
+
+      'key-chain-plush': {
+        name: 'My Hijabi Plush Buddy Keychain',
+        price: 12.99,
+        colour: '#dceaf2',
+        accentColour: '#adc2cf',
+        emoji: '💙',
+        description: 'The Hijabi Plush Buddy is the perfect companion for your little one. Small enough to travel everywhere, meaningful enough to treasure always. These cuddly keychains are lightweight and easy to carry. The detachable keychain clip allows children to attach their plushie to backpacks, lunch bags, pencil cases, or keys, so their fluffy friend can join them wherever they go.',
+        details: 'Soft, durable keychain doll approximately 8cm tall. Attached keyring clip. Suitable for ages 3+. Surface wipe clean only.',
+        image: 'images/keychain/greenbagfile.png',
+        thumbImages: ['images/keychain/greenbagfile.png', 'images/keychain/frontdollkey.png', 'images/keychain/backdollkey.png'],
+        related: ['crochet-doll', 'princess-doll', 'rainbow-skirt']
+      },
+
       'princess-doll': {
         name: 'My Hijabi Princess Friend',
         price: 14.99,
         colour: '#fdf0e8',
-        description: 'Every child deserves to see themselves in the stories they imagine. Our beautiful Hijabi Princess Doll is designed to inspire confidence, creativity, and endless adventures through play.Dressed in a lovely hijab and wearing a sparkling crown, this soft and cuddly princess is ready to become a cherished companion. Perfectly sized for hugs, playtime, and bedtime, she encourages children to dream big while celebrating kindness, courage, and individuality. ',
-        details: 'Soft, durable . Attached keyring clip. Suitable for ages 3+. Surface wipe clean only.',
+        accentColour: '#EDC1BB',
+        emoji: '🌸',
+        description: 'Every child deserves to see themselves in the stories they imagine. Our beautiful Hijabi Princess Doll is designed to inspire confidence, creativity, and endless adventures through play. Dressed in a lovely hijab and wearing a sparkling crown, this soft and cuddly princess is ready to become a cherished companion. Perfectly sized for hugs, playtime, and bedtime, she encourages children to dream big while celebrating kindness, courage, and individuality.',
+        details: 'Soft, durable. Attached keyring clip. Suitable for ages 3+. Surface wipe clean only.',
         image: 'images/princessdoll/princessdollfront.jpg',
         thumbImages: ['images/princessdoll/princessdollfront.jpg', null, null],
-        related: ['rose-pink', 'princess', 'gift-set']
+        related: ['crochet-doll', 'key-chain-plush', 'rainbow-skirt']
       },
+
       'rainbow-skirt': {
         name: 'My Hijabi Sparkle Friend',
         price: 14.99,
         colour: '#ede8f5',
-        description: 'Meet My Hijabi Sparkle Friend – a magical companion full of colour, imagination, and sparkle! Dressed in a glittery pink top, a beautiful rainbow tutu, and a soft detachable hijab, she is ready to join children on every adventure, from magical tea parties to bedtime stories.',
+        accentColour: '#c8bde8',
+        emoji: '💜',
+        description: 'Meet My Hijabi Sparkle Friend — a magical companion full of colour, imagination, and sparkle! Dressed in a glittery pink top, a beautiful rainbow tutu, and a soft detachable hijab, she is ready to join children on every adventure, from magical tea parties to bedtime stories.',
         details: 'Soft, durable keychain doll approximately 8cm tall. Attached keyring clip. Suitable for ages 3+. Surface wipe clean only.',
         image: 'images/rainbowskirtdoll/rainbowskirtfrontimg.jpg',
-        thumbImages: ['images/rainbowskirtdoll/rainbowskirtfrontimg.jpg','images/rainbowskirtdoll/frontmainrainbow.jpg'],
-        related: ['rainbow', 'sparkly-pink', 'gift']
+        thumbImages: ['images/rainbowskirtdoll/rainbowskirtfrontimg.jpg', 'images/rainbowskirtdoll/frontmainrainbow.jpg', null],
+        related: ['crochet-doll', 'key-chain-plush', 'princess-doll']
       },
+
       'gift-set': {
         name: 'Hijabi Friend — Gift Set of 2',
         price: 22.99,
@@ -277,8 +304,9 @@
         details: 'Includes two keychain dolls, each approximately 8cm tall. Keyring clips attached. Suitable for ages 3+. Surface wipe clean only. Gift packaging included.',
         image: null,
         thumbImages: [null, null, null],
-        related: ['rose-pink', 'sky-blue', 'blush-peach']
+        related: ['crochet-doll', 'key-chain-plush', 'princess-doll']
       }
+
     };
 
     var reviews = [
@@ -307,6 +335,8 @@
 
     function dollSVG(hc, bc, size) {
       size = size || 130;
+      hc = hc || '#CD7250';
+      bc = bc || '#EDC1BB';
       return '<svg width="' + size + '" height="' + Math.round(size * 1.23) + '" viewBox="0 0 130 160" xmlns="http://www.w3.org/2000/svg">' +
         '<ellipse cx="65" cy="50" rx="34" ry="36" fill="#F5C9A0"/>' +
         '<ellipse cx="65" cy="22" rx="36" ry="24" fill="' + hc + '"/>' +
@@ -332,15 +362,77 @@
         '</svg>';
     }
 
-    function productImgHTML(p, size) {
+    function productImgHTML(p) {
       if (p.image) return '<img src="' + p.image + '" alt="' + p.name + '">';
-      return '<div class="img-placeholder" style="background:' + p.colour + ';">' + dollSVG(p.hijabColour, p.accentColour, size || 130) + '<span>Product image</span></div>';
+      return '<div class="img-placeholder" style="background:' + p.colour + ';">' +
+        dollSVG(p.hijabColour, p.accentColour, 130) +
+        '<span>Product image</span></div>';
     }
 
     function thumbContent(p, index) {
       var labels = ['Front', 'Side', 'Detail'];
-      if (p.thumbImages[index]) return '<img src="' + p.thumbImages[index] + '" alt="' + labels[index] + '">';
+      if (p.thumbImages && p.thumbImages[index]) {
+        return '<img src="' + p.thumbImages[index] + '" alt="' + labels[index] + '">';
+      }
       return '<span style="font-size:8px;font-weight:700;color:#CD7250;text-transform:uppercase;">' + labels[index] + '</span>';
+    }
+
+    // ─── Variations ───────────────────────────────────
+    function variationsHTML(product) {
+      if (!product.variations || product.variations.length === 0) return '';
+      var html = '<p class="variations-label">Choose your friend</p><div class="variations-row">';
+      product.variations.forEach(function(v, i) {
+        html += '<button class="variation-btn' + (i === 0 ? ' active' : '') + '" onclick="selectVariation(\'' + v.id + '\')" id="var-btn-' + v.id + '">' +
+          '<span class="variation-swatch" style="background:' + v.colour + ';"></span>' +
+          v.label +
+        '</button>';
+      });
+      html += '</div>';
+      return html;
+    }
+
+    function selectVariation(varId) {
+      var product = products[currentProduct.id];
+      if (!product || !product.variations) return;
+
+      var variation = null;
+      for (var i = 0; i < product.variations.length; i++) {
+        if (product.variations[i].id === varId) { variation = product.variations[i]; break; }
+      }
+      if (!variation) return;
+
+      // Update active button
+      document.querySelectorAll('.variation-btn').forEach(function(btn) {
+        btn.classList.remove('active');
+      });
+      var activeBtn = document.getElementById('var-btn-' + varId);
+      if (activeBtn) activeBtn.classList.add('active');
+
+      // Update main image
+      var mainImg = document.getElementById('mainImg');
+      if (mainImg) mainImg.innerHTML = '<img src="' + variation.image + '" alt="' + variation.label + '">';
+
+      // Update thumbnails
+      var thumbs = document.querySelectorAll('.thumb');
+      variation.thumbImages.forEach(function(src, i) {
+        if (thumbs[i]) {
+          if (src) {
+            thumbs[i].innerHTML = '<img src="' + src + '" alt="View ' + (i + 1) + '">';
+          } else {
+            var labels = ['Front', 'Side', 'Detail'];
+            thumbs[i].innerHTML = '<span style="font-size:8px;font-weight:700;color:#CD7250;text-transform:uppercase;">' + labels[i] + '</span>';
+          }
+        }
+      });
+
+      // Update currentProduct so basket gets the right name and price
+      currentProduct.name = product.name + ' — ' + variation.label;
+      currentProduct.price = variation.price;
+      currentProduct.thumbImages = variation.thumbImages;
+
+      // Update price display
+      var priceEl = document.querySelector('.product-price');
+      if (priceEl) priceEl.textContent = '£' + variation.price.toFixed(2);
     }
 
     // ─── Qty (page-level) ─────────────────────────────
@@ -353,12 +445,23 @@
     // ─── Add / Buy ────────────────────────────────────
     function handleAddToBasket() {
       if (!currentProduct) return;
-      addToBasketById(currentProduct.id, currentProduct.name, currentProduct.price, currentProduct.accentColour, currentProduct.emoji, qty);
+      // If product has variations and none explicitly selected, prompt
+      var product = products[currentProduct.id];
+      if (product && product.variations && !currentProduct.variantSelected) {
+        // First variation is already auto-selected — just proceed
+      }
+      addToBasketById(
+        currentProduct.id + (currentProduct.variantId ? '-' + currentProduct.variantId : ''),
+        currentProduct.name,
+        currentProduct.price,
+        currentProduct.accentColour || '#e8a0a0',
+        currentProduct.emoji || '🩷',
+        qty
+      );
     }
 
     function handleBuyNow() {
-      if (!currentProduct) return;
-      addToBasketById(currentProduct.id, currentProduct.name, currentProduct.price, currentProduct.accentColour, currentProduct.emoji, qty);
+      handleAddToBasket();
       openBasket();
     }
 
@@ -366,8 +469,9 @@
     function switchThumb(el, index) {
       document.querySelectorAll('.thumb').forEach(function(t) { t.classList.remove('active'); });
       el.classList.add('active');
-      if (currentProduct && currentProduct.thumbImages[index]) {
-        document.getElementById('mainImg').innerHTML = '<img src="' + currentProduct.thumbImages[index] + '" alt="' + currentProduct.name + '">';
+      if (currentProduct && currentProduct.thumbImages && currentProduct.thumbImages[index]) {
+        document.getElementById('mainImg').innerHTML =
+          '<img src="' + currentProduct.thumbImages[index] + '" alt="' + currentProduct.name + '">';
       }
     }
 
@@ -392,15 +496,9 @@
         '<p class="footer-title">Stay in the loop ✦</p>' +
         '<p class="footer-sub">Follow along for new drops, behind-the-scenes &amp; community love</p>' +
         '<div class="footer-socials">' +
-          '<a class="social-btn" href="#">' +
-            '<svg width="16" height="16" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>' +
-            'Instagram</a>' +
-          '<a class="social-btn" href="#">' +
-            '<svg width="16" height="16" fill="currentColor" viewBox="0 0 24 24"><path d="M19.59 6.69a4.83 4.83 0 01-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 01-2.88 2.5 2.89 2.89 0 01-2.89-2.89 2.89 2.89 0 012.89-2.89c.28 0 .54.04.79.1V9.01a6.33 6.33 0 00-.79-.05 6.34 6.34 0 00-6.34 6.34 6.34 6.34 0 006.34 6.34 6.34 6.34 0 006.33-6.34V8.69a8.18 8.18 0 004.78 1.52V6.76a4.85 4.85 0 01-1.01-.07z"/></svg>' +
-            'TikTok</a>' +
-          '<a class="social-btn" href="#">' +
-            '<svg width="16" height="16" fill="currentColor" viewBox="0 0 24 24"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>' +
-            'Facebook</a>' +
+          '<a class="social-btn" href="#"><svg width="16" height="16" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>Instagram</a>' +
+          '<a class="social-btn" href="#"><svg width="16" height="16" fill="currentColor" viewBox="0 0 24 24"><path d="M19.59 6.69a4.83 4.83 0 01-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 01-2.88 2.5 2.89 2.89 0 01-2.89-2.89 2.89 2.89 0 012.89-2.89c.28 0 .54.04.79.1V9.01a6.33 6.33 0 00-.79-.05 6.34 6.34 0 00-6.34 6.34 6.34 6.34 0 006.34 6.34 6.34 6.34 0 006.33-6.34V8.69a8.18 8.18 0 004.78 1.52V6.76a4.85 4.85 0 01-1.01-.07z"/></svg>TikTok</a>' +
+          '<a class="social-btn" href="#"><svg width="16" height="16" fill="currentColor" viewBox="0 0 24 24"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>Facebook</a>' +
         '</div>' +
         '<hr class="footer-divider"/>' +
         '<div class="contact-box"><p class="contact-label">Get in touch 💌</p><p class="contact-email">hello@myadorablehijabifriend.com</p></div>' +
@@ -421,14 +519,30 @@
         return;
       }
 
-      currentProduct = { id: id, name: product.name, price: product.price, accentColour: product.accentColour, emoji: product.emoji, thumbImages: product.thumbImages };
+      currentProduct = {
+        id: id,
+        name: product.name,
+        price: product.price,
+        accentColour: product.accentColour || '#e8a0a0',
+        emoji: product.emoji || '🩷',
+        thumbImages: product.thumbImages,
+        variantId: null,
+        variantSelected: false
+      };
+
       document.title = product.name + ' — My Adorable Hijabi Friend';
 
       var relatedHTML = product.related.map(function(relId) {
         var rel = products[relId];
         if (!rel) return '';
-        var relImg = rel.image ? '<img src="' + rel.image + '" alt="' + rel.name + '">' : dollSVG(rel.hijabColour, rel.accentColour, 70);
-        return '<a class="related-card" href="product.html?id=' + relId + '"><div class="related-img" style="background:' + rel.colour + ';">' + relImg + '</div><p class="related-name">' + rel.name + '</p><p class="related-price">£' + rel.price.toFixed(2) + '</p></a>';
+        var relImg = rel.image
+          ? '<img src="' + rel.image + '" alt="' + rel.name + '">'
+          : dollSVG(rel.hijabColour, rel.accentColour, 70);
+        return '<a class="related-card" href="product.html?id=' + relId + '">' +
+          '<div class="related-img" style="background:' + rel.colour + ';">' + relImg + '</div>' +
+          '<p class="related-name">' + rel.name + '</p>' +
+          '<p class="related-price">£' + rel.price.toFixed(2) + '</p>' +
+        '</a>';
       }).join('');
 
       var topReviewsHTML = reviews.map(function(r) {
@@ -438,7 +552,7 @@
       var thumbBgs = [product.colour, '#dceaf2', '#ede8f5'];
 
       document.getElementById('pageContent').innerHTML =
-        '<div class="breadcrumb"><a href="index.html">Home</a> › <a href="index.html">Shop</a> › ' + product.name + '</div>' +
+        '<div class="breadcrumb"><a href="index.html">Home</a> › <a href="shop.html">Shop</a> › ' + product.name + '</div>' +
         '<section class="product-section">' +
           '<div class="product-img-col">' +
             '<div class="product-img-main" id="mainImg">' + productImgHTML(product) + '</div>' +
@@ -454,6 +568,7 @@
             '<p class="product-price">£' + product.price.toFixed(2) + '</p>' +
             '<div class="inline-stars"><div class="stars">' + starsHTML(Math.round(reviewStats.avg)) + '</div><span class="avg">' + reviewStats.avg + '</span><span class="count">(' + reviewStats.total + ')</span><a href="#reviews" class="review-chevron" title="See all reviews">›</a></div>' +
             '<p class="product-desc">' + product.description + '</p>' +
+            variationsHTML(product) +
             '<div class="qty-wrapper"><span class="qty-label">Qty</span><div class="qty-controls"><button class="qty-btn minus" onclick="changeQtyPage(-1)">−</button><span class="qty-num" id="qtyNum">1</span><button class="qty-btn plus" onclick="changeQtyPage(1)">+</button></div></div>' +
             '<div class="btn-row"><button class="add-btn" onclick="handleAddToBasket()">Add to basket</button><button class="buy-btn" onclick="handleBuyNow()">Buy now →</button></div>' +
             '<div class="accordion">' +
@@ -476,6 +591,11 @@
           '</div>' +
         '</section>' +
         footerHTML();
+
+      // Auto-select first variation if product has them
+      if (product.variations && product.variations.length > 0) {
+        selectVariation(product.variations[0].id);
+      }
     }
 
     renderPage();
