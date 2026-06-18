@@ -229,6 +229,9 @@
         ? '<img src="' + p.image + '" alt="' + p.name + '">'
         : '';
 
+      var safeName = p.name.replace(/'/g, "\\'");
+      var safeImg  = (p.image || '').replace(/'/g, "\\'");
+
       card.innerHTML =
         '<div class="product-img-wrap" style="background:' + p.colour + ';">' +
           imgHTML +
@@ -236,7 +239,7 @@
         '</div>' +
         '<p class="product-name">' + p.name + '</p>' +
         '<p class="product-price">£' + p.price.toFixed(2) + '</p>' +
-        '<button class="product-add" onclick="event.stopPropagation(); addToBasketById(\'' + p.id + '\',\'' + p.name + '\',' + p.price + ',\'' + p.accentColour + '\',1,\'' + (p.image || '') + '\')">Add to basket</button>';
+        '<button class="product-add" onclick="event.stopPropagation(); addToBasketById(\'' + p.id + '\',\'' + safeName + '\',' + p.price + ',\'' + p.accentColour + '\',1,\'' + safeImg + '\')">Add to basket</button>';
 
       track.appendChild(card);
     });
