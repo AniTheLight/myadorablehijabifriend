@@ -50,13 +50,13 @@
     .products-title { font-family: 'Cooper Black', 'Cooper Std', serif; font-size: clamp(24px, 4vw, 38px); color: #CD7250; text-shadow: 0 4px 0 #EDC1BB; margin-bottom: 0.4rem; }
     .products-sub { font-family: 'Playfair Display', serif; font-size: 15px; font-style: italic; color: #aaa; }
     .carousel-wrapper { position: relative; }
-    .carousel-track { display: flex; gap: 1.5rem; overflow-x: auto; scroll-snap-type: x mandatory; -webkit-overflow-scrolling: touch; padding: 0.5rem 2.5rem 1.5rem; scrollbar-width: none; align-items: stretch; }
+    .carousel-track { display: flex; gap: 1.5rem; padding: 0.5rem 2.5rem 1.5rem; align-items: stretch; }
     .carousel-track::-webkit-scrollbar { display: none; }
-    .product-card { flex: 0 0 240px; scroll-snap-align: start; display: flex; flex-direction: column; align-items: center; gap: 0.5rem; cursor: pointer; }
+    .product-card { flex: 1 1 0; min-width: 0; display: flex; flex-direction: column; align-items: center; gap: 0.5rem; cursor: pointer; }
     .product-card .product-name, .product-card .product-price { width: 100%; text-align: center; }
     .product-card .product-price { margin-bottom: 0.25rem; }
     .product-card .product-add { margin-top: auto; width: 100%; text-align: center; }
-    .product-img-wrap { width: 240px; height: 240px; background: #f0eaec; border-radius: 20px; display: flex; align-items: center; justify-content: center; position: relative; overflow: hidden; transition: transform 0.2s; }
+    .product-img-wrap { width: 100%; aspect-ratio: 1/1; background: #f0eaec; border-radius: 20px; display: flex; align-items: center; justify-content: center; position: relative; overflow: hidden; transition: transform 0.2s; }
     .product-card:hover .product-img-wrap { transform: translateY(-4px); }
     .product-img-wrap .placeholder-doll { width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; flex-direction: column; gap: 8px; }
     .placeholder-doll svg { opacity: 0.35; }
@@ -103,6 +103,16 @@
       .social-btn { justify-content: center; }
       .footer-divider { width: 80%; }
       .contact-box { padding: 14px 24px; }
+    }
+    @media (min-width: 769px) {
+      .carousel-btn { display: none; }
+    }
+    
+    @media (max-width: 768px) {
+      .carousel-track { overflow-x: auto; scroll-snap-type: x mandatory; -webkit-overflow-scrolling: touch; scrollbar-width: none; }
+      .product-card { flex: 0 0 180px; min-width: 180px; }
+      .product-img-wrap { width: 180px; height: 180px; aspect-ratio: unset; }
+      .carousel-btn { display: none; }
     }
     @media (max-width: 480px) {
       .hero-eyebrow { font-size: 9px; letter-spacing: 2px; }
