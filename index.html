@@ -13,8 +13,6 @@
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     html { scroll-behavior: smooth; }
     body { font-family: 'Nunito', sans-serif; background: #EDC1BB; color: #333; -webkit-font-smoothing: antialiased; }
-
-    /* ── Nav ── */
     .nav { display: flex; justify-content: space-between; align-items: center; padding: 1rem 2.5rem; background: #E7DFE1; border-bottom: 2px solid #EDC1BB; position: sticky; top: 0; z-index: 100; }
     .nav-links { display: flex; gap: 2rem; list-style: none; }
     .nav-links a { font-size: 13px; font-weight: 700; color: #7e98a8; text-decoration: none; letter-spacing: 0.5px; transition: color 0.2s; }
@@ -22,8 +20,6 @@
     .nav-basket { display: flex; align-items: center; justify-content: center; position: relative; cursor: pointer; color: #7e98a8; transition: color 0.2s; text-decoration: none; }
     .nav-basket:hover { color: #CD7250; }
     .basket-count { position: absolute; top: -6px; right: -8px; background: #CD7250; color: #fff; font-size: 9px; font-weight: 900; width: 16px; height: 16px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-family: 'Nunito', sans-serif; }
-
-    /* ── Hero ── */
     .hero { background: #EDC1BB; padding: 5rem 2rem 4rem; text-align: center; position: relative; overflow: hidden; }
     .hero::before { content: ''; position: absolute; width: 400px; height: 400px; border-radius: 50%; background: #E99075; opacity: 0.12; top: -100px; right: -80px; pointer-events: none; }
     .hero::after  { content: ''; position: absolute; width: 220px; height: 220px; border-radius: 50%; background: #fff; opacity: 0.07; bottom: -50px; left: 40px; pointer-events: none; }
@@ -33,15 +29,11 @@
     .cta-btn { display: inline-block; background: #CD7250; color: #fff; font-family: 'Nunito', sans-serif; font-weight: 900; font-size: 16px; padding: 15px 38px; border-radius: 50px; border: none; cursor: pointer; box-shadow: 0 5px 0 #9a4f2f; text-decoration: none; transition: transform 0.1s, box-shadow 0.1s; letter-spacing: 0.3px; }
     .cta-btn:hover  { transform: translateY(2px); box-shadow: 0 3px 0 #9a4f2f; }
     .cta-btn:active { transform: translateY(4px); box-shadow: 0 1px 0 #9a4f2f; }
-
-    /* ── Marquee ── */
     .marquee-strip { background: #7e98a8; padding: 12px 0; overflow: hidden; white-space: nowrap; }
     .marquee-track { display: inline-flex; animation: marquee 20s linear infinite; }
     .marquee-track span { font-size: 12px; font-weight: 700; letter-spacing: 2.5px; color: #fff; text-transform: uppercase; padding: 0 1.5rem; }
     .marquee-track .dot { color: #EDC1BB; }
     @keyframes marquee { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
-
-    /* ── Products carousel ── */
     .products { background: #fff; padding: 4rem 0; }
     .products-header { text-align: center; padding: 0 2rem 2.5rem; }
     .products-title { font-family: 'Cooper Black', serif; font-size: clamp(24px, 4vw, 38px); color: #CD7250; text-shadow: 0 4px 0 #EDC1BB; margin-bottom: 0.4rem; }
@@ -65,12 +57,9 @@
     .carousel-btn:hover { background: #9a4f2f; }
     .carousel-btn.prev { left: 8px; }
     .carousel-btn.next { right: 8px; }
-    /* Dots: mobile only */
     .carousel-dots { display: none; justify-content: center; gap: 8px; margin-top: 1.25rem; padding-bottom: 0.5rem; }
     .carousel-dot { width: 8px; height: 8px; border-radius: 50%; background: #EDC1BB; border: none; cursor: pointer; transition: background 0.2s, transform 0.2s; }
     .carousel-dot.active { background: #CD7250; transform: scale(1.25); }
-
-    /* ── Story ── */
     .story { display: grid; grid-template-columns: 1fr 1fr; background: #fff; }
     .story-image-side { background: #EDC1BB; display: flex; align-items: center; justify-content: center; padding: 3.5rem 2.5rem; min-height: 420px; }
     .story-image-side img { width: 100%; max-width: 320px; border-radius: 24px; object-fit: cover; }
@@ -81,8 +70,6 @@
     .story-body em { color: #CD7250; font-style: italic; }
     .story-link { display: inline-block; background: #EDC1BB; color: #CD7250; font-family: 'Nunito', sans-serif; font-weight: 900; font-size: 13px; padding: 11px 26px; border-radius: 50px; text-decoration: none; border: 2px solid #CD7250; letter-spacing: 0.3px; transition: background 0.2s, color 0.2s; align-self: flex-start; }
     .story-link:hover { background: #CD7250; color: #fff; }
-
-    /* ── Footer ── */
     .footer { background: #7e98a8; padding: 3.5rem 2rem 2.5rem; text-align: center; }
     .footer-title { font-family: 'Cooper Black', serif; font-size: 26px; color: #fff; margin-bottom: 0.4rem; }
     .footer-sub   { font-family: 'Playfair Display', serif; font-size: 16px; font-style: italic; color: #E7DFE1; margin-bottom: 2rem; }
@@ -94,8 +81,6 @@
     .contact-label  { font-size: 13px; color: #fff; font-weight: 900; margin-bottom: 4px; }
     .contact-email  { font-size: 14px; color: #fff; font-weight: 700; }
     .footer-copy    { font-size: 11px; color: #dde8ef; margin-top: 2rem; opacity: 0.7; }
-
-    /* ── Mobile ── */
     @media (max-width: 768px) {
       .nav { padding: 1rem 1.25rem; }
       .hero { padding: 3rem 1.25rem 2.5rem; }
@@ -121,80 +106,8 @@
 </head>
 <body>
 
-  <script src="products.js"></script>
-  <script src="basket.js"></script>
-  <script src="nav.js"></script>
-  <script>
-    document.addEventListener('DOMContentLoaded', function () {
-
-    // ── Build carousel from products.js ──────────────────────────────────────
-    var track = document.getElementById('carouselTrack');
-
-    MAHF_PRODUCTS.forEach(function(p) {
-      var card = document.createElement('div');
-      card.className = 'product-card';
-      card.onclick = function() { window.location.href = 'product.html?id=' + p.id; };
-
-      var imgHTML = p.image
-        ? '<img src="' + p.image + '" alt="' + p.name + '">'
-        : '';
-
-      var safeName = p.name.replace(/'/g, "\\'");
-      var safeImg  = (p.image || '').replace(/'/g, "\\'");
-
-      card.innerHTML =
-        '<div class="product-img-wrap" style="background:' + p.colour + ';">' +
-          imgHTML +
-          '<div class="product-colour-dot" style="background:' + p.accentColour + ';"></div>' +
-        '</div>' +
-        '<p class="product-name">' + p.name + '</p>' +
-        '<p class="product-price">£' + p.price.toFixed(2) + '</p>' +
-        '<button class="product-add" onclick="event.stopPropagation(); addToBasketById(\'' + p.id + '\',\'' + safeName + '\',' + p.price + ',\'' + p.accentColour + '\',1,\'' + safeImg + '\')">Add to basket</button>';
-
-      track.appendChild(card);
-    });
-
-    // ── Mobile dots (scrolling only) ─────────────────────────────────────────
-    var cards = track.querySelectorAll('.product-card');
-    var dotsContainer = document.getElementById('carouselDots');
-    var NUM_DOTS = 3;
-
-    for (var i = 0; i < NUM_DOTS; i++) {
-      var dot = document.createElement('button');
-      dot.className = 'carousel-dot' + (i === 0 ? ' active' : '');
-      dot.setAttribute('aria-label', 'Go to section ' + (i + 1));
-      (function(idx) {
-        dot.addEventListener('click', function() {
-          var cardIndex = Math.round(idx * (cards.length - 1) / (NUM_DOTS - 1));
-          track.scrollTo({ left: cards[cardIndex].offsetLeft - 40, behavior: 'smooth' });
-        });
-      })(i);
-      dotsContainer.appendChild(dot);
-    }
-
-    function scrollCarousel(dir) {
-      track.scrollBy({ left: dir * (cards[0].offsetWidth + 24), behavior: 'smooth' });
-    }
-
-    function updateDots() {
-      var maxScroll = track.scrollWidth - track.clientWidth;
-      var progress  = maxScroll > 0 ? track.scrollLeft / maxScroll : 0;
-      var activeDot = Math.round(progress * (NUM_DOTS - 1));
-      document.querySelectorAll('.carousel-dot').forEach(function(d, i) {
-        d.classList.toggle('active', i === activeDot);
-      });
-    }
-    track.addEventListener('scroll', updateDots);
-
-    }); // end DOMContentLoaded
-  </script>
-
-
-  <!--html start-->
-  
   <div id="navMount"></div>
 
-  <!-- Hero -->
   <section class="hero">
     <p class="hero-eyebrow">✦ the sweetest little companion ✦</p>
     <h1 class="hero-title">My Adorable<br>Hijabi Friend</h1>
@@ -202,7 +115,6 @@
     <a href="shop.html" class="cta-btn">Shop the collection ✦</a>
   </section>
 
-  <!-- Marquee -->
   <div class="marquee-strip" aria-hidden="true">
     <div class="marquee-track">
       <span>Eid</span><span class="dot">✦</span>
@@ -224,7 +136,6 @@
     </div>
   </div>
 
-  <!-- Product Carousel — built from products.js -->
   <section class="products">
     <div class="products-header">
       <h2 class="products-title">Your New Friend ✦</h2>
@@ -242,7 +153,6 @@
     <div class="carousel-dots" id="carouselDots"></div>
   </section>
 
-  <!-- Story -->
   <section class="story">
     <div class="story-image-side">
       <img src="images/story.jpg" alt="My Adorable Hijabi Friend — handmade with love">
@@ -258,7 +168,6 @@
     </div>
   </section>
 
-  <!-- Footer -->
   <footer class="footer">
     <p class="footer-title">Stay in the loop ✦</p>
     <p class="footer-sub">Follow along for new drops, behind-the-scenes &amp; community love</p>
@@ -284,6 +193,68 @@
     <p class="footer-copy">© 2025 My Adorable Hijabi Friend · Made with love in the UK</p>
   </footer>
 
+  <!-- Scripts at the BOTTOM, after all HTML exists in the DOM -->
+  <script src="products.js"></script>
+  <script src="basket.js"></script>
+  <script src="nav.js"></script>
+  <script>
+    // scrollCarousel must be global so the onclick buttons can call it
+    var _track = document.getElementById('carouselTrack');
 
+    function scrollCarousel(dir) {
+      var firstCard = _track.querySelector('.product-card');
+      if (firstCard) _track.scrollBy({ left: dir * (firstCard.offsetWidth + 24), behavior: 'smooth' });
+    }
+
+    // Build carousel cards
+    MAHF_PRODUCTS.forEach(function(p) {
+      var card = document.createElement('div');
+      card.className = 'product-card';
+      card.onclick = function() { window.location.href = 'product.html?id=' + p.id; };
+
+      var imgHTML  = p.image ? '<img src="' + p.image + '" alt="' + p.name + '">' : '';
+      var safeName = p.name.replace(/'/g, "\\'");
+      var safeImg  = (p.image || '').replace(/'/g, "\\'");
+
+      card.innerHTML =
+        '<div class="product-img-wrap" style="background:' + p.colour + ';">' +
+          imgHTML +
+          '<div class="product-colour-dot" style="background:' + p.accentColour + ';"></div>' +
+        '</div>' +
+        '<p class="product-name">' + p.name + '</p>' +
+        '<p class="product-price">£' + p.price.toFixed(2) + '</p>' +
+        '<button class="product-add" onclick="event.stopPropagation(); addToBasketById(\'' + p.id + '\',\'' + safeName + '\',' + p.price + ',\'' + p.accentColour + '\',1,\'' + safeImg + '\')">Add to basket</button>';
+
+      _track.appendChild(card);
+    });
+
+    // Mobile dots
+    var _cards = _track.querySelectorAll('.product-card');
+    var dotsContainer = document.getElementById('carouselDots');
+    var NUM_DOTS = 3;
+
+    for (var i = 0; i < NUM_DOTS; i++) {
+      var dot = document.createElement('button');
+      dot.className = 'carousel-dot' + (i === 0 ? ' active' : '');
+      dot.setAttribute('aria-label', 'Go to section ' + (i + 1));
+      (function(idx) {
+        dot.addEventListener('click', function() {
+          var cardIndex = Math.round(idx * (_cards.length - 1) / (NUM_DOTS - 1));
+          _track.scrollTo({ left: _cards[cardIndex].offsetLeft - 40, behavior: 'smooth' });
+        });
+      })(i);
+      dotsContainer.appendChild(dot);
+    }
+
+    function updateDots() {
+      var maxScroll = _track.scrollWidth - _track.clientWidth;
+      var progress  = maxScroll > 0 ? _track.scrollLeft / maxScroll : 0;
+      var activeDot = Math.round(progress * (NUM_DOTS - 1));
+      document.querySelectorAll('.carousel-dot').forEach(function(d, i) {
+        d.classList.toggle('active', i === activeDot);
+      });
+    }
+    _track.addEventListener('scroll', updateDots);
+  </script>
 </body>
 </html>
