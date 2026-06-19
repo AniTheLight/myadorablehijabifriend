@@ -210,7 +210,7 @@
     MAHF_PRODUCTS.forEach(function(p) {
       var card = document.createElement('div');
       card.className = 'product-card';
-      card.onclick = function() { window.location.href = 'product.html?id=' + p.id; };
+      card.onclick = function() { window.location.href = 'products.html?id=' + p.id; };
 
       var imgHTML  = p.image ? '<img src="' + p.image + '" alt="' + p.name + '">' : '';
       var safeName = p.name.replace(/'/g, "\\'");
