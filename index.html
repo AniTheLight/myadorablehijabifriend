@@ -121,6 +121,77 @@
 </head>
 <body>
 
+   <script src="products.js"></script>
+  <script src="basket.js"></script>
+  <script src="nav.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+
+    // ── Build carousel from products.js ──────────────────────────────────────
+    var track = document.getElementById('carouselTrack');
+
+    MAHF_PRODUCTS.forEach(function(p) {
+      var card = document.createElement('div');
+      card.className = 'product-card';
+      card.onclick = function() { window.location.href = 'product.html?id=' + p.id; };
+
+      var imgHTML = p.image
+        ? '<img src="' + p.image + '" alt="' + p.name + '">'
+        : '';
+
+      var safeName = p.name.replace(/'/g, "\\'");
+      var safeImg  = (p.image || '').replace(/'/g, "\\'");
+
+      card.innerHTML =
+        '<div class="product-img-wrap" style="background:' + p.colour + ';">' +
+          imgHTML +
+          '<div class="product-colour-dot" style="background:' + p.accentColour + ';"></div>' +
+        '</div>' +
+        '<p class="product-name">' + p.name + '</p>' +
+        '<p class="product-price">£' + p.price.toFixed(2) + '</p>' +
+        '<button class="product-add" onclick="event.stopPropagation(); addToBasketById(\'' + p.id + '\',\'' + safeName + '\',' + p.price + ',\'' + p.accentColour + '\',1,\'' + safeImg + '\')">Add to basket</button>';
+
+      track.appendChild(card);
+    });
+
+    // ── Mobile dots (scrolling only) ─────────────────────────────────────────
+    var cards = track.querySelectorAll('.product-card');
+    var dotsContainer = document.getElementById('carouselDots');
+    var NUM_DOTS = 3;
+
+    for (var i = 0; i < NUM_DOTS; i++) {
+      var dot = document.createElement('button');
+      dot.className = 'carousel-dot' + (i === 0 ? ' active' : '');
+      dot.setAttribute('aria-label', 'Go to section ' + (i + 1));
+      (function(idx) {
+        dot.addEventListener('click', function() {
+          var cardIndex = Math.round(idx * (cards.length - 1) / (NUM_DOTS - 1));
+          track.scrollTo({ left: cards[cardIndex].offsetLeft - 40, behavior: 'smooth' });
+        });
+      })(i);
+      dotsContainer.appendChild(dot);
+    }
+
+    function scrollCarousel(dir) {
+      track.scrollBy({ left: dir * (cards[0].offsetWidth + 24), behavior: 'smooth' });
+    }
+
+    function updateDots() {
+      var maxScroll = track.scrollWidth - track.clientWidth;
+      var progress  = maxScroll > 0 ? track.scrollLeft / maxScroll : 0;
+      var activeDot = Math.round(progress * (NUM_DOTS - 1));
+      document.querySelectorAll('.carousel-dot').forEach(function(d, i) {
+        d.classList.toggle('active', i === activeDot);
+      });
+    }
+    track.addEventListener('scroll', updateDots);
+
+    }); // end DOMContentLoaded
+  </script>
+
+
+
+  
   <div id="navMount"></div>
 
   <!-- Hero -->
@@ -213,72 +284,6 @@
     <p class="footer-copy">© 2025 My Adorable Hijabi Friend · Made with love in the UK</p>
   </footer>
 
-  <script src="products.js"></script>
-  <script src="basket.js"></script>
-  <script src="nav.js"></script>
-  <script>
-    document.addEventListener('DOMContentLoaded', function () {
 
-    // ── Build carousel from products.js ──────────────────────────────────────
-    var track = document.getElementById('carouselTrack');
-
-    MAHF_PRODUCTS.forEach(function(p) {
-      var card = document.createElement('div');
-      card.className = 'product-card';
-      card.onclick = function() { window.location.href = 'product.html?id=' + p.id; };
-
-      var imgHTML = p.image
-        ? '<img src="' + p.image + '" alt="' + p.name + '">'
-        : '';
-
-      var safeName = p.name.replace(/'/g, "\\'");
-      var safeImg  = (p.image || '').replace(/'/g, "\\'");
-
-      card.innerHTML =
-        '<div class="product-img-wrap" style="background:' + p.colour + ';">' +
-          imgHTML +
-          '<div class="product-colour-dot" style="background:' + p.accentColour + ';"></div>' +
-        '</div>' +
-        '<p class="product-name">' + p.name + '</p>' +
-        '<p class="product-price">£' + p.price.toFixed(2) + '</p>' +
-        '<button class="product-add" onclick="event.stopPropagation(); addToBasketById(\'' + p.id + '\',\'' + safeName + '\',' + p.price + ',\'' + p.accentColour + '\',1,\'' + safeImg + '\')">Add to basket</button>';
-
-      track.appendChild(card);
-    });
-
-    // ── Mobile dots (scrolling only) ─────────────────────────────────────────
-    var cards = track.querySelectorAll('.product-card');
-    var dotsContainer = document.getElementById('carouselDots');
-    var NUM_DOTS = 3;
-
-    for (var i = 0; i < NUM_DOTS; i++) {
-      var dot = document.createElement('button');
-      dot.className = 'carousel-dot' + (i === 0 ? ' active' : '');
-      dot.setAttribute('aria-label', 'Go to section ' + (i + 1));
-      (function(idx) {
-        dot.addEventListener('click', function() {
-          var cardIndex = Math.round(idx * (cards.length - 1) / (NUM_DOTS - 1));
-          track.scrollTo({ left: cards[cardIndex].offsetLeft - 40, behavior: 'smooth' });
-        });
-      })(i);
-      dotsContainer.appendChild(dot);
-    }
-
-    function scrollCarousel(dir) {
-      track.scrollBy({ left: dir * (cards[0].offsetWidth + 24), behavior: 'smooth' });
-    }
-
-    function updateDots() {
-      var maxScroll = track.scrollWidth - track.clientWidth;
-      var progress  = maxScroll > 0 ? track.scrollLeft / maxScroll : 0;
-      var activeDot = Math.round(progress * (NUM_DOTS - 1));
-      document.querySelectorAll('.carousel-dot').forEach(function(d, i) {
-        d.classList.toggle('active', i === activeDot);
-      });
-    }
-    track.addEventListener('scroll', updateDots);
-
-    }); // end DOMContentLoaded
-  </script>
 </body>
 </html>
