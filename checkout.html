@@ -27,39 +27,84 @@
     .left-col { display: flex; flex-direction: column; gap: 24px; }
     .card { background: #f9f3f1; border-radius: 20px; padding: 28px; border: 2px solid #e891a1; }
     .card-title { font-family: 'Cormorant Garamond', serif; font-size: 24px; font-weight: 300; color: #CD7250; margin-bottom: 22px; }
-    .sign-in-row { display: flex; align-items: center; gap: 16px; margin-bottom: 22px; padding-bottom: 22px; border-bottom: 1.5px solid #f5dde5; }
-    .sign-in-row p { font-size: 13px; color: #aaa; font-weight: 700; }
-    .sign-btn { background: #e891a1; border: none; color: #fff; font-family: 'Nunito', sans-serif; font-weight: 900; font-size: 13px; padding: 8px 20px; border-radius: 50px; cursor: pointer; box-shadow: 0 3px 0 #c4607a; transition: background 0.15s; }
-    .sign-btn:hover { background: #CD7250; }
     .section-label { font-size: 10px; font-weight: 900; letter-spacing: 2.5px; text-transform: uppercase; color: #7e98a8; margin-bottom: 14px; }
     .form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-bottom: 18px; }
     .form-grid.full { grid-template-columns: 1fr; }
     .section-gap { margin-top: 22px; padding-top: 22px; border-top: 1.5px solid #f5dde5; }
     .float-field { position: relative; }
-    .float-field input, .float-field select, .float-field textarea { width: 100%; background: #fff; border: 1.5px solid #e891a1; border-radius: 12px; padding: 20px 14px 8px; font-family: 'Nunito', sans-serif; font-size: 14px; color: #555; outline: none; transition: border-color 0.15s; appearance: none; }
-    .float-field input:focus, .float-field select:focus, .float-field textarea:focus { border-color: #CD7250; }
+    .float-field input, .float-field textarea { width: 100%; background: #fff; border: 1.5px solid #e891a1; border-radius: 12px; padding: 20px 14px 8px; font-family: 'Nunito', sans-serif; font-size: 14px; color: #555; outline: none; transition: border-color 0.15s; }
+    .float-field input:focus, .float-field textarea:focus { border-color: #CD7250; }
     .float-field label { position: absolute; left: 15px; top: 50%; transform: translateY(-50%); font-size: 14px; color: #bbb; font-weight: 700; pointer-events: none; transition: all 0.15s ease; }
     .float-field textarea ~ label { top: 16px; transform: none; }
     .float-field input:focus ~ label, .float-field input:not(:placeholder-shown) ~ label,
-    .float-field select:focus ~ label,
     .float-field textarea:focus ~ label, .float-field textarea:not(:placeholder-shown) ~ label { top: 7px; transform: none; font-size: 9px; letter-spacing: 1px; text-transform: uppercase; color: #e891a1; font-weight: 900; }
     .float-field textarea { resize: none; height: 90px; padding-top: 20px; }
     .checkbox-row { display: flex; align-items: center; gap: 10px; margin-top: 8px; }
     .checkbox-row input { width: 15px; height: 15px; accent-color: #e891a1; }
     .checkbox-row label { font-size: 12px; color: #aaa; font-weight: 700; }
-    .payment-methods { display: flex; flex-direction: column; gap: 10px; margin-bottom: 16px; }
-    .pay-option { display: flex; align-items: center; gap: 12px; padding: 13px 16px; border: 1.5px solid #e891a1; border-radius: 14px; cursor: pointer; background: #fff; transition: background 0.15s; }
-    .pay-option.active { background: #fdf5f7; }
-    .pay-option input[type=radio] { accent-color: #e891a1; width: 15px; height: 15px; }
-    .pay-option-label { font-size: 14px; font-weight: 700; color: #555; }
-    .pay-option-icons { display: flex; gap: 5px; margin-left: auto; }
-    .card-icon { width: 32px; height: 20px; border-radius: 4px; background: #fde8f0; display: flex; align-items: center; justify-content: center; font-size: 8px; font-weight: 900; color: #e891a1; }
-    .card-fields { display: grid; grid-template-columns: 1fr; gap: 12px; padding: 16px; background: #fff; border-radius: 14px; border: 1.5px solid #e891a1; margin-top: 6px; }
-    .card-fields-row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
-    .pay-btn { display: block; width: 100%; background: #e891a1; color: #fff; font-family: 'Nunito', sans-serif; font-weight: 900; font-size: 16px; padding: 16px; border-radius: 50px; border: none; cursor: pointer; box-shadow: 0 5px 0 #c4607a; text-align: center; transition: background 0.2s, transform 0.1s, box-shadow 0.1s; margin-top: 18px; }
-    .pay-btn:hover { background: #CD7250; transform: translateY(2px); box-shadow: 0 3px 0 #9a4f2f; }
-    .pay-btn:disabled { background: #ccc; box-shadow: 0 3px 0 #aaa; cursor: not-allowed; transform: none; }
+
+    /* ── Payment method tabs ── */
+    .payment-tabs { display: flex; gap: 10px; margin-bottom: 20px; }
+    .pay-tab { flex: 1; display: flex; align-items: center; justify-content: center; gap: 8px; padding: 12px 16px; border: 2px solid #f0ddd8; border-radius: 14px; cursor: pointer; background: #fff; transition: border-color 0.15s, background 0.15s; }
+    .pay-tab.active { border-color: #CD7250; background: #fdf5f3; }
+    .pay-tab input[type=radio] { display: none; }
+    .pay-tab-label { font-family: 'Nunito', sans-serif; font-size: 13px; font-weight: 900; color: #888; }
+    .pay-tab.active .pay-tab-label { color: #CD7250; }
+
+    /* ── Stripe pay button ── */
+    .stripe-btn {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      width: 100%;
+      background: #635BFF;
+      color: #fff;
+      font-family: 'Nunito', sans-serif;
+      font-weight: 900;
+      font-size: 16px;
+      padding: 16px;
+      border-radius: 50px;
+      border: none;
+      cursor: pointer;
+      box-shadow: 0 5px 0 #4b44cc;
+      transition: background 0.2s, transform 0.1s, box-shadow 0.1s;
+      margin-top: 18px;
+      letter-spacing: 0.3px;
+    }
+    .stripe-btn:hover { background: #4f46e5; transform: translateY(2px); box-shadow: 0 3px 0 #3730a3; }
+    .stripe-btn:disabled { background: #ccc; box-shadow: 0 3px 0 #aaa; cursor: not-allowed; transform: none; }
+    .stripe-btn svg { flex-shrink: 0; }
+
+    /* ── PayPal button ── */
+    .paypal-btn {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      width: 100%;
+      background: #FFC439;
+      color: #003087;
+      font-family: 'Nunito', sans-serif;
+      font-weight: 900;
+      font-size: 16px;
+      padding: 16px;
+      border-radius: 50px;
+      border: none;
+      cursor: pointer;
+      box-shadow: 0 5px 0 #e6a800;
+      transition: background 0.2s, transform 0.1s, box-shadow 0.1s;
+      margin-top: 18px;
+      letter-spacing: 0.3px;
+    }
+    .paypal-btn:hover { background: #f0b800; transform: translateY(2px); box-shadow: 0 3px 0 #c49200; }
+
+    /* PayPal SDK renders into this div */
+    #paypal-button-container { margin-top: 18px; }
+
     .secure-note { display: flex; align-items: center; justify-content: center; gap: 6px; margin-top: 12px; font-size: 12px; color: #aaa; font-weight: 700; }
+
+    /* ── Order card ── */
     .order-card { background: #f9f3f1; border-radius: 20px; padding: 22px; border: 2px solid #e891a1; position: sticky; top: 90px; }
     .order-title { font-family: 'Cormorant Garamond', serif; font-size: 22px; font-weight: 300; color: #CD7250; margin-bottom: 18px; }
     .order-item { display: flex; align-items: flex-start; gap: 13px; padding: 13px 0; border-bottom: 1.5px solid #f5dde5; }
@@ -112,14 +157,12 @@
     }
     @media (max-width: 480px) {
       .card { padding: 18px; }
-      .card-fields-row { grid-template-columns: 1fr; }
     }
   </style>
 </head>
 <body>
 
   <div id="navMount"></div>
-
   <div id="pageContent"></div>
 
   <script src="products.js"></script>
@@ -135,16 +178,33 @@
       return '<svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>';
     }
 
+    // Stripe SVG logo
+    function stripeLogo() {
+      return '<svg height="20" viewBox="0 0 60 25" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M59.64 14.28h-8.06c.19 1.93 1.6 2.55 3.2 2.55 1.64 0 2.96-.37 4.05-.95v3.32a8.33 8.33 0 01-4.56 1.1c-4.01 0-6.83-2.5-6.83-7.48 0-4.19 2.39-7.52 6.3-7.52 3.92 0 5.96 3.28 5.96 7.5 0 .4-.04 1.26-.06 1.48zm-5.92-5.62c-1.03 0-2.17.73-2.17 2.58h4.25c0-1.85-1.07-2.58-2.08-2.58zM40.95 20.3c-1.44 0-2.32-.6-2.9-1.04l-.02 4.63-4.45.94V5.2h3.96l.1 1.07c.56-.69 1.63-1.32 3.22-1.32 2.96 0 5.9 2.86 5.9 7.64 0 5.42-2.9 7.71-5.81 7.71zm-1.03-11.09c-.88 0-1.49.34-1.87.81l.02 6.12c.35.44.95.78 1.85.78 1.46 0 2.36-1.69 2.36-3.87 0-2.16-.93-3.84-2.36-3.84zM28.24 5.2h4.46v14.83h-4.46V5.2zm0-4.7L32.7 0v3.63l-4.46.94V.5zm-4.63 14.36c0 1.17.92 1.62 2.11 1.62.74 0 1.56-.18 2.23-.5v3.35a9.23 9.23 0 01-3.31.57c-2.89 0-4.98-1.65-4.98-4.65V8.44h-1.95V5.2h1.95V1.33l4.45-.94V5.2h3.35v3.24h-3.35v6.42zM13.09 9.07c0-.88.73-1.22 1.94-1.22 1.73 0 3.93.52 5.65 1.45V5.37a15.07 15.07 0 00-5.65-1.04c-4.64 0-7.72 2.42-7.72 6.46 0 6.3 8.68 5.29 8.68 8.01 0 1.04-.9 1.38-2.18 1.38-1.89 0-4.31-.78-6.21-1.82v3.98c2.11.91 4.25 1.3 6.21 1.3 4.74 0 7.99-2.34 7.99-6.43-.01-6.8-8.71-5.59-8.71-8.14z" fill="white"/></svg>';
+    }
+
+    // PayPal SVG logo
+    function paypalLogo() {
+      return '<svg height="20" viewBox="0 0 100 26" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M12.237 2.1H5.07a.96.96 0 00-.949.812L1.3 19.094a.576.576 0 00.57.666h3.4l.853-5.418-.027.17a.96.96 0 01.948-.813h1.976c3.878 0 6.914-1.574 7.8-6.126.026-.134.05-.265.07-.393-.112-.059-.112-.059 0 0 .264-1.684-.002-2.83-.96-3.869-.953-1.13-2.678-1.211-4.693-1.211z" fill="#003087"/><path d="M32.948 8.31h-3.4a.576.576 0 00-.569.487l-1.463 9.278-.027.17a.576.576 0 00.57.666h2.735a.576.576 0 00.569-.487l.395-2.503a.96.96 0 01.949-.812h1.118c3.092 0 4.879-1.497 5.344-4.467.21-1.298.009-2.317-.598-3.032-.666-.783-1.845-1.3-3.623-1.3z" fill="#003087"/><path d="M47.5 8.31h-3.4a.576.576 0 00-.569.487l-1.463 9.278-.027.17a.576.576 0 00.57.666h2.735a.576.576 0 00.569-.487l.395-2.503a.96.96 0 01.949-.812h1.118c3.092 0 4.879-1.497 5.344-4.467.21-1.298.009-2.317-.598-3.032-.666-.783-1.845-1.3-3.623-1.3z" fill="#009cde"/></svg>';
+    }
+
+    var currentPayMethod = 'stripe';
+
+    function selectPayMethod(method) {
+      currentPayMethod = method;
+      document.querySelectorAll('.pay-tab').forEach(function(t) { t.classList.remove('active'); });
+      document.getElementById('tab-' + method).classList.add('active');
+      document.getElementById('stripe-section').style.display = method === 'stripe' ? 'block' : 'none';
+      document.getElementById('paypal-section').style.display = method === 'paypal' ? 'block' : 'none';
+    }
+
     function renderCheckout() {
       var items = '';
       if (basket.length === 0) {
         items = '<div class="empty-msg"><p>Your basket is empty.</p><a href="index.html">← Continue shopping</a></div>';
       } else {
         basket.forEach(function(item) {
-          var imgHTML = item.image
-            ? '<img src="' + item.image + '" alt="' + item.name + '">'
-            : '';
-
+          var imgHTML = item.image ? '<img src="' + item.image + '" alt="' + item.name + '">' : '';
           items +=
             '<div class="order-item">' +
               '<div class="item-img" style="background:' + (item.colour || '#EDC1BB') + '20;">' + imgHTML + '</div>' +
@@ -170,6 +230,8 @@
         '<div class="breadcrumb"><a href="index.html">Home</a> <span>›</span> <a href="shop.html">Shop</a> <span>›</span> Checkout</div>' +
         '<div class="checkout-grid">' +
           '<div class="left-col">' +
+
+            // Contact card
             '<div class="card">' +
               '<div class="card-title">Contact details</div>' +
               '<div class="section-label">Personal info</div>' +
@@ -191,34 +253,61 @@
                 '<div class="checkbox-row" style="margin-top:12px;"><input type="checkbox" id="save"><label for="save">Save this address for next time</label></div>' +
               '</div>' +
             '</div>' +
+
+            // Payment card
             '<div class="card">' +
               '<div class="card-title">Payment</div>' +
-              '<div class="section-label">Select payment method</div>' +
-              '<div class="payment-methods">' +
-                '<div class="pay-option active" onclick="selectPay(this)"><input type="radio" name="pay" checked><span class="pay-option-label">Credit / Debit card</span><div class="pay-option-icons"><div class="card-icon">VISA</div><div class="card-icon">MC</div><div class="card-icon">AMEX</div></div></div>' +
-                '<div class="pay-option" onclick="selectPay(this)"><input type="radio" name="pay"><span class="pay-option-label">Apple Pay</span><div class="pay-option-icons"><div class="card-icon" style="width:44px;">Apple Pay</div></div></div>' +
-                '<div class="pay-option" onclick="selectPay(this)"><input type="radio" name="pay"><span class="pay-option-label">Google Pay</span><div class="pay-option-icons"><div class="card-icon" style="width:40px;">G Pay</div></div></div>' +
-              '</div>' +
-              '<div class="card-fields" id="cardFields">' +
-                '<div class="float-field"><input type="text" placeholder=" " id="cn" maxlength="19"><label for="cn">Card number</label></div>' +
-                '<div class="card-fields-row">' +
-                  '<div class="float-field"><input type="text" placeholder=" " id="ex" maxlength="7"><label for="ex">Expiry (MM/YY)</label></div>' +
-                  '<div class="float-field"><input type="text" placeholder=" " id="cv" maxlength="4"><label for="cv">Security code</label></div>' +
+              '<div class="section-label">Choose how to pay</div>' +
+
+              // Tabs
+              '<div class="payment-tabs">' +
+                '<div class="pay-tab active" id="tab-stripe" onclick="selectPayMethod(\'stripe\')">' +
+                  '<input type="radio" name="paymethod" checked>' +
+                  '<span class="pay-tab-label">💳 Card via Stripe</span>' +
                 '</div>' +
-                '<div class="float-field"><input type="text" placeholder=" " id="nc"><label for="nc">Name on card</label></div>' +
+                '<div class="pay-tab" id="tab-paypal" onclick="selectPayMethod(\'paypal\')">' +
+                  '<input type="radio" name="paymethod">' +
+                  '<span class="pay-tab-label">🅿 PayPal</span>' +
+                '</div>' +
               '</div>' +
-              '<button class="pay-btn" id="payBtn" onclick="handlePayment()">Pay securely — £' + getGrand().toFixed(2) + '</button>' +
-              '<div class="secure-note"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0110 0v4"/></svg>Secured by Stripe · 256-bit SSL encryption</div>' +
+
+              // Stripe section
+              '<div id="stripe-section">' +
+                '<div class="section-label">Card details</div>' +
+                '<div style="display:grid;gap:12px;padding:16px;background:#fff;border-radius:14px;border:1.5px solid #e891a1;">' +
+                  '<div class="float-field"><input type="text" placeholder=" " id="cn" maxlength="19"><label for="cn">Card number</label></div>' +
+                  '<div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;">' +
+                    '<div class="float-field"><input type="text" placeholder=" " id="ex" maxlength="7"><label for="ex">Expiry (MM/YY)</label></div>' +
+                    '<div class="float-field"><input type="text" placeholder=" " id="cv" maxlength="4"><label for="cv">Security code</label></div>' +
+                  '</div>' +
+                  '<div class="float-field"><input type="text" placeholder=" " id="nc"><label for="nc">Name on card</label></div>' +
+                '</div>' +
+                '<button class="stripe-btn" id="payBtn" onclick="handleStripePayment()">' +
+                  stripeLogo() +
+                  '<span>Pay securely — £' + getGrand().toFixed(2) + '</span>' +
+                '</button>' +
+                '<div class="secure-note"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0110 0v4"/></svg>Secured by Stripe · 256-bit SSL</div>' +
+              '</div>' +
+
+              // PayPal section
+              '<div id="paypal-section" style="display:none;">' +
+                '<p style="font-size:13px;color:#aaa;font-weight:700;margin-bottom:14px;">You\'ll be taken to PayPal to complete your purchase securely.</p>' +
+                '<div id="paypal-button-container"></div>' +
+                '<div class="secure-note" style="margin-top:14px;"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0110 0v4"/></svg>Secured by PayPal · Buyer Protection included</div>' +
+              '</div>' +
+
             '</div>' +
           '</div>' +
+
+          // Order summary
           '<div>' +
             '<div class="order-card">' +
               '<div class="order-title">Your order</div>' +
               '<div id="checkoutItems">' + items + '</div>' +
               '<div class="order-totals">' +
-                '<div class="total-row"><span class="total-label">Subtotal</span><span class="total-value" id="coSub">£' + getTotal().toFixed(2) + '</span></div>' +
-                '<div class="total-row"><span class="total-label">Shipping</span><span class="total-value" style="color:#7e98a8;" id="coShip">' + getShipping() + '</span></div>' +
-                '<div class="total-row grand"><span class="total-label">Total</span><span class="total-value" id="coGrand">£' + getGrand().toFixed(2) + '</span></div>' +
+                '<div class="total-row"><span class="total-label">Subtotal</span><span class="total-value">£' + getTotal().toFixed(2) + '</span></div>' +
+                '<div class="total-row"><span class="total-label">Shipping</span><span class="total-value" style="color:#7e98a8;">' + getShipping() + '</span></div>' +
+                '<div class="total-row grand"><span class="total-label">Total</span><span class="total-value">£' + getGrand().toFixed(2) + '</span></div>' +
               '</div>' +
               '<div class="promo-row"><input type="text" id="promoInput" placeholder="Promo code"><button onclick="applyPromo()">Apply</button></div>' +
             '</div>' +
@@ -236,6 +325,124 @@
           '<div class="contact-box"><p style="font-size:13px;color:#fff;font-weight:900;margin-bottom:4px;">Get in touch</p><p style="font-size:13px;color:#fff;font-weight:700;">hello@myadorablehijabifriend.com</p></div>' +
           '<p class="footer-copy">© 2025 My Adorable Hijabi Friend · Made with love in the UK</p>' +
         '</footer>';
+
+      // Init PayPal once DOM is ready
+      initPayPal();
+    }
+
+    function validateForm() {
+      var required = [
+        { id: 'fn', label: 'First name' },
+        { id: 'sn', label: 'Surname' },
+        { id: 'ph', label: 'Phone number' },
+        { id: 'em', label: 'Email address' },
+        { id: 'a1', label: 'Address line 1' },
+        { id: 'ci', label: 'City' },
+        { id: 'pc', label: 'Postcode' }
+      ];
+      for (var i = 0; i < required.length; i++) {
+        var el = document.getElementById(required[i].id);
+        if (el && !el.value.trim()) {
+          alert('Please fill in: ' + required[i].label);
+          el.focus();
+          return false;
+        }
+      }
+      return true;
+    }
+
+    async function handleStripePayment() {
+      if (basket.length === 0) { alert('Your basket is empty!'); return; }
+      if (!validateForm()) return;
+
+      var btn = document.getElementById('payBtn');
+      btn.querySelector('span').textContent = 'Processing...';
+      btn.disabled = true;
+
+      try {
+        var response = await fetch('/api/create-checkout', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            items: basket,
+            customerEmail: document.getElementById('em').value.trim(),
+            customerName: document.getElementById('fn').value.trim() + ' ' + document.getElementById('sn').value.trim()
+          })
+        });
+        var data = await response.json();
+        if (data.url) {
+          localStorage.removeItem('mahf_basket');
+          window.location.href = data.url;
+        } else {
+          throw new Error('No URL returned');
+        }
+      } catch (err) {
+        btn.querySelector('span').textContent = 'Pay securely — £' + getGrand().toFixed(2);
+        btn.disabled = false;
+        alert('Something went wrong. Please try again.');
+      }
+    }
+
+    function initPayPal() {
+      // ── PAYPAL SETUP ──────────────────────────────────────────────────────
+      // Replace YOUR_PAYPAL_CLIENT_ID below with your actual Client ID from
+      // developer.paypal.com → Apps & Credentials → your app → Client ID
+      var PAYPAL_CLIENT_ID = 'AXOtyvbSicZLX2zKJul0lHTHiuRcCecZG2O_H4BwAo7wGd9Dhvvfvk0E6wuxOsbZPF4cXJ86cdqoNTBl';
+
+      if (PAYPAL_CLIENT_ID === 'YOUR_PAYPAL_CLIENT_ID') {
+        var container = document.getElementById('paypal-button-container');
+        if (container) {
+          container.innerHTML = '<p style="text-align:center;font-size:13px;color:#e891a1;font-weight:700;padding:14px;">PayPal not yet connected — add your Client ID to checkout.html</p>';
+        }
+        return;
+      }
+
+      // Load PayPal SDK dynamically
+      var script = document.createElement('script');
+      script.src = 'https://www.paypal.com/sdk/js?client-id=' + PAYPAL_CLIENT_ID + '&currency=GBP';
+      script.onload = function() {
+        paypal.Buttons({
+          style: {
+            layout: 'horizontal',
+            color:  'gold',
+            shape:  'pill',
+            label:  'pay',
+            height: 50
+          },
+          createOrder: function(data, actions) {
+            if (!validateForm()) return;
+            return actions.order.create({
+              purchase_units: [{
+                amount: {
+                  value: getGrand().toFixed(2),
+                  currency_code: 'GBP',
+                  breakdown: {
+                    item_total: { value: getTotal().toFixed(2), currency_code: 'GBP' },
+                    shipping:   { value: getTotal() >= 25 ? '0.00' : '3.99', currency_code: 'GBP' }
+                  }
+                },
+                items: basket.map(function(item) {
+                  return {
+                    name: item.name,
+                    unit_amount: { value: item.price.toFixed(2), currency_code: 'GBP' },
+                    quantity: String(item.qty)
+                  };
+                })
+              }]
+            });
+          },
+          onApprove: function(data, actions) {
+            return actions.order.capture().then(function(details) {
+              localStorage.removeItem('mahf_basket');
+              window.location.href = 'success.html';
+            });
+          },
+          onError: function(err) {
+            alert('PayPal payment failed. Please try again or use card payment.');
+          }
+        }).render('#paypal-button-container');
+      };
+      document.head.appendChild(script);
     }
 
     function removeItem(id) {
@@ -251,69 +458,9 @@
       saveBasket(); renderBasket(); renderCheckout();
     }
 
-    function selectPay(el) {
-      document.querySelectorAll('.pay-option').forEach(function(o){ o.classList.remove('active'); });
-      el.classList.add('active');
-      el.querySelector('input[type=radio]').checked = true;
-      var cf = document.getElementById('cardFields');
-      if (cf) cf.style.display = el.querySelector('.pay-option-label').textContent.toLowerCase().includes('card') ? 'grid' : 'none';
-    }
-
     function applyPromo() {
       var v = document.getElementById('promoInput');
       if (v && v.value.trim()) alert('Promo "' + v.value.trim() + '" — coming soon!');
-    }
-
-    async function handlePayment() {
-      if (basket.length === 0) { alert('Your basket is empty!'); return; }
-
-      var required = [
-        { id: 'fn', label: 'First name' },
-        { id: 'sn', label: 'Surname' },
-        { id: 'ph', label: 'Phone number' },
-        { id: 'em', label: 'Email address' },
-        { id: 'a1', label: 'Address line 1' },
-        { id: 'ci', label: 'City' },
-        { id: 'pc', label: 'Postcode' }
-      ];
-
-      for (var i = 0; i < required.length; i++) {
-        var el = document.getElementById(required[i].id);
-        if (el && !el.value.trim()) {
-          alert('Please fill in: ' + required[i].label);
-          el.focus();
-          return;
-        }
-      }
-
-      var btn = document.getElementById('payBtn');
-      btn.textContent = 'Processing...';
-      btn.disabled = true;
-
-      try {
-        var response = await fetch('/api/create-checkout', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({
-            items: basket,
-            customerEmail: document.getElementById('em').value.trim(),
-            customerName: document.getElementById('fn').value.trim() + ' ' + document.getElementById('sn').value.trim()
-          })
-        });
-
-        var data = await response.json();
-
-        if (data.url) {
-          localStorage.removeItem('mahf_basket');
-          window.location.href = data.url;
-        } else {
-          throw new Error('No URL returned');
-        }
-      } catch (err) {
-        btn.textContent = 'Pay securely — £' + getGrand().toFixed(2);
-        btn.disabled = false;
-        alert('Something went wrong. Please try again.');
-      }
     }
 
     document.addEventListener('DOMContentLoaded', renderCheckout);
