@@ -250,7 +250,6 @@
                   '<div class="float-field"><input type="text" placeholder=" " id="pc" required><label for="pc">Postcode</label></div>' +
                 '</div>' +
                 '<div class="form-grid full" style="margin-bottom:0;"><div class="float-field"><textarea placeholder=" " id="nt"></textarea><label for="nt">Order note (optional)</label></div></div>' +
-                '<div class="checkbox-row" style="margin-top:12px;"><input type="checkbox" id="save"><label for="save">Save this address for next time</label></div>' +
               '</div>' +
             '</div>' +
 
@@ -263,25 +262,16 @@
               '<div class="payment-tabs">' +
                 '<div class="pay-tab active" id="tab-stripe" onclick="selectPayMethod(\'stripe\')">' +
                   '<input type="radio" name="paymethod" checked>' +
-                  '<span class="pay-tab-label">💳 Card via Stripe</span>' +
+                  '<span class="pay-tab-label"> Card via Stripe</span>' +
                 '</div>' +
                 '<div class="pay-tab" id="tab-paypal" onclick="selectPayMethod(\'paypal\')">' +
                   '<input type="radio" name="paymethod">' +
-                  '<span class="pay-tab-label">🅿 PayPal</span>' +
+                  '<span class="pay-tab-label"> PayPal</span>' +
                 '</div>' +
               '</div>' +
 
               // Stripe section
               '<div id="stripe-section">' +
-                '<div class="section-label">Card details</div>' +
-                '<div style="display:grid;gap:12px;padding:16px;background:#fff;border-radius:14px;border:1.5px solid #e891a1;">' +
-                  '<div class="float-field"><input type="text" placeholder=" " id="cn" maxlength="19"><label for="cn">Card number</label></div>' +
-                  '<div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;">' +
-                    '<div class="float-field"><input type="text" placeholder=" " id="ex" maxlength="7"><label for="ex">Expiry (MM/YY)</label></div>' +
-                    '<div class="float-field"><input type="text" placeholder=" " id="cv" maxlength="4"><label for="cv">Security code</label></div>' +
-                  '</div>' +
-                  '<div class="float-field"><input type="text" placeholder=" " id="nc"><label for="nc">Name on card</label></div>' +
-                '</div>' +
                 '<button class="stripe-btn" id="payBtn" onclick="handleStripePayment()">' +
                   stripeLogo() +
                   '<span>Pay securely — £' + getGrand().toFixed(2) + '</span>' +
