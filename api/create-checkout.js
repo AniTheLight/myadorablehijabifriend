@@ -48,7 +48,7 @@ module.exports = async function handler(req, res) {
       price_data: {
         currency: 'gbp',
         product_data: { name: 'Standard Shipping' },
-        unit_amount: 399 // £3.99
+        unit_amount: 329 // £3.29
       },
       quantity: 1
     });
