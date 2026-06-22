@@ -171,8 +171,8 @@
 
   <script>
     function getTotal()    { return basket.reduce(function(s,i){ return s + i.price * i.qty; }, 0); }
-    function getShipping() { return getTotal() >= 25 ? 'Free' : '£3.99'; }
-    function getGrand()    { var t = getTotal(); return t >= 25 ? t : t + 3.99; }
+    function getShipping() { return getTotal() >= 25 ? 'Free' : '£3.29'; }
+    function getGrand()    { var t = getTotal(); return t >= 25 ? t : t + 3.29; }
 
     function removeSVG() {
       return '<svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>';
@@ -408,7 +408,7 @@
                   currency_code: 'GBP',
                   breakdown: {
                     item_total: { value: getTotal().toFixed(2), currency_code: 'GBP' },
-                    shipping:   { value: getTotal() >= 25 ? '0.00' : '3.99', currency_code: 'GBP' }
+                    shipping:   { value: getTotal() >= 25 ? '0.00' : '3.29', currency_code: 'GBP' }
                   }
                 },
                 items: basket.map(function(item) {
