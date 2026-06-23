@@ -178,12 +178,10 @@
       return '<svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>';
     }
 
-    // Stripe SVG logo
     function stripeLogo() {
       return '<img src="images/stripe.png" alt="Stripe" height="20" style="display:block;">';
     }
 
-    // PayPal SVG logo
     function paypalLogo() {
       return '<svg height="20" viewBox="0 0 100 26" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M12.237 2.1H5.07a.96.96 0 00-.949.812L1.3 19.094a.576.576 0 00.57.666h3.4l.853-5.418-.027.17a.96.96 0 01.948-.813h1.976c3.878 0 6.914-1.574 7.8-6.126.026-.134.05-.265.07-.393-.112-.059-.112-.059 0 0 .264-1.684-.002-2.83-.96-3.869-.953-1.13-2.678-1.211-4.693-1.211z" fill="#003087"/><path d="M32.948 8.31h-3.4a.576.576 0 00-.569.487l-1.463 9.278-.027.17a.576.576 0 00.57.666h2.735a.576.576 0 00.569-.487l.395-2.503a.96.96 0 01.949-.812h1.118c3.092 0 4.879-1.497 5.344-4.467.21-1.298.009-2.317-.598-3.032-.666-.783-1.845-1.3-3.623-1.3z" fill="#003087"/><path d="M47.5 8.31h-3.4a.576.576 0 00-.569.487l-1.463 9.278-.027.17a.576.576 0 00.57.666h2.735a.576.576 0 00.569-.487l.395-2.503a.96.96 0 01.949-.812h1.118c3.092 0 4.879-1.497 5.344-4.467.21-1.298.009-2.317-.598-3.032-.666-.783-1.845-1.3-3.623-1.3z" fill="#009cde"/></svg>';
     }
@@ -321,6 +319,7 @@
     }
 
     function validateForm() {
+      // 1. Empty field checks
       var required = [
         { id: 'fn', label: 'First name' },
         { id: 'sn', label: 'Surname' },
@@ -338,6 +337,42 @@
           return false;
         }
       }
+
+      // 2. Email format
+      var email = document.getElementById('em').value.trim();
+      var emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      if (!emailRegex.test(email)) {
+        alert('Please enter a valid email address (e.g. name@example.com)');
+        document.getElementById('em').focus();
+        return false;
+      }
+
+      // 3. UK phone number — 10–11 digits, optionally starting with +44
+      var phone = document.getElementById('ph').value.trim().replace(/\s+/g, '');
+      var phoneRegex = /^(\+44\d{10}|0\d{10})$/;
+      if (!phoneRegex.test(phone)) {
+        alert('Please enter a valid UK phone number (e.g. 07700 900000 or +44 7700 900000)');
+        document.getElementById('ph').focus();
+        return false;
+      }
+
+      // 4. Address line 1 — must have at least a number and some text
+      var addr = document.getElementById('a1').value.trim();
+      if (!/\d/.test(addr) || addr.length < 5) {
+        alert('Please enter a valid address (e.g. 12 Baker Street)');
+        document.getElementById('a1').focus();
+        return false;
+      }
+
+      // 5. UK postcode
+      var postcode = document.getElementById('pc').value.trim().toUpperCase().replace(/\s+/g, '');
+      var postcodeRegex = /^[A-Z]{1,2}\d[A-Z\d]?\d[A-Z]{2}$/;
+      if (!postcodeRegex.test(postcode)) {
+        alert('Please enter a valid UK postcode (e.g. SW1A 1AA)');
+        document.getElementById('pc').focus();
+        return false;
+      }
+
       return true;
     }
 
@@ -350,7 +385,10 @@
       btn.disabled = true;
 
       try {
-        var response = await fetch('/api/create-checkout.js', {
+        console.log('[Stripe] Sending request to /api/create-checkout...');
+        console.log('[Stripe] Basket:', JSON.stringify(basket));
+
+        var response = await fetch('/api/create-checkout', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({
@@ -359,26 +397,29 @@
             customerName: document.getElementById('fn').value.trim() + ' ' + document.getElementById('sn').value.trim()
           })
         });
+
+        console.log('[Stripe] HTTP status:', response.status);
+
         var data = await response.json();
-          console.log('Stripe response:', data);   
+        console.log('[Stripe] Response data:', data);
+
         if (data.url) {
+          console.log('[Stripe] Redirecting to:', data.url);
           localStorage.removeItem('mahf_basket');
           window.location.href = data.url;
         } else {
-          throw new Error('No URL returned');
+          console.error('[Stripe] No URL in response. Full response:', data);
+          throw new Error(data.error || 'No URL returned');
         }
       } catch (err) {
-          console.error('Stripe fetch error:', err);
-          btn.querySelector('span').textContent = 'Pay securely — £' + getGrand().toFixed(2);
-          btn.disabled = false;
-          alert('Something went wrong. Please try again.');
+        console.error('[Stripe] Error:', err);
+        btn.querySelector('span').textContent = 'Pay securely — £' + getGrand().toFixed(2);
+        btn.disabled = false;
+        alert('Something went wrong: ' + err.message + '\n\nCheck the browser console (F12) for details.');
       }
     }
 
     function initPayPal() {
-      // ── PAYPAL SETUP ──────────────────────────────────────────────────────
-      // Replace YOUR_PAYPAL_CLIENT_ID below with your actual Client ID from
-      // developer.paypal.com → Apps & Credentials → your app → Client ID
       var PAYPAL_CLIENT_ID = 'AZLHLtjsRhlVhOW9cFRbj6qtRuyDuezQHglOnGTL1j5-6RV6HjKIPmJuC_e2LB4L5UiWURjzx2j-GB3H';
 
       if (PAYPAL_CLIENT_ID === 'YOUR_PAYPAL_CLIENT_ID') {
@@ -389,7 +430,6 @@
         return;
       }
 
-      // Load PayPal SDK dynamically
       var script = document.createElement('script');
       script.src = 'https://www.paypal.com/sdk/js?client-id=' + PAYPAL_CLIENT_ID + '&currency=GBP';
       script.onload = function() {
@@ -410,7 +450,7 @@
                   currency_code: 'GBP',
                   breakdown: {
                     item_total: { value: getTotal().toFixed(2), currency_code: 'GBP' },
-                    shipping:   { value: getTotal() >= 25 ? '0.00' : '3.29', currency_code: 'GBP' }
+                    shipping:   { value: getTotal() >= 25 ? '0.00' : '3.99', currency_code: 'GBP' }
                   }
                 },
                 items: basket.map(function(item) {
