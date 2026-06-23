@@ -360,6 +360,7 @@
           })
         });
         var data = await response.json();
+          console.log('Stripe response:', data);   
         if (data.url) {
           localStorage.removeItem('mahf_basket');
           window.location.href = data.url;
@@ -367,9 +368,10 @@
           throw new Error('No URL returned');
         }
       } catch (err) {
-        btn.querySelector('span').textContent = 'Pay securely — £' + getGrand().toFixed(2);
-        btn.disabled = false;
-        alert('Something went wrong. Please try again.');
+          console.error('Stripe fetch error:', err);
+          btn.querySelector('span').textContent = 'Pay securely — £' + getGrand().toFixed(2);
+          btn.disabled = false;
+          alert('Something went wrong. Please try again.');
       }
     }
 
