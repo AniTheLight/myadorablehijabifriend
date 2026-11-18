@@ -17,8 +17,6 @@ MAHF_ROOT.MAHF_PRODUCTS = [
     price: 9.99,
     colour: '#f5ddd8',
     accentColour: '#e8a0a0',
-    stars: 5,
-    reviews: 107,
     badge: null,
     image: 'images/crochetdolls/crochetdollsfront.jpg',
     thumbImages: [
@@ -41,8 +39,6 @@ MAHF_ROOT.MAHF_PRODUCTS = [
     price: 12.99,
     colour: '#dceaf2',
     accentColour: '#adc2cf',
-    stars: 5,
-    reviews: 89,
     badge: null,
     image: 'images/keychain/greenbagfile.png',
     thumbImages: [
@@ -61,8 +57,6 @@ MAHF_ROOT.MAHF_PRODUCTS = [
     price: 14.99,
     colour: '#fdf0e8',
     accentColour: '#EDC1BB',
-    stars: 5,
-    reviews: 62,
     badge: null,
     image: 'images/princessdoll/princessdollfront.jpg',
     thumbImages: [
@@ -81,8 +75,6 @@ MAHF_ROOT.MAHF_PRODUCTS = [
     price: 14.99,
     colour: '#ede8f5',
     accentColour: '#c8bde8',
-    stars: 5,
-    reviews: 74,
     badge: null,
     image: 'images/rainbowskirtdoll/rainbowskirtfrontimg.jpg',
     thumbImages: [
@@ -102,8 +94,6 @@ MAHF_ROOT.MAHF_PRODUCTS = [
     colour: '#f5f0f8',
     accentColour: '#EDC1BB',
     hijabColour: '#CD7250',
-    stars: 5,
-    reviews: 43,
     badge: 'Best value',
     badgeColour: '#E99075',
     image: null,

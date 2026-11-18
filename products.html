@@ -219,6 +219,57 @@
     .related-name { color: var(--ink); }
     .review-text { color: var(--ink); }
 
+
+    /* ─── Reviews: real data + "Leave a review" pop-up ─── */
+    .reviews-head { display: flex; flex-direction: column; align-items: center; gap: 14px; margin-bottom: 2rem; }
+    .reviews-head .section-title { margin-bottom: 0; }
+    .pill-btn { display: inline-flex; align-items: center; gap: 8px; background: var(--terra-ink); color: #fff; border: 2px solid var(--terra-ink); font-family: 'Nunito', sans-serif; font-weight: 900; font-size: 14px; padding: 11px 24px; border-radius: 50px; cursor: pointer; transition: background 0.2s, transform 0.15s; }
+    .pill-btn:hover { background: var(--terracotta); transform: translateY(-2px); }
+    .pill-btn:disabled { opacity: 0.6; cursor: wait; transform: none; }
+    .pill-btn.ghost { background: #fff; color: var(--terra-ink); }
+    .pill-btn.ghost:hover { background: var(--blush); }
+    .review-photos { display: flex; gap: 8px; margin-top: 10px; flex-wrap: wrap; }
+    .review-photos a { display: block; width: 72px; height: 72px; border-radius: 12px; overflow: hidden; border: 2px solid var(--blush-2); }
+    .review-photos img { width: 100%; height: 100%; object-fit: cover; }
+    .reviews-empty { background: #fff; border-radius: 16px; padding: 1.5rem; text-align: center; color: var(--ink); font-size: 14px; line-height: 1.7; }
+    .reviews-empty strong { color: var(--terracotta); }
+    .reviews-more { text-align: center; margin-top: 4px; }
+    .inline-stars .no-reviews { font-size: 12px; font-weight: 700; color: var(--terracotta); text-decoration: none; }
+
+    .rv-overlay { position: fixed; inset: 0; background: rgba(94, 70, 64, 0.45); display: none; align-items: center; justify-content: center; padding: 16px; z-index: 300; }
+    .rv-overlay.open { display: flex; }
+    .rv-modal { position: relative; background: var(--page); border-radius: 24px; width: 100%; max-width: 480px; max-height: calc(100vh - 32px); overflow-y: auto; padding: 2rem 1.75rem 1.75rem; box-shadow: 0 20px 60px rgba(94, 70, 64, 0.25); }
+    .rv-modal::before { content: '✦'; position: absolute; top: 14px; left: 18px; color: var(--pink); font-size: 20px; }
+    .rv-close { position: absolute; top: 14px; right: 14px; width: 34px; height: 34px; border-radius: 50%; border: none; background: var(--blush); color: var(--terracotta); font-size: 20px; cursor: pointer; line-height: 1; }
+    .rv-close:hover { background: var(--rose); color: #fff; }
+    .rv-title { font-family: 'Cooper Black', serif; font-size: 26px; color: var(--terracotta); text-align: center; margin-bottom: 4px; }
+    .rv-sub { text-align: center; font-size: 13px; color: var(--slate); font-weight: 700; margin-bottom: 1.25rem; }
+    .rv-field { margin-bottom: 1.1rem; }
+    .rv-label { display: block; font-size: 10px; font-weight: 900; letter-spacing: 2px; text-transform: uppercase; color: var(--slate); margin-bottom: 8px; }
+    .rv-stars { display: flex; gap: 4px; }
+    .rv-star { background: none; border: none; font-size: 34px; line-height: 1; color: var(--blush-2); cursor: pointer; padding: 0 2px; transition: transform 0.1s, color 0.1s; }
+    .rv-star.on { color: var(--coral); }
+    .rv-star:hover { transform: scale(1.12); }
+    .rv-star:focus-visible { outline: 2px solid var(--terracotta); outline-offset: 2px; border-radius: 6px; }
+    .rv-input, .rv-textarea { width: 100%; font-family: 'Nunito', sans-serif; font-size: 14px; color: var(--ink); background: #fff; border: 2px solid var(--blush-2); border-radius: 14px; padding: 11px 14px; outline: none; transition: border-color 0.15s; }
+    .rv-input:focus, .rv-textarea:focus { border-color: var(--terracotta); }
+    .rv-textarea { min-height: 120px; resize: vertical; line-height: 1.6; }
+    .rv-count { text-align: right; font-size: 11px; color: #9a8580; margin-top: 4px; }
+    .rv-photo-row { display: flex; gap: 10px; flex-wrap: wrap; }
+    .rv-thumb { position: relative; width: 72px; height: 72px; border-radius: 12px; overflow: hidden; border: 2px solid var(--blush-2); }
+    .rv-thumb img { width: 100%; height: 100%; object-fit: cover; }
+    .rv-thumb button { position: absolute; top: 3px; right: 3px; width: 20px; height: 20px; border-radius: 50%; border: none; background: rgba(255,255,255,0.9); color: var(--terracotta); font-size: 13px; line-height: 1; cursor: pointer; }
+    .rv-add-photo { width: 72px; height: 72px; border-radius: 12px; border: 2px dashed var(--rose); background: var(--blush); color: var(--terracotta); display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 2px; font-size: 22px; cursor: pointer; }
+    .rv-add-photo span { font-size: 9px; font-weight: 900; letter-spacing: 1px; text-transform: uppercase; }
+    .rv-hint { font-size: 11px; color: #9a8580; margin-top: 6px; }
+    .rv-error { display: none; background: #fdecea; color: #a8402a; font-size: 13px; font-weight: 700; border-radius: 12px; padding: 10px 14px; margin-bottom: 1rem; }
+    .rv-error.show { display: block; }
+    .rv-honeypot { position: absolute; left: -9999px; width: 1px; height: 1px; overflow: hidden; }
+    .rv-submit { width: 100%; justify-content: center; padding: 14px 24px; font-size: 15px; }
+    .rv-done { text-align: center; padding: 1rem 0 0.5rem; }
+    .rv-done .rv-sparkle { font-size: 40px; color: var(--pink); }
+    .rv-done p { color: var(--ink); font-size: 14px; line-height: 1.7; margin: 8px 0 1.25rem; }
+
     @media (max-width: 768px) {
       .product-img-col { padding-right: 0; }
       .product-img-col::after { right: 0.5rem; }
@@ -237,12 +288,16 @@
   <script src="nav.js"></script>
 
   <script>
-    var reviews = [
-      { name: 'Fatima A.',  date: 'March 2025',    stars: 5, text: 'My daughter absolutely loves this! She clips it onto her school bag and takes it everywhere. So sweet and finally something that looks like her!' },
-      { name: 'Nadia R.',   date: 'February 2025', stars: 5, text: "Bought this as an Eid gift and she hasn't put it down since. Brilliant quality and came beautifully packaged too. Will be ordering more!" },
-      { name: 'Zainab M.', date: 'January 2025',  stars: 4, text: 'Such a lovely idea. My girls were so excited to have a doll that wears hijab just like them. Really well made and arrived quickly.' }
-    ];
-    var reviewStats = { avg: 4.8, total: 107, bars: [82, 44, 14, 6, 3] };
+    // Real reviews are loaded from /api/reviews (Google Sheet) after the page renders.
+    var reviewData = { reviews: [], summary: { total: 0, avg: 0, bars: [0, 0, 0, 0, 0] } };
+    var reviewsShown = 5;
+
+    // Escape customer-written text before putting it on the page.
+    function esc(str) {
+      return String(str == null ? '' : str).replace(/[&<>"']/g, function (c) {
+        return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c];
+      });
+    }
 
     var currentProduct = null;
     var qty = 1;
@@ -414,10 +469,6 @@
         '</a>';
       }).join('');
 
-      var topReviewsHTML = reviews.map(function (r) {
-        return '<div class="review-card"><div class="review-top"><span class="review-name">' + r.name + '</span><span class="review-date">' + r.date + '</span></div><div class="review-stars">' + starsHTML(r.stars, 12) + '</div><p class="review-text">' + r.text + '</p></div>';
-      }).join('');
-
       var thumbBgs = [product.colour, '#dceaf2', '#ede8f5'];
 
       document.getElementById('pageContent').innerHTML =
@@ -435,7 +486,7 @@
             '<p class="product-eyebrow">✦ Keychain Doll</p>' +
             '<h1 class="product-name">' + product.name + '</h1>' +
             '<p class="product-price">£' + product.price.toFixed(2) + '</p>' +
-            '<div class="inline-stars"><div class="stars">' + starsHTML(Math.round(reviewStats.avg)) + '</div><span class="avg">' + reviewStats.avg + '</span><span class="count">(' + reviewStats.total + ')</span><a href="#reviews" class="review-chevron" title="See all reviews">›</a></div>' +
+            '<div class="inline-stars" id="inlineStars">' + inlineStarsHTML() + '</div>' +
             '<p class="product-desc">' + product.description + '</p>' +
             variationsHTML(product) +
             '<div class="qty-wrapper"><span class="qty-label">Qty</span><div class="qty-controls"><button class="qty-btn minus" onclick="changeQtyPage(-1)">−</button><span class="qty-num" id="qtyNum">1</span><button class="qty-btn plus" onclick="changeQtyPage(1)">+</button></div></div>' +
@@ -448,17 +499,12 @@
           '</div>' +
         '</section>' +
         '<section class="related-section"><p class="section-eyebrow">You might also like</p><h2 class="section-title">Meet her friends!</h2><div class="related-grid">' + relatedHTML + '</div></section>' +
-        '<section class="reviews-section" id="reviews"><p class="section-eyebrow">What people are saying</p><h2 class="section-title">Customer Reviews</h2>' +
-          '<div class="reviews-grid">' +
-            '<div class="review-score-box"><div class="rscore-big">' + reviewStats.avg + '</div><div class="rscore-outof">out of 5</div><div class="rscore-stars">' + starsHTML(Math.round(reviewStats.avg), 16) + '</div><div class="rscore-count">' + reviewStats.total + ' Reviews</div>' +
-            '<div style="margin-top:10px;width:100%;">' +
-              ['5 Star','4 Star','3 Star','2 Star','1 Star'].map(function(label, i) {
-                return '<div class="bar-row"><span class="bar-label">' + label + '</span><div class="bar-track"><div class="bar-fill" style="width:' + reviewStats.bars[i] + '%;"></div></div></div>';
-              }).join('') +
-            '</div></div>' +
-            '<div class="reviews-list">' + topReviewsHTML + '</div>' +
-          '</div>' +
+        '<section class="reviews-section" id="reviews">' +
+          '<div class="reviews-head"><p class="section-eyebrow" style="margin-bottom:0;">What people are saying</p><h2 class="section-title">Customer Reviews</h2>' +
+          '<button class="pill-btn" onclick="openReviewForm()">✦ Leave a review</button></div>' +
+          '<div class="reviews-grid" id="reviewsBody">' + reviewsBodyHTML() + '</div>' +
         '</section>' +
+        reviewFormHTML() +
         footerHTML();
 
       if (product.variations && product.variations.length > 0) {
@@ -466,7 +512,250 @@
       }
     }
 
+    // ─── Reviews ──────────────────────────────────────────────────────────────
+    function inlineStarsHTML() {
+      var s = reviewData.summary;
+      if (!s.total) return '<a href="#reviews" class="no-reviews">No reviews yet · be the first ✦</a>';
+      return '<div class="stars">' + starsHTML(Math.round(s.avg)) + '</div><span class="avg">' + s.avg.toFixed(1) + '</span><span class="count">(' + s.total + ')</span><a href="#reviews" class="review-chevron" title="See all reviews">›</a>';
+    }
+
+    function formatMonth(iso) {
+      var d = new Date(iso);
+      if (isNaN(d)) return '';
+      return d.toLocaleDateString('en-GB', { month: 'long', year: 'numeric' });
+    }
+
+    function reviewCardHTML(r) {
+      var photos = (r.photos || []).map(function (url) {
+        return '<a href="' + esc(url) + '" target="_blank" rel="noopener"><img src="' + esc(url) + '" alt="Customer photo" loading="lazy"></a>';
+      }).join('');
+      return '<div class="review-card">' +
+        '<div class="review-top"><span class="review-name">' + esc(r.name) + '</span><span class="review-date">' + esc(formatMonth(r.date)) + '</span></div>' +
+        '<div class="review-stars">' + starsHTML(r.rating, 12) + '</div>' +
+        '<p class="review-text">' + esc(r.text) + '</p>' +
+        (photos ? '<div class="review-photos">' + photos + '</div>' : '') +
+      '</div>';
+    }
+
+    function reviewsBodyHTML() {
+      var s = reviewData.summary;
+      var scoreBox =
+        '<div class="review-score-box"><div class="rscore-big">' + (s.total ? s.avg.toFixed(1) : '–') + '</div><div class="rscore-outof">out of 5</div>' +
+        '<div class="rscore-stars">' + starsHTML(Math.round(s.avg), 16) + '</div>' +
+        '<div class="rscore-count">' + s.total + (s.total === 1 ? ' Review' : ' Reviews') + '</div>' +
+        '<div style="margin-top:10px;width:100%;">' +
+          ['5 Star', '4 Star', '3 Star', '2 Star', '1 Star'].map(function (label, i) {
+            return '<div class="bar-row"><span class="bar-label">' + label + '</span><div class="bar-track"><div class="bar-fill" style="width:' + s.bars[i] + '%;"></div></div></div>';
+          }).join('') +
+        '</div></div>';
+
+      var list;
+      if (!reviewData.reviews.length) {
+        list = '<div class="reviews-empty"><strong>No reviews yet.</strong><br>Have you met this little friend? We\'d love to hear what you think!</div>';
+      } else {
+        list = reviewData.reviews.slice(0, reviewsShown).map(reviewCardHTML).join('');
+        if (reviewData.reviews.length > reviewsShown) {
+          list += '<div class="reviews-more"><button class="pill-btn ghost" onclick="showMoreReviews()">Show more reviews</button></div>';
+        }
+      }
+      return scoreBox + '<div class="reviews-list">' + list + '</div>';
+    }
+
+    function refreshReviews() {
+      var body = document.getElementById('reviewsBody');
+      var inline = document.getElementById('inlineStars');
+      if (body) body.innerHTML = reviewsBodyHTML();
+      if (inline) inline.innerHTML = inlineStarsHTML();
+    }
+
+    function showMoreReviews() { reviewsShown += 5; refreshReviews(); }
+
+    function loadReviews() {
+      if (!currentProduct) return;
+      fetch('/api/reviews?product=' + encodeURIComponent(currentProduct.id))
+        .then(function (r) { return r.ok ? r.json() : null; })
+        .then(function (data) {
+          if (!data || !data.summary) return;
+          reviewData = { reviews: data.reviews || [], summary: data.summary };
+          refreshReviews();
+        })
+        .catch(function () { /* keep the empty state */ });
+    }
+
+    // ─── "Leave a review" pop-up ──────────────────────────────────────────────
+    var rvRating = 0;
+    var rvPhotos = []; // { type, data (base64), preview (data URL) }
+    var RV_MAX_PHOTOS = 3;
+    var rvLastFocus = null;
+
+    function reviewFormHTML() {
+      var stars = '';
+      for (var i = 1; i <= 5; i++) {
+        stars += '<button type="button" class="rv-star" data-value="' + i + '" aria-label="' + i + ' star' + (i > 1 ? 's' : '') + '" onclick="setRvRating(' + i + ')" onmouseenter="paintRvStars(' + i + ')" onmouseleave="paintRvStars(rvRating)">★</button>';
+      }
+      return '<div class="rv-overlay" id="rvOverlay" onclick="if(event.target===this)closeReviewForm()">' +
+        '<div class="rv-modal" role="dialog" aria-modal="true" aria-labelledby="rvTitle">' +
+          '<button class="rv-close" onclick="closeReviewForm()" aria-label="Close">×</button>' +
+          '<div id="rvFormWrap">' +
+            '<h3 class="rv-title" id="rvTitle">Leave a review</h3>' +
+            '<p class="rv-sub">' + esc(currentProduct.name) + '</p>' +
+            '<form id="rvForm" onsubmit="submitReview(event)" novalidate>' +
+              '<div class="rv-error" id="rvError" role="alert"></div>' +
+              '<div class="rv-field"><span class="rv-label">Your rating</span><div class="rv-stars" id="rvStars" role="radiogroup" aria-label="Star rating">' + stars + '</div></div>' +
+              '<div class="rv-field"><label class="rv-label" for="rvName">Your name</label><input class="rv-input" id="rvName" maxlength="50" placeholder="e.g. Fatima A." autocomplete="given-name"></div>' +
+              '<div class="rv-field"><label class="rv-label" for="rvText">Your review</label><textarea class="rv-textarea" id="rvText" maxlength="1500" placeholder="What did you (or your little one) think?" oninput="document.getElementById(\'rvCount\').textContent=this.value.length+\' / 1500\'"></textarea><div class="rv-count" id="rvCount">0 / 1500</div></div>' +
+              '<div class="rv-field"><span class="rv-label">Photos (optional)</span><div class="rv-photo-row" id="rvPhotoRow"></div><p class="rv-hint">Up to 3 photos. JPG, PNG or WEBP.</p>' +
+                '<input type="file" id="rvFile" accept="image/jpeg,image/png,image/webp" multiple hidden onchange="addRvPhotos(this.files); this.value=\'\';"></div>' +
+              '<div class="rv-honeypot" aria-hidden="true"><label>Leave this empty <input id="rvWebsite" tabindex="-1" autocomplete="off"></label></div>' +
+              '<button type="submit" class="pill-btn rv-submit" id="rvSubmit">Submit review →</button>' +
+            '</form>' +
+          '</div>' +
+          '<div class="rv-done" id="rvDone" style="display:none;"><div class="rv-sparkle">✦</div><h3 class="rv-title">Thank you!</h3><p>Your review has been sent. It will appear on this page once we\'ve had a look at it.</p><button class="pill-btn" onclick="closeReviewForm()">Back to the shop</button></div>' +
+        '</div>' +
+      '</div>';
+    }
+
+    function openReviewForm() {
+      rvLastFocus = document.activeElement;
+      document.getElementById('rvOverlay').classList.add('open');
+      document.body.style.overflow = 'hidden';
+      renderRvPhotos();
+      var first = document.querySelector('.rv-star');
+      if (first && document.getElementById('rvFormWrap').style.display !== 'none') first.focus();
+    }
+
+    function closeReviewForm() {
+      document.getElementById('rvOverlay').classList.remove('open');
+      document.body.style.overflow = '';
+      if (document.getElementById('rvDone').style.display !== 'none') resetReviewForm();
+      if (rvLastFocus) rvLastFocus.focus();
+    }
+
+    function resetReviewForm() {
+      rvRating = 0; rvPhotos = [];
+      document.getElementById('rvForm').reset();
+      document.getElementById('rvCount').textContent = '0 / 1500';
+      paintRvStars(0); renderRvPhotos(); showRvError('');
+      document.getElementById('rvFormWrap').style.display = '';
+      document.getElementById('rvDone').style.display = 'none';
+    }
+
+    document.addEventListener('keydown', function (e) {
+      var overlay = document.getElementById('rvOverlay');
+      if (e.key === 'Escape' && overlay && overlay.classList.contains('open')) closeReviewForm();
+    });
+
+    function setRvRating(n) { rvRating = n; paintRvStars(n); showRvError(''); }
+
+    function paintRvStars(n) {
+      document.querySelectorAll('.rv-star').forEach(function (b) {
+        var v = Number(b.getAttribute('data-value'));
+        b.classList.toggle('on', v <= n);
+        b.setAttribute('aria-pressed', v === rvRating ? 'true' : 'false');
+      });
+    }
+
+    function renderRvPhotos() {
+      var row = document.getElementById('rvPhotoRow');
+      if (!row) return;
+      var html = rvPhotos.map(function (p, i) {
+        return '<div class="rv-thumb"><img src="' + p.preview + '" alt="Photo ' + (i + 1) + '"><button type="button" onclick="removeRvPhoto(' + i + ')" aria-label="Remove photo">×</button></div>';
+      }).join('');
+      if (rvPhotos.length < RV_MAX_PHOTOS) {
+        html += '<button type="button" class="rv-add-photo" onclick="document.getElementById(\'rvFile\').click()">+<span>Add photo</span></button>';
+      }
+      row.innerHTML = html;
+    }
+
+    function removeRvPhoto(i) { rvPhotos.splice(i, 1); renderRvPhotos(); }
+
+    // Shrink photos in the browser (max 1600px, JPEG) so uploads are quick.
+    function shrinkImage(file) {
+      return new Promise(function (resolve, reject) {
+        var url = URL.createObjectURL(file);
+        var img = new Image();
+        img.onload = function () {
+          var scale = Math.min(1, 1600 / Math.max(img.width, img.height));
+          var canvas = document.createElement('canvas');
+          canvas.width = Math.round(img.width * scale);
+          canvas.height = Math.round(img.height * scale);
+          var ctx = canvas.getContext('2d');
+          ctx.fillStyle = '#fff';
+          ctx.fillRect(0, 0, canvas.width, canvas.height);
+          ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+          URL.revokeObjectURL(url);
+          var dataUrl = canvas.toDataURL('image/jpeg', 0.82);
+          resolve({ type: 'image/jpeg', data: dataUrl.split(',')[1], preview: dataUrl });
+        };
+        img.onerror = function () { URL.revokeObjectURL(url); reject(new Error('unreadable')); };
+        img.src = url;
+      });
+    }
+
+    function addRvPhotos(fileList) {
+      var files = Array.prototype.slice.call(fileList, 0, RV_MAX_PHOTOS - rvPhotos.length);
+      if (fileList.length > files.length) showRvError('You can add up to 3 photos.');
+      files.reduce(function (chain, file) {
+        return chain.then(function () {
+          return shrinkImage(file).then(function (photo) {
+            rvPhotos.push(photo); renderRvPhotos();
+          }).catch(function () {
+            showRvError('Sorry, we couldn\'t read "' + file.name + '". Please try a JPG or PNG photo.');
+          });
+        });
+      }, Promise.resolve());
+    }
+
+    function showRvError(msg) {
+      var el = document.getElementById('rvError');
+      if (!el) return;
+      el.textContent = msg;
+      el.classList.toggle('show', !!msg);
+      if (msg) el.scrollIntoView({ block: 'nearest' });
+    }
+
+    function submitReview(e) {
+      e.preventDefault();
+      var name = document.getElementById('rvName').value.trim();
+      var text = document.getElementById('rvText').value.trim();
+      if (!rvRating) return showRvError('Please choose a star rating.');
+      if (!name) return showRvError('Please enter your name.');
+      if (text.length < 10) return showRvError('Please write a few more words (at least 10 characters).');
+      showRvError('');
+
+      var btn = document.getElementById('rvSubmit');
+      btn.disabled = true;
+      btn.textContent = 'Sending…';
+
+      fetch('/api/reviews', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          productId: currentProduct.id,
+          rating: rvRating,
+          name: name,
+          text: text,
+          website: document.getElementById('rvWebsite').value,
+          photos: rvPhotos.map(function (p) { return { type: p.type, data: p.data }; })
+        })
+      })
+        .then(function (r) { return r.json().catch(function () { return {}; }).then(function (d) { return { ok: r.ok, data: d }; }); })
+        .then(function (res) {
+          if (!res.ok || !res.data.ok) throw new Error(res.data.error || 'Something went wrong. Please try again.');
+          document.getElementById('rvFormWrap').style.display = 'none';
+          document.getElementById('rvDone').style.display = '';
+        })
+        .catch(function (err) {
+          showRvError(err.message || 'Something went wrong. Please try again.');
+        })
+        .then(function () {
+          btn.disabled = false;
+          btn.textContent = 'Submit review →';
+        });
+    }
+
     renderPage();
+    loadReviews();
   </script>
 </body>
 </html>

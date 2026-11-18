@@ -156,7 +156,7 @@
             '<div class="card-body">' +
               '<p class="card-name">' + p.name + '</p>' +
               '<p class="card-variant">' + p.variant + '</p>' +
-              '<div class="card-stars"><span class="stars">' + starsHTML(p.stars) + '</span><span class="rev">(' + p.reviews + ')</span></div>' +
+              '<div class="card-stars" id="stars-' + p.id + '"><span class="rev">No reviews yet</span></div>' +
               '<p class="card-price">£' + p.price.toFixed(2) + '</p>' +
               '<div class="card-btns">' +
                 '<button class="btn-basket" onclick="event.stopPropagation(); addToBasketById(\'' + p.id + '\',\'' + nameStr + '\',' + p.price + ',\'' + colStr + '\',1,\'' + imgStr + '\')" title="Add to basket">' + basketIcon() + '</button>' +
@@ -167,6 +167,21 @@
       });
 
       grid.innerHTML = html;
+
+      // Fill in real star ratings from the reviews spreadsheet.
+      fetch('/api/reviews?summary=1')
+        .then(function (r) { return r.ok ? r.json() : null; })
+        .then(function (data) {
+          if (!data || !data.summaries) return;
+          Object.keys(data.summaries).forEach(function (id) {
+            var sum = data.summaries[id];
+            var el = document.getElementById('stars-' + id);
+            if (el && sum.total) {
+              el.innerHTML = '<span class="stars">' + starsHTML(Math.round(sum.avg)) + '</span><span class="rev">(' + sum.total + ')</span>';
+            }
+          });
+        })
+        .catch(function () {});
     });
   </script>
 </body>

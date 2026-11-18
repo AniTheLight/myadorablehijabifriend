@@ -42,3 +42,37 @@ place one small real order yourself (you can refund it from the dashboard).
 ## Changing prices or shipping
 Edit `products.js`. Prices and the shipping rule (`MAHF_SHIPPING`) there are what
 customers are actually charged — the server reads the same file.
+
+## Customer reviews (Google Sheets)
+
+Reviews are saved to a Google Sheet, and customer photos to a Google Drive folder.
+A review only appears on the website after you tick **Approved** in the sheet.
+
+### One-time setup (about 10 minutes)
+1. Create a new Google Sheet, e.g. "Website reviews".
+2. In the sheet: **Extensions → Apps Script**. Delete what's there, paste in the whole of
+   `google-apps-script/Reviews.gs` from this repo, and click **Save**.
+3. In the function dropdown at the top choose **setup**, click **Run**, and allow the
+   permissions Google asks for (it needs your sheet and Drive to save reviews and photos).
+4. Open **Execution log** — copy the long code after "Copy this into Vercel as REVIEWS_SECRET".
+5. Click **Deploy → New deployment** → type **Web app**:
+   - Execute as: **Me**
+   - Who has access: **Anyone**
+
+   Click **Deploy** and copy the **Web app URL** (ends in `/exec`).
+   ("Anyone" is needed so Vercel can reach it; without the secret code it refuses every request.)
+6. In Vercel → **Settings → Environment Variables**, add:
+   - `REVIEWS_SCRIPT_URL` = the Web app URL
+   - `REVIEWS_SECRET` = the code from step 4
+
+   Then redeploy.
+
+### Day to day
+- New reviews appear as rows in the **Reviews** tab with **Approved** unticked.
+- Tick **Approved** to publish one. The website picks it up within about 2 minutes.
+- To remove a review, untick it or delete the row. Photos live in the
+  "Website review photos" Drive folder.
+- Want an Excel copy? **File → Download → Microsoft Excel (.xlsx)**.
+
+If you ever change the script, use **Deploy → Manage deployments → Edit → New version**
+so the URL stays the same.
