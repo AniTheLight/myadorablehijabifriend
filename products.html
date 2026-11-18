@@ -141,6 +141,90 @@
       .btn-row { flex-direction: column; }
     }
   </style>
+  <!-- ─── Lighter product page theme (overrides the base styles above) ─── -->
+  <style>
+    :root {
+      --page:      #FFF1EE;   /* very light pink, so it stands apart from the white "Meet her friends" section */
+      --blush:     #FBEAE6;   /* soft pink panels */
+      --blush-2:   #F5D9D3;   /* borders / dividers */
+      --rose:      #EDC1BB;   /* site's signature pink */
+      --terracotta:#CD7250;   /* site's main accent */
+      --terra-ink: #B95E3C;   /* same hue, a touch deeper for button text contrast */
+      --coral:     #E99075;
+      --pink:      #e891a1;
+      --slate:     #7e98a8;
+      --ink:       #5E4640;   /* body text — much darker than before */
+    }
+
+    body { background: var(--page); }
+    .breadcrumb { opacity: 1; color: var(--slate); }
+    .breadcrumb a { color: var(--terracotta); }
+
+    .product-section { background: var(--page); padding: 2.5rem 2.5rem 4rem; gap: 1rem; }
+
+    /* Image sits on a blush card with sparkles, like the reference */
+    .product-img-col { position: relative; padding: 0 2.5rem 0 0; }
+    .product-img-main { background: var(--blush); border: 2px solid var(--blush-2); border-radius: 28px; padding: 18px; }
+    .product-img-main img { border-radius: 18px; }
+    .product-img-col::before,
+    .product-img-col::after {
+      content: '✦'; position: absolute; color: var(--pink); pointer-events: none; z-index: 2;
+    }
+    .product-img-col::before { top: -14px; left: -10px; font-size: 30px; }
+    .product-img-col::after  { top: 38%; right: 1.1rem; font-size: 18px; color: var(--coral); }
+    .thumb { background: var(--blush); border: 2px solid var(--blush-2); border-radius: 14px; }
+    .thumb.active { border-color: var(--terracotta); }
+
+    /* Text: bolder heading, darker body copy */
+    .product-info-col { gap: 1.25rem; padding-left: 1.5rem; }
+    .product-eyebrow { color: var(--pink); font-weight: 900; }
+    .product-name { font-family: 'Cooper Black', 'Cormorant Garamond', serif; font-weight: 400; color: var(--terracotta); font-size: clamp(28px, 3.2vw, 40px); line-height: 1.15; }
+    .product-price { font-family: 'Nunito', sans-serif; font-weight: 900; font-size: 24px; color: var(--ink); }
+    .product-desc { color: var(--ink); font-size: 15px; line-height: 1.8; }
+    .inline-stars .count { color: #9a8580; }
+
+    .variation-btn { border-color: var(--blush-2); color: var(--ink); }
+    .variation-btn.active { background: var(--blush); }
+
+    /* Quantity: outlined pill with soft round − / + */
+    .qty-label { color: var(--slate); }
+    .qty-controls { background: #fff; border: 2px solid var(--blush-2); border-radius: 50px; padding: 4px; gap: 4px; }
+    .qty-btn, .qty-btn.minus, .qty-btn.plus {
+      background: var(--blush); color: var(--terracotta); width: 32px; height: 32px; border-radius: 50%; font-size: 18px; font-weight: 700;
+    }
+    .qty-btn:hover { background: var(--rose); color: #fff; }
+    .qty-num { color: var(--ink); width: 34px; background: transparent; }
+
+    /* Buttons: flat pills with arrow, like the reference */
+    .btn-row { gap: 12px; }
+    .add-btn, .buy-btn {
+      box-shadow: none; font-size: 15px; padding: 14px 0; border-radius: 50px;
+      display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+      transition: background 0.2s, color 0.2s, transform 0.15s;
+    }
+    .add-btn { background: #fff; color: var(--terra-ink); border: 2px solid var(--terracotta); }
+    .add-btn:hover { background: var(--blush); }
+    .buy-btn { background: var(--terra-ink); color: #fff; border: 2px solid var(--terra-ink); }
+    .buy-btn:hover { background: var(--terracotta); transform: translateY(-2px); box-shadow: none; }
+
+    /* Details rows: softer lines, readable labels, round + icons */
+    .accordion, .accordion-item { border-color: var(--blush-2); }
+    .accordion-header span { color: var(--ink); }
+    .accordion-icon { width: 26px; height: 26px; border-radius: 50%; background: var(--blush); display: inline-flex; align-items: center; justify-content: center; font-size: 16px; }
+    .accordion-body { color: var(--ink); }
+
+    /* Lower sections match the lighter look */
+    .related-section { background: #fff; }
+    .reviews-section { background: var(--blush); }
+    .related-name { color: var(--ink); }
+    .review-text { color: var(--ink); }
+
+    @media (max-width: 768px) {
+      .product-img-col { padding-right: 0; }
+      .product-img-col::after { right: 0.5rem; }
+      .product-info-col { padding-left: 0; }
+    }
+  </style>
 </head>
 <body>
 
