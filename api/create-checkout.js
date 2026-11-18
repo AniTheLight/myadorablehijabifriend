@@ -1,76 +1,71 @@
 // ─── api/create-checkout.js ─────────────────────────────────────────────────
-// Vercel / Netlify serverless function for Stripe Checkout.
-// Deploy this file to /api/create-checkout.js in your Vercel project.
+// Starts a Stripe Checkout payment.
 //
-// Environment variables to set in Vercel dashboard:
-//   STRIPE_SECRET_KEY  →  sk_live_... (or sk_test_... for testing)
-//   SITE_URL           →  https://myadorablehijabifriend.com  (no trailing slash)
+// Environment variables (set in the Vercel dashboard):
+//   STRIPE_SECRET_KEY  →  sk_test_... while testing, sk_live_... when going live
+//   SITE_URL           →  optional, e.g. https://myadorablehijabifriend.com (no trailing slash)
 
 const Stripe = require('stripe');
+const { buildOrder, siteUrl, readBody, OrderError } = require('./_lib/order');
 
 module.exports = async function handler(req, res) {
-  // CORS headers (needed if your site and this function are on different origins)
-  res.setHeader('Access-Control-Allow-Origin', '*');
-  res.setHeader('Access-Control-Allow-Methods', 'POST, OPTIONS');
-  res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
-
-  if (req.method === 'OPTIONS') return res.status(200).end();
   if (req.method !== 'POST') return res.status(405).json({ error: 'Method not allowed' });
 
-  const stripe = new Stripe(process.env.STRIPE_SECRET_KEY);
-  const siteUrl = process.env.SITE_URL || 'https://myadorablehijabifriend.com';
-
-  const { items, customerEmail, customerName } = req.body;
-
-  if (!items || items.length === 0) {
-    return res.status(400).json({ error: 'No items provided' });
+  if (!process.env.STRIPE_SECRET_KEY) {
+    return res.status(500).json({ error: 'Card payments are not set up yet.' });
   }
 
-  // Build Stripe line items from basket
-  const lineItems = items.map(function (item) {
+  const body = readBody(req);
+  const base = siteUrl(req);
+
+  let order;
+  try {
+    order = buildOrder(body.items);
+  } catch (err) {
+    if (err instanceof OrderError) return res.status(400).json({ error: err.message });
+    throw err;
+  }
+
+  const lineItems = order.lines.map(function (line) {
     return {
       price_data: {
         currency: 'gbp',
         product_data: {
-          name: item.name,
-          images: item.image ? [siteUrl + '/' + item.image] : []
+          name: line.name,
+          images: line.image ? [base + '/' + line.image] : []
         },
-        unit_amount: Math.round(item.price * 100) // pence
+        unit_amount: line.unitPence
       },
-      quantity: item.qty
+      quantity: line.qty
     };
   });
 
-  // Add shipping if subtotal < £25
-  const subtotal = items.reduce(function (s, i) { return s + i.price * i.qty; }, 0);
-  if (subtotal < 25) {
-    lineItems.push({
-      price_data: {
-        currency: 'gbp',
-        product_data: { name: 'Standard Shipping' },
-        unit_amount: 329 // £3.29
-      },
-      quantity: 1
-    });
-  }
+  const email = typeof body.customerEmail === 'string' && body.customerEmail.includes('@')
+    ? body.customerEmail.trim()
+    : undefined;
 
   try {
+    const stripe = new Stripe(process.env.STRIPE_SECRET_KEY);
     const session = await stripe.checkout.sessions.create({
-      payment_method_types: ['card'],
       mode: 'payment',
       line_items: lineItems,
-      customer_email: customerEmail,
-      metadata: { customerName: customerName || '' },
-      shipping_address_collection: {
-        allowed_countries: ['GB']
-      },
-      success_url: siteUrl + '/success.html',
-      cancel_url:  siteUrl + '/checkout.html'
+      customer_email: email,
+      metadata: { customerName: String(body.customerName || '').slice(0, 200) },
+      shipping_address_collection: { allowed_countries: ['GB'] },
+      shipping_options: [{
+        shipping_rate_data: {
+          type: 'fixed_amount',
+          display_name: order.shippingPence === 0 ? 'Free shipping' : 'Standard shipping',
+          fixed_amount: { amount: order.shippingPence, currency: 'gbp' }
+        }
+      }],
+      success_url: base + '/success.html?provider=stripe&id={CHECKOUT_SESSION_ID}',
+      cancel_url: base + '/checkout.html'
     });
 
     res.status(200).json({ url: session.url });
   } catch (err) {
     console.error('Stripe error:', err);
-    res.status(500).json({ error: err.message });
+    res.status(500).json({ error: 'Could not start card payment. Please try again.' });
   }
 };

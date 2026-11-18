@@ -18,8 +18,53 @@
 </head>
 <body>
   <div class="icon">✦</div>
-  <h1>Order confirmed!</h1>
-  <p>Thank you so much for your order. You'll receive a confirmation email shortly. Your little friend is on her way!</p>
-  <a href="index.html">Back to home</a>
+  <h1 id="title">Checking your order…</h1>
+  <p id="message">Just a moment while we confirm your payment.</p>
+  <a id="cta" href="index.html" style="display:none;">Back to home</a>
+
+  <script>
+    // Only show "confirmed" once the payment server says the payment went through.
+    (function () {
+      var params   = new URLSearchParams(window.location.search);
+      var provider = params.get('provider');
+      var id       = params.get('id');
+      var title    = document.getElementById('title');
+      var message  = document.getElementById('message');
+      var cta      = document.getElementById('cta');
+
+      function show(heading, text, linkText, linkHref) {
+        title.textContent = heading;
+        message.textContent = text;
+        cta.textContent = linkText;
+        cta.href = linkHref;
+        cta.style.display = 'inline-block';
+      }
+
+      if (!provider || !id) {
+        return show('No order found', "We couldn't find an order to show here.", 'Back to home', 'index.html');
+      }
+
+      fetch('/api/order-status?provider=' + encodeURIComponent(provider) + '&id=' + encodeURIComponent(id))
+        .then(function (r) { return r.json(); })
+        .then(function (order) {
+          if (!order.paid) throw new Error('not paid');
+          try { localStorage.removeItem('mahf_basket'); } catch (e) {}
+          show(
+            'Order confirmed!',
+            'Thank you so much for your order' + (order.total ? ' of £' + order.total : '') + '. ' +
+            (order.email ? 'A receipt is on its way to ' + order.email + '. ' : '') +
+            'Your little friend is on her way!',
+            'Back to home', 'index.html'
+          );
+        })
+        .catch(function () {
+          show(
+            "We couldn't confirm your payment",
+            "If money has left your account, please don't worry. Email hello@myadorablehijabifriend.com and we'll sort it out. Your basket has been kept in case you need to try again.",
+            'Back to checkout', 'checkout.html'
+          );
+        });
+    })();
+  </script>
 </body>
 </html>

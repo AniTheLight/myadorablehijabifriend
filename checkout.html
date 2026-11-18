@@ -171,8 +171,16 @@
 
   <script>
     function getTotal()    { return basket.reduce(function(s,i){ return s + i.price * i.qty; }, 0); }
-    function getShipping() { return getTotal() >= 25 ? 'Free' : '£3.29'; }
-    function getGrand()    { var t = getTotal(); return t >= 25 ? t : t + 3.29; }
+    // Shipping rules live in products.js (MAHF_SHIPPING) so the page and the
+    // payment server always agree. Final prices are always worked out on the server.
+    function shippingCost() { return getTotal() >= MAHF_SHIPPING.freeOver ? 0 : MAHF_SHIPPING.cost; }
+    function getShipping()  { var c = shippingCost(); return c === 0 ? 'Free' : '£' + c.toFixed(2); }
+    function getGrand()     { return getTotal() + shippingCost(); }
+
+    // Only send product ids and quantities — the server looks up names and prices.
+    function basketForServer() {
+      return basket.map(function(i) { return { id: i.id, qty: i.qty }; });
+    }
 
     function removeSVG() {
       return '<svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>';
@@ -385,96 +393,106 @@
       btn.disabled = true;
 
       try {
-        console.log('[Stripe] Sending request to /api/create-checkout...');
-        console.log('[Stripe] Basket:', JSON.stringify(basket));
-
         var response = await fetch('/api/create-checkout', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({
-            items: basket,
+            items: basketForServer(),
             customerEmail: document.getElementById('em').value.trim(),
             customerName: document.getElementById('fn').value.trim() + ' ' + document.getElementById('sn').value.trim()
           })
         });
 
-        console.log('[Stripe] HTTP status:', response.status);
-
-        var data = await response.json();
-        console.log('[Stripe] Response data:', data);
+        var data = await response.json().catch(function() { return {}; });
 
         if (data.url) {
-          console.log('[Stripe] Redirecting to:', data.url);
-          localStorage.removeItem('mahf_basket');
+          // The basket is cleared on the confirmation page once payment is
+          // confirmed, so it's still there if the customer cancels on Stripe.
           window.location.href = data.url;
         } else {
-          console.error('[Stripe] No URL in response. Full response:', data);
-          throw new Error(data.error || 'No URL returned');
+          throw new Error(data.error || 'Card payments are unavailable right now.');
         }
       } catch (err) {
         console.error('[Stripe] Error:', err);
         btn.querySelector('span').textContent = 'Pay securely — £' + getGrand().toFixed(2);
         btn.disabled = false;
-        alert('Something went wrong: ' + err.message + '\n\nCheck the browser console (F12) for details.');
+        alert('Sorry, something went wrong: ' + err.message + '\n\nPlease try again, or pay with PayPal.');
       }
     }
 
+    // PayPal: the order is created and captured by our server (api/paypal-*.js)
+    // so prices can't be changed in the browser. The SDK loads once; buttons are
+    // re-drawn whenever the checkout re-renders.
+    var paypalSdkState = 'idle'; // idle → loading → ready | unavailable
+
+    function paypalMessage(text) {
+      var container = document.getElementById('paypal-button-container');
+      if (container) container.innerHTML = '<p style="text-align:center;font-size:13px;color:#e891a1;font-weight:700;padding:14px;">' + text + '</p>';
+    }
+
     function initPayPal() {
-      var PAYPAL_CLIENT_ID = 'AZLHLtjsRhlVhOW9cFRbj6qtRuyDuezQHglOnGTL1j5-6RV6HjKIPmJuC_e2LB4L5UiWURjzx2j-GB3H';
+      if (paypalSdkState === 'ready') return renderPayPalButtons();
+      if (paypalSdkState === 'unavailable') return paypalMessage('PayPal is unavailable right now — please pay by card.');
+      if (paypalSdkState === 'loading') return;
+      paypalSdkState = 'loading';
 
-      if (PAYPAL_CLIENT_ID === 'YOUR_PAYPAL_CLIENT_ID') {
-        var container = document.getElementById('paypal-button-container');
-        if (container) {
-          container.innerHTML = '<p style="text-align:center;font-size:13px;color:#e891a1;font-weight:700;padding:14px;">PayPal not yet connected — add your Client ID to checkout.html</p>';
+      fetch('/api/paypal-config')
+        .then(function(r) { return r.json(); })
+        .then(function(cfg) {
+          if (!cfg.clientId) throw new Error('PayPal not configured');
+          var script = document.createElement('script');
+          script.src = 'https://www.paypal.com/sdk/js?client-id=' + encodeURIComponent(cfg.clientId) + '&currency=GBP&intent=capture';
+          script.onload = function() { paypalSdkState = 'ready'; renderPayPalButtons(); };
+          script.onerror = function() { paypalSdkState = 'unavailable'; initPayPal(); };
+          document.head.appendChild(script);
+        })
+        .catch(function() { paypalSdkState = 'unavailable'; initPayPal(); });
+    }
+
+    function renderPayPalButtons() {
+      var container = document.getElementById('paypal-button-container');
+      if (!container || basket.length === 0) return;
+      container.innerHTML = '';
+
+      paypal.Buttons({
+        style: { layout: 'horizontal', color: 'gold', shape: 'pill', label: 'pay', height: 50 },
+
+        onClick: function(data, actions) {
+          return validateForm() ? actions.resolve() : actions.reject();
+        },
+
+        createOrder: function() {
+          return fetch('/api/paypal-create-order', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ items: basketForServer() })
+          })
+            .then(function(r) { return r.json(); })
+            .then(function(order) {
+              if (!order.id) throw new Error(order.error || 'Could not start PayPal payment.');
+              return order.id;
+            });
+        },
+
+        onApprove: function(data, actions) {
+          return fetch('/api/paypal-capture-order', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ orderId: data.orderID })
+          })
+            .then(function(r) { return r.json(); })
+            .then(function(result) {
+              // Card declined inside PayPal: let the customer choose another way to pay.
+              if (result.error === 'INSTRUMENT_DECLINED') return actions.restart();
+              if (result.status !== 'COMPLETED') throw new Error(result.error || 'Payment not completed');
+              window.location.href = 'success.html?provider=paypal&id=' + encodeURIComponent(result.id);
+            });
+        },
+
+        onError: function() {
+          alert('PayPal payment failed. Please try again or pay by card.');
         }
-        return;
-      }
-
-      var script = document.createElement('script');
-      script.src = 'https://www.paypal.com/sdk/js?client-id=' + PAYPAL_CLIENT_ID + '&currency=GBP';
-      script.onload = function() {
-        paypal.Buttons({
-          style: {
-            layout: 'horizontal',
-            color:  'gold',
-            shape:  'pill',
-            label:  'pay',
-            height: 50
-          },
-          createOrder: function(data, actions) {
-            if (!validateForm()) return;
-            return actions.order.create({
-              purchase_units: [{
-                amount: {
-                  value: getGrand().toFixed(2),
-                  currency_code: 'GBP',
-                  breakdown: {
-                    item_total: { value: getTotal().toFixed(2), currency_code: 'GBP' },
-                    shipping:   { value: getTotal() >= 25 ? '0.00' : '3.99', currency_code: 'GBP' }
-                  }
-                },
-                items: basket.map(function(item) {
-                  return {
-                    name: item.name,
-                    unit_amount: { value: item.price.toFixed(2), currency_code: 'GBP' },
-                    quantity: String(item.qty)
-                  };
-                })
-              }]
-            });
-          },
-          onApprove: function(data, actions) {
-            return actions.order.capture().then(function(details) {
-              localStorage.removeItem('mahf_basket');
-              window.location.href = 'success.html';
-            });
-          },
-          onError: function(err) {
-            alert('PayPal payment failed. Please try again or use card payment.');
-          }
-        }).render('#paypal-button-container');
-      };
-      document.head.appendChild(script);
+      }).render('#paypal-button-container');
     }
 
     function removeItem(id) {

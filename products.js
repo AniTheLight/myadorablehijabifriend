@@ -1,8 +1,15 @@
 // ─── products.js — single source of truth ──────────────────────────────────
 // Import this with <script src="products.js"></script> before any page script.
 // All pages (index, shop, product) read from window.MAHF_PRODUCTS.
+// The checkout server code (api/) also reads this file, so the prices here are
+// the prices customers are actually charged.
 
-window.MAHF_PRODUCTS = [
+var MAHF_ROOT = typeof window !== 'undefined' ? window : {};
+
+// Shipping rules — used by the checkout page and the payment server code.
+MAHF_ROOT.MAHF_SHIPPING = { cost: 3.29, freeOver: 25 };
+
+MAHF_ROOT.MAHF_PRODUCTS = [
   {
     id: 'crochet-doll',
     name: 'My Hijabi Crochet Keychain',
@@ -108,7 +115,16 @@ window.MAHF_PRODUCTS = [
 ];
 
 // Helper: look up a product by id
-window.MAHF_PRODUCT_MAP = {};
-window.MAHF_PRODUCTS.forEach(function(p) {
-  window.MAHF_PRODUCT_MAP[p.id] = p;
+MAHF_ROOT.MAHF_PRODUCT_MAP = {};
+MAHF_ROOT.MAHF_PRODUCTS.forEach(function(p) {
+  MAHF_ROOT.MAHF_PRODUCT_MAP[p.id] = p;
 });
+
+// Let the server code (Node.js) load this file with require().
+if (typeof module !== 'undefined' && module.exports) {
+  module.exports = {
+    products: MAHF_ROOT.MAHF_PRODUCTS,
+    productMap: MAHF_ROOT.MAHF_PRODUCT_MAP,
+    shipping: MAHF_ROOT.MAHF_SHIPPING
+  };
+}
