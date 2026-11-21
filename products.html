@@ -173,6 +173,7 @@
     .product-img-col::before { top: -14px; left: -10px; font-size: 30px; }
     .product-img-col::after  { top: 38%; right: 1.1rem; font-size: 18px; color: var(--coral); }
     .thumb { background: var(--blush); border: 2px solid var(--blush-2); border-radius: 14px; }
+    .thumb-row { flex-wrap: wrap; }
     .thumb.active { border-color: var(--terracotta); }
 
     /* Text: bolder heading, darker body copy */
@@ -318,12 +319,11 @@
       return '<div class="img-placeholder"><span>Image coming soon</span></div>';
     }
 
-    function thumbContent(p, index) {
-      var labels = ['Front', 'Side', 'Detail'];
-      if (p.thumbImages && p.thumbImages[index]) {
-        return '<img src="' + p.thumbImages[index] + '" alt="' + labels[index] + '">';
-      }
-      return '<span style="font-size:8px;font-weight:700;color:#CD7250;text-transform:uppercase;">' + labels[index] + '</span>';
+    // Small photos under the main picture — as many as the product has.
+    function thumbRowHTML(images) {
+      return (images || []).filter(Boolean).map(function (src, i) {
+        return '<div class="thumb' + (i === 0 ? ' active' : '') + '" onclick="switchThumb(this,' + i + ')"><img src="' + src + '" alt="Photo ' + (i + 1) + '"></div>';
+      }).join('');
     }
 
     function variationsHTML(product) {
@@ -354,23 +354,14 @@
       var mainImg = document.getElementById('mainImg');
       if (mainImg) mainImg.innerHTML = '<img src="' + variation.image + '" alt="' + variation.label + '">';
 
-      var thumbs = document.querySelectorAll('.thumb');
-      variation.thumbImages.forEach(function (src, i) {
-        if (thumbs[i]) {
-          if (src) {
-            thumbs[i].innerHTML = '<img src="' + src + '" alt="View ' + (i + 1) + '">';
-          } else {
-            var labels = ['Front', 'Side', 'Detail'];
-            thumbs[i].innerHTML = '<span style="font-size:8px;font-weight:700;color:#CD7250;text-transform:uppercase;">' + labels[i] + '</span>';
-          }
-        }
-      });
+      var row = document.getElementById('thumbRow');
+      if (row) row.innerHTML = thumbRowHTML(variation.thumbImages);
 
       // The basket gets this option's own id, name and price.
       currentProduct.itemId      = variation.id;
       currentProduct.price       = variation.price;
       currentProduct.image       = variation.image;
-      currentProduct.thumbImages = variation.thumbImages;
+      currentProduct.thumbImages = (variation.thumbImages || []).filter(Boolean);
       currentProduct.variantLabel = variation.label;
 
       var priceEl = document.querySelector('.product-price');
@@ -447,7 +438,7 @@
         price:       product.price,
         accentColour: product.accentColour || '#e8a0a0',
         image:       product.image,
-        thumbImages: product.thumbImages
+        thumbImages: (product.thumbImages || []).filter(Boolean)
       };
 
       document.title = product.name + ' — My Adorable Hijabi Friend';
@@ -465,18 +456,12 @@
         '</a>';
       }).join('');
 
-      var thumbBgs = [product.colour, '#dceaf2', '#ede8f5'];
-
       document.getElementById('pageContent').innerHTML =
         '<div class="breadcrumb"><a href="index.html">Home</a> › <a href="shop.html">Shop</a> › ' + product.name + '</div>' +
         '<section class="product-section">' +
           '<div class="product-img-col">' +
             '<div class="product-img-main" id="mainImg">' + productImgHTML(product) + '</div>' +
-            '<div class="thumb-row">' +
-              '<div class="thumb active" style="background:' + thumbBgs[0] + ';" onclick="switchThumb(this,0)">' + thumbContent(product, 0) + '</div>' +
-              '<div class="thumb" style="background:' + thumbBgs[1] + ';" onclick="switchThumb(this,1)">' + thumbContent(product, 1) + '</div>' +
-              '<div class="thumb" style="background:' + thumbBgs[2] + ';" onclick="switchThumb(this,2)">' + thumbContent(product, 2) + '</div>' +
-            '</div>' +
+            '<div class="thumb-row" id="thumbRow">' + thumbRowHTML(product.thumbImages) + '</div>' +
           '</div>' +
           '<div class="product-info-col">' +
             '<p class="product-eyebrow">✦ ' + product.variant + '</p>' +
