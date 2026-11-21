@@ -113,18 +113,23 @@ MAHF_ROOT.MAHF_PRODUCTS = [
     image: 'images/keychainset/thumbnail.jpeg',
     thumbImages: [
       'images/keychainset/thumbnail.jpeg',
-      'images/keychainset/full-set.jpeg'
+      'images/keychainset/subhanallah.jpeg',
+      'images/keychainset/bismika-amutu.jpeg',
+      'images/keychainset/allah-made-everything.jpeg',
+      'images/keychainset/hauwa-alhamdulillah.jpeg',
+      'images/keychainset/hauwa-i-love-allah.jpeg',
+      'images/keychainset/malaika-trust-in-allah.jpeg'
     ],
     description: 'Collect them all! Six little keychain friends to clip onto bags, keys and pencil cases. Pick your favourite for £2.50 each, or get all six together in the full set for £12.99.',
     details: 'Keychain with keyring. £2.50 each, or £12.99 for the full set of 6. Suitable for ages 3+.',
     variations: [
-      { id: 'keychain-set-1', label: 'Subhanallah', colour: '#e891a1', price: 2.50, image: 'images/keychainset/subhanallah.jpeg', thumbImages: ['images/keychainset/subhanallah.jpeg', 'images/keychainset/full-set.jpeg'] },
-      { id: 'keychain-set-2', label: 'Bismika Amutu', colour: '#CD7250', price: 2.50, image: 'images/keychainset/bismika-amutu.jpeg', thumbImages: ['images/keychainset/bismika-amutu.jpeg', 'images/keychainset/full-set.jpeg'] },
-      { id: 'keychain-set-3', label: 'Allah Made Everything', colour: '#a8402a', price: 2.50, image: 'images/keychainset/allah-made-everything.jpeg', thumbImages: ['images/keychainset/allah-made-everything.jpeg', 'images/keychainset/full-set.jpeg'] },
-      { id: 'keychain-set-4', label: 'Hauwa – Alhamdulillah', colour: '#c8bde8', price: 2.50, image: 'images/keychainset/hauwa-alhamdulillah.jpeg', thumbImages: ['images/keychainset/hauwa-alhamdulillah.jpeg', 'images/keychainset/full-set.jpeg'] },
-      { id: 'keychain-set-5', label: 'Hauwa – I Love Allah', colour: '#adc2cf', price: 2.50, image: 'images/keychainset/hauwa-i-love-allah.jpeg', thumbImages: ['images/keychainset/hauwa-i-love-allah.jpeg', 'images/keychainset/full-set.jpeg'] },
-      { id: 'keychain-set-6', label: 'Malaika – Trust in Allah', colour: '#EDC1BB', price: 2.50, image: 'images/keychainset/malaika-trust-in-allah.jpeg', thumbImages: ['images/keychainset/malaika-trust-in-allah.jpeg', 'images/keychainset/full-set.jpeg'] },
-      { id: 'keychain-set-full', label: 'Full set of 6', colour: '#CD7250', price: 12.99, image: 'images/keychainset/full-set.jpeg',   thumbImages: ['images/keychainset/full-set.jpeg', 'images/keychainset/thumbnail.jpeg', null] }
+      { id: 'keychain-set-1', label: 'Subhanallah', colour: '#e891a1', price: 2.50, image: 'images/keychainset/subhanallah.jpeg', thumbImages: ['images/keychainset/subhanallah.jpeg', 'images/keychainset/thumbnail.jpeg', 'images/keychainset/bismika-amutu.jpeg', 'images/keychainset/allah-made-everything.jpeg', 'images/keychainset/hauwa-alhamdulillah.jpeg', 'images/keychainset/hauwa-i-love-allah.jpeg', 'images/keychainset/malaika-trust-in-allah.jpeg'] },
+      { id: 'keychain-set-2', label: 'Bismika Amutu', colour: '#CD7250', price: 2.50, image: 'images/keychainset/bismika-amutu.jpeg', thumbImages: ['images/keychainset/bismika-amutu.jpeg', 'images/keychainset/thumbnail.jpeg', 'images/keychainset/subhanallah.jpeg', 'images/keychainset/allah-made-everything.jpeg', 'images/keychainset/hauwa-alhamdulillah.jpeg', 'images/keychainset/hauwa-i-love-allah.jpeg', 'images/keychainset/malaika-trust-in-allah.jpeg'] },
+      { id: 'keychain-set-3', label: 'Allah Made Everything', colour: '#a8402a', price: 2.50, image: 'images/keychainset/allah-made-everything.jpeg', thumbImages: ['images/keychainset/allah-made-everything.jpeg', 'images/keychainset/thumbnail.jpeg', 'images/keychainset/subhanallah.jpeg', 'images/keychainset/bismika-amutu.jpeg', 'images/keychainset/hauwa-alhamdulillah.jpeg', 'images/keychainset/hauwa-i-love-allah.jpeg', 'images/keychainset/malaika-trust-in-allah.jpeg'] },
+      { id: 'keychain-set-4', label: 'Hauwa – Alhamdulillah', colour: '#c8bde8', price: 2.50, image: 'images/keychainset/hauwa-alhamdulillah.jpeg', thumbImages: ['images/keychainset/hauwa-alhamdulillah.jpeg', 'images/keychainset/thumbnail.jpeg', 'images/keychainset/subhanallah.jpeg', 'images/keychainset/bismika-amutu.jpeg', 'images/keychainset/allah-made-everything.jpeg', 'images/keychainset/hauwa-i-love-allah.jpeg', 'images/keychainset/malaika-trust-in-allah.jpeg'] },
+      { id: 'keychain-set-5', label: 'Hauwa – I Love Allah', colour: '#adc2cf', price: 2.50, image: 'images/keychainset/hauwa-i-love-allah.jpeg', thumbImages: ['images/keychainset/hauwa-i-love-allah.jpeg', 'images/keychainset/thumbnail.jpeg', 'images/keychainset/subhanallah.jpeg', 'images/keychainset/bismika-amutu.jpeg', 'images/keychainset/allah-made-everything.jpeg', 'images/keychainset/hauwa-alhamdulillah.jpeg', 'images/keychainset/malaika-trust-in-allah.jpeg'] },
+      { id: 'keychain-set-6', label: 'Malaika – Trust in Allah', colour: '#EDC1BB', price: 2.50, image: 'images/keychainset/malaika-trust-in-allah.jpeg', thumbImages: ['images/keychainset/malaika-trust-in-allah.jpeg', 'images/keychainset/thumbnail.jpeg', 'images/keychainset/subhanallah.jpeg', 'images/keychainset/bismika-amutu.jpeg', 'images/keychainset/allah-made-everything.jpeg', 'images/keychainset/hauwa-alhamdulillah.jpeg', 'images/keychainset/hauwa-i-love-allah.jpeg'] },
+      { id: 'keychain-set-full', label: 'Full set of 6', colour: '#CD7250', price: 12.99, image: 'images/keychainset/full-set.jpeg',   thumbImages: ['images/keychainset/full-set.jpeg', 'images/keychainset/thumbnail.jpeg', 'images/keychainset/subhanallah.jpeg', 'images/keychainset/bismika-amutu.jpeg', 'images/keychainset/allah-made-everything.jpeg', 'images/keychainset/hauwa-alhamdulillah.jpeg', 'images/keychainset/hauwa-i-love-allah.jpeg', 'images/keychainset/malaika-trust-in-allah.jpeg'] }
     ],
     related: ['crochet-doll', 'key-chain-plush', 'princess-doll']
   },
