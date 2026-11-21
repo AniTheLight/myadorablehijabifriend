@@ -213,8 +213,10 @@
       card.onclick = function() { window.location.href = 'products.html?id=' + p.id; };
 
       var imgHTML  = p.image ? '<img src="' + p.image + '" alt="' + p.name + '">' : '';
-      var safeName = p.name.replace(/'/g, "\\'");
-      var safeImg  = (p.image || '').replace(/'/g, "\\'");
+      // Quick button adds the product's first option (e.g. Yasmine).
+      var item     = MAHF_DEFAULT_ITEM(p.id);
+      var safeName = item.name.replace(/'/g, "\\'");
+      var safeImg  = (item.image || '').replace(/'/g, "\\'");
 
       card.innerHTML =
         '<div class="product-img-wrap" style="background:' + p.colour + ';">' +
@@ -223,7 +225,7 @@
         '</div>' +
         '<p class="product-name">' + p.name + '</p>' +
         '<p class="product-price">£' + p.price.toFixed(2) + '</p>' +
-        '<button class="product-add" onclick="event.stopPropagation(); addToBasketById(\'' + p.id + '\',\'' + safeName + '\',' + p.price + ',\'' + p.accentColour + '\',1,\'' + safeImg + '\')">Add to basket</button>';
+        '<button class="product-add" onclick="event.stopPropagation(); addToBasketById(\'' + item.id + '\',\'' + safeName + '\',' + item.price + ',\'' + p.accentColour + '\',1,\'' + safeImg + '\')">Add to basket</button>';
 
       _track.appendChild(card);
     });

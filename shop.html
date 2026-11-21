@@ -144,8 +144,10 @@
           ? '<span class="card-badge" style="background:' + p.badgeColour + ';">' + p.badge + '</span>'
           : '';
 
-        var imgStr   = p.image  ? p.image.replace(/'/g, "\\'")  : '';
-        var nameStr  = p.name.replace(/'/g, "\\'");
+        // Quick buttons add the product's first option (e.g. Yasmine).
+        var item     = MAHF_DEFAULT_ITEM(p.id);
+        var imgStr   = item.image ? item.image.replace(/'/g, "\\'") : '';
+        var nameStr  = item.name.replace(/'/g, "\\'");
         var colStr   = (p.accentColour || '#EDC1BB').replace(/'/g, "\\'");
 
         html +=
@@ -156,17 +158,32 @@
             '<div class="card-body">' +
               '<p class="card-name">' + p.name + '</p>' +
               '<p class="card-variant">' + p.variant + '</p>' +
-              '<div class="card-stars"><span class="stars">' + starsHTML(p.stars) + '</span><span class="rev">(' + p.reviews + ')</span></div>' +
+              '<div class="card-stars" id="stars-' + p.id + '"><span class="rev">No reviews yet</span></div>' +
               '<p class="card-price">£' + p.price.toFixed(2) + '</p>' +
               '<div class="card-btns">' +
-                '<button class="btn-basket" onclick="event.stopPropagation(); addToBasketById(\'' + p.id + '\',\'' + nameStr + '\',' + p.price + ',\'' + colStr + '\',1,\'' + imgStr + '\')" title="Add to basket">' + basketIcon() + '</button>' +
-                '<button class="btn-buy" onclick="event.stopPropagation(); buyNow(\'' + p.id + '\',\'' + nameStr + '\',' + p.price + ',\'' + colStr + '\',\'' + imgStr + '\')">Buy now →</button>' +
+                '<button class="btn-basket" onclick="event.stopPropagation(); addToBasketById(\'' + item.id + '\',\'' + nameStr + '\',' + item.price + ',\'' + colStr + '\',1,\'' + imgStr + '\')" title="Add to basket">' + basketIcon() + '</button>' +
+                '<button class="btn-buy" onclick="event.stopPropagation(); buyNow(\'' + item.id + '\',\'' + nameStr + '\',' + item.price + ',\'' + colStr + '\',\'' + imgStr + '\')">Buy now →</button>' +
               '</div>' +
             '</div>' +
           '</div>';
       });
 
       grid.innerHTML = html;
+
+      // Fill in real star ratings from the reviews spreadsheet.
+      fetch('/api/reviews?summary=1')
+        .then(function (r) { return r.ok ? r.json() : null; })
+        .then(function (data) {
+          if (!data || !data.summaries) return;
+          Object.keys(data.summaries).forEach(function (id) {
+            var sum = data.summaries[id];
+            var el = document.getElementById('stars-' + id);
+            if (el && sum.total) {
+              el.innerHTML = '<span class="stars">' + starsHTML(Math.round(sum.avg)) + '</span><span class="rev">(' + sum.total + ')</span>';
+            }
+          });
+        })
+        .catch(function () {});
     });
   </script>
 </body>
