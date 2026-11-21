@@ -14,6 +14,15 @@ function loadBasket() {
   if (saved) {
     try { basket = JSON.parse(saved); } catch (e) { basket = []; }
   }
+  // Keep saved names and prices up to date, and drop items that no longer
+  // exist (e.g. a product option that was renamed).
+  if (window.MAHF_ITEM_MAP) {
+    basket = basket.filter(function (i) { return MAHF_ITEM_MAP[i.id]; }).map(function (i) {
+      var item = MAHF_ITEM_MAP[i.id];
+      return Object.assign({}, i, { name: item.name, price: item.price, image: item.image || i.image });
+    });
+    saveBasket();
+  }
   renderBasket();
 }
 

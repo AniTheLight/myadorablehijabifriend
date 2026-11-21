@@ -366,8 +366,8 @@
         }
       });
 
-      // Keep id and name as the base product so basket deduplicates correctly
-      // across all pages (index, shop, product)
+      // The basket gets this option's own id, name and price.
+      currentProduct.itemId      = variation.id;
       currentProduct.price       = variation.price;
       currentProduct.image       = variation.image;
       currentProduct.thumbImages = variation.thumbImages;
@@ -385,14 +385,9 @@
 
     function handleAddToBasket() {
       if (!currentProduct) return;
-      addToBasketById(
-        currentProduct.id,
-        currentProduct.name,
-        currentProduct.price,
-        currentProduct.accentColour || '#e8a0a0',
-        qty,
-        currentProduct.image
-      );
+      var item = MAHF_ITEM_MAP[currentProduct.itemId];
+      if (!item) return;
+      addToBasketById(item.id, item.name, item.price, currentProduct.accentColour || '#e8a0a0', qty, item.image);
     }
 
     function handleBuyNow() {
@@ -447,6 +442,7 @@
 
       currentProduct = {
         id:          id,
+        itemId:      id,
         name:        product.name,
         price:       product.price,
         accentColour: product.accentColour || '#e8a0a0',
@@ -483,7 +479,7 @@
             '</div>' +
           '</div>' +
           '<div class="product-info-col">' +
-            '<p class="product-eyebrow">✦ Keychain Doll</p>' +
+            '<p class="product-eyebrow">✦ ' + product.variant + '</p>' +
             '<h1 class="product-name">' + product.name + '</h1>' +
             '<p class="product-price">£' + product.price.toFixed(2) + '</p>' +
             '<div class="inline-stars" id="inlineStars">' + inlineStarsHTML() + '</div>' +
@@ -492,7 +488,7 @@
             '<div class="qty-wrapper"><span class="qty-label">Qty</span><div class="qty-controls"><button class="qty-btn minus" onclick="changeQtyPage(-1)">−</button><span class="qty-num" id="qtyNum">1</span><button class="qty-btn plus" onclick="changeQtyPage(1)">+</button></div></div>' +
             '<div class="btn-row"><button class="add-btn" onclick="handleAddToBasket()">Add to basket</button><button class="buy-btn" onclick="handleBuyNow()">Buy now →</button></div>' +
             '<div class="accordion">' +
-              '<div class="accordion-item"><div class="accordion-header" onclick="toggleAcc(this)"><span>Details &amp; Materials</span><i class="accordion-icon">+</i></div>' +
+              '<div class="accordion-item"><div class="accordion-header" onclick="toggleAcc(this)"><span>Details</span><i class="accordion-icon">+</i></div>' +
               '<div class="accordion-body"><div class="acc-badges"><div class="acc-badge"><span class="acc-badge-icon">🎀</span><p class="acc-badge-title">Gift ready</p><p class="acc-badge-sub">Free gift wrapping on request</p></div><div class="acc-badge"><span class="acc-badge-icon">📦</span><p class="acc-badge-title">Ships fast</p><p class="acc-badge-sub">Dispatched within 2 working days</p></div><div class="acc-badge"><span class="acc-badge-icon">🚚</span><p class="acc-badge-title">Free shipping</p><p class="acc-badge-sub">On UK orders over £25</p></div></div>' + product.details + '</div></div>' +
               '<div class="accordion-item"><div class="accordion-header" onclick="toggleAcc(this)"><span>Shipping &amp; Returns</span><i class="accordion-icon">+</i></div><div class="accordion-body">Standard UK delivery 3–5 working days. Free shipping on orders over £25. Returns accepted within 14 days of receipt in original condition.</div></div>' +
             '</div>' +
@@ -610,7 +606,7 @@
               '<button type="submit" class="pill-btn rv-submit" id="rvSubmit">Submit review →</button>' +
             '</form>' +
           '</div>' +
-          '<div class="rv-done" id="rvDone" style="display:none;"><div class="rv-sparkle">✦</div><h3 class="rv-title">Thank you!</h3><p>Your review has been sent. It will appear on this page once we\'ve had a look at it.</p><button class="pill-btn" onclick="closeReviewForm()">Back to the shop</button></div>' +
+          '<div class="rv-done" id="rvDone" style="display:none;"><div class="rv-sparkle">✦</div><h3 class="rv-title">Thank you for your feedback.</h3><p>Your review has been sent.</p><button class="pill-btn" onclick="closeReviewForm()">Back to the shop</button></div>' +
         '</div>' +
       '</div>';
     }

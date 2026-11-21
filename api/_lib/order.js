@@ -5,7 +5,7 @@
 // always come from products.js, so a customer can't change what they pay.
 // (Files in api/_lib are helpers, not public endpoints.)
 
-const { productMap, shipping } = require('../../products.js');
+const { itemMap, shipping } = require('../../products.js');
 
 const MAX_QTY_PER_ITEM = 20;
 
@@ -18,7 +18,7 @@ function buildOrder(items) {
   }
 
   const lines = items.map(function (item) {
-    const product = item && productMap[item.id];
+    const product = item && itemMap[item.id];
     if (!product) {
       throw new OrderError('A product in your basket is no longer available. Please remove it and try again.');
     }
