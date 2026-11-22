@@ -43,14 +43,6 @@
     .checkbox-row input { width: 15px; height: 15px; accent-color: #e891a1; }
     .checkbox-row label { font-size: 12px; color: #aaa; font-weight: 700; }
 
-    /* ── Payment method tabs ── */
-    .payment-tabs { display: flex; gap: 10px; margin-bottom: 20px; }
-    .pay-tab { flex: 1; display: flex; align-items: center; justify-content: center; gap: 8px; padding: 12px 16px; border: 2px solid #f0ddd8; border-radius: 14px; cursor: pointer; background: #fff; transition: border-color 0.15s, background 0.15s; }
-    .pay-tab.active { border-color: #CD7250; background: #fdf5f3; }
-    .pay-tab input[type=radio] { display: none; }
-    .pay-tab-label { font-family: 'Nunito', sans-serif; font-size: 13px; font-weight: 900; color: #888; }
-    .pay-tab.active .pay-tab-label { color: #CD7250; }
-
     /* ── Stripe pay button ── */
     .stripe-btn {
       display: flex;
@@ -75,32 +67,6 @@
     .stripe-btn:hover { background: #4f46e5; transform: translateY(2px); box-shadow: 0 3px 0 #3730a3; }
     .stripe-btn:disabled { background: #ccc; box-shadow: 0 3px 0 #aaa; cursor: not-allowed; transform: none; }
     .stripe-btn svg { flex-shrink: 0; }
-
-    /* ── PayPal button ── */
-    .paypal-btn {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 10px;
-      width: 100%;
-      background: #FFC439;
-      color: #003087;
-      font-family: 'Nunito', sans-serif;
-      font-weight: 900;
-      font-size: 16px;
-      padding: 16px;
-      border-radius: 50px;
-      border: none;
-      cursor: pointer;
-      box-shadow: 0 5px 0 #e6a800;
-      transition: background 0.2s, transform 0.1s, box-shadow 0.1s;
-      margin-top: 18px;
-      letter-spacing: 0.3px;
-    }
-    .paypal-btn:hover { background: #f0b800; transform: translateY(2px); box-shadow: 0 3px 0 #c49200; }
-
-    /* PayPal SDK renders into this div */
-    #paypal-button-container { margin-top: 18px; }
 
     .secure-note { display: flex; align-items: center; justify-content: center; gap: 6px; margin-top: 12px; font-size: 12px; color: #aaa; font-weight: 700; }
 
@@ -190,20 +156,6 @@
       return '<img src="images/stripe.png" alt="Stripe" height="20" style="display:block;">';
     }
 
-    function paypalLogo() {
-      return '<svg height="20" viewBox="0 0 100 26" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M12.237 2.1H5.07a.96.96 0 00-.949.812L1.3 19.094a.576.576 0 00.57.666h3.4l.853-5.418-.027.17a.96.96 0 01.948-.813h1.976c3.878 0 6.914-1.574 7.8-6.126.026-.134.05-.265.07-.393-.112-.059-.112-.059 0 0 .264-1.684-.002-2.83-.96-3.869-.953-1.13-2.678-1.211-4.693-1.211z" fill="#003087"/><path d="M32.948 8.31h-3.4a.576.576 0 00-.569.487l-1.463 9.278-.027.17a.576.576 0 00.57.666h2.735a.576.576 0 00.569-.487l.395-2.503a.96.96 0 01.949-.812h1.118c3.092 0 4.879-1.497 5.344-4.467.21-1.298.009-2.317-.598-3.032-.666-.783-1.845-1.3-3.623-1.3z" fill="#003087"/><path d="M47.5 8.31h-3.4a.576.576 0 00-.569.487l-1.463 9.278-.027.17a.576.576 0 00.57.666h2.735a.576.576 0 00.569-.487l.395-2.503a.96.96 0 01.949-.812h1.118c3.092 0 4.879-1.497 5.344-4.467.21-1.298.009-2.317-.598-3.032-.666-.783-1.845-1.3-3.623-1.3z" fill="#009cde"/></svg>';
-    }
-
-    var currentPayMethod = 'stripe';
-
-    function selectPayMethod(method) {
-      currentPayMethod = method;
-      document.querySelectorAll('.pay-tab').forEach(function(t) { t.classList.remove('active'); });
-      document.getElementById('tab-' + method).classList.add('active');
-      document.getElementById('stripe-section').style.display = method === 'stripe' ? 'block' : 'none';
-      document.getElementById('paypal-section').style.display = method === 'paypal' ? 'block' : 'none';
-    }
-
     function renderCheckout() {
       var items = '';
       if (basket.length === 0) {
@@ -262,19 +214,7 @@
             // Payment card
             '<div class="card">' +
               '<div class="card-title">Payment</div>' +
-              '<div class="section-label">Choose how to pay</div>' +
-
-              // Tabs
-              '<div class="payment-tabs">' +
-                '<div class="pay-tab active" id="tab-stripe" onclick="selectPayMethod(\'stripe\')">' +
-                  '<input type="radio" name="paymethod" checked>' +
-                  '<span class="pay-tab-label"> Card via Stripe</span>' +
-                '</div>' +
-                '<div class="pay-tab" id="tab-paypal" onclick="selectPayMethod(\'paypal\')">' +
-                  '<input type="radio" name="paymethod">' +
-                  '<span class="pay-tab-label"> PayPal</span>' +
-                '</div>' +
-              '</div>' +
+              '<div class="section-label">Pay securely by card</div>' +
 
               // Stripe section
               '<div id="stripe-section">' +
@@ -283,13 +223,6 @@
                   '<span>Pay securely — £' + getGrand().toFixed(2) + '</span>' +
                 '</button>' +
                 '<div class="secure-note"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0110 0v4"/></svg>Secured by Stripe · 256-bit SSL</div>' +
-              '</div>' +
-
-              // PayPal section
-              '<div id="paypal-section" style="display:none;">' +
-                '<p style="font-size:13px;color:#aaa;font-weight:700;margin-bottom:14px;">You\'ll be taken to PayPal to complete your purchase securely.</p>' +
-                '<div id="paypal-button-container"></div>' +
-                '<div class="secure-note" style="margin-top:14px;"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0110 0v4"/></svg>Secured by PayPal · Buyer Protection included</div>' +
               '</div>' +
 
             '</div>' +
@@ -320,8 +253,6 @@
           '<p class="footer-copy">© 2025 My Adorable Hijabi Friend · Made with love in the UK</p>' +
         '</footer>';
 
-      // Init PayPal once DOM is ready
-      initPayPal();
     }
 
     function validateForm() {
@@ -414,83 +345,8 @@
         console.error('[Stripe] Error:', err);
         btn.querySelector('span').textContent = 'Pay securely — £' + getGrand().toFixed(2);
         btn.disabled = false;
-        alert('Sorry, something went wrong: ' + err.message + '\n\nPlease try again, or pay with PayPal.');
+        alert('Sorry, something went wrong: ' + err.message + '\n\nPlease try again.');
       }
-    }
-
-    // PayPal: the order is created and captured by our server (api/paypal-*.js)
-    // so prices can't be changed in the browser. The SDK loads once; buttons are
-    // re-drawn whenever the checkout re-renders.
-    var paypalSdkState = 'idle'; // idle → loading → ready | unavailable
-
-    function paypalMessage(text) {
-      var container = document.getElementById('paypal-button-container');
-      if (container) container.innerHTML = '<p style="text-align:center;font-size:13px;color:#e891a1;font-weight:700;padding:14px;">' + text + '</p>';
-    }
-
-    function initPayPal() {
-      if (paypalSdkState === 'ready') return renderPayPalButtons();
-      if (paypalSdkState === 'unavailable') return paypalMessage('PayPal is unavailable right now — please pay by card.');
-      if (paypalSdkState === 'loading') return;
-      paypalSdkState = 'loading';
-
-      fetch('/api/paypal-config')
-        .then(function(r) { return r.json(); })
-        .then(function(cfg) {
-          if (!cfg.clientId) throw new Error('PayPal not configured');
-          var script = document.createElement('script');
-          script.src = 'https://www.paypal.com/sdk/js?client-id=' + encodeURIComponent(cfg.clientId) + '&currency=GBP&intent=capture';
-          script.onload = function() { paypalSdkState = 'ready'; renderPayPalButtons(); };
-          script.onerror = function() { paypalSdkState = 'unavailable'; initPayPal(); };
-          document.head.appendChild(script);
-        })
-        .catch(function() { paypalSdkState = 'unavailable'; initPayPal(); });
-    }
-
-    function renderPayPalButtons() {
-      var container = document.getElementById('paypal-button-container');
-      if (!container || basket.length === 0) return;
-      container.innerHTML = '';
-
-      paypal.Buttons({
-        style: { layout: 'horizontal', color: 'gold', shape: 'pill', label: 'pay', height: 50 },
-
-        onClick: function(data, actions) {
-          return validateForm() ? actions.resolve() : actions.reject();
-        },
-
-        createOrder: function() {
-          return fetch('/api/paypal-create-order', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ items: basketForServer() })
-          })
-            .then(function(r) { return r.json(); })
-            .then(function(order) {
-              if (!order.id) throw new Error(order.error || 'Could not start PayPal payment.');
-              return order.id;
-            });
-        },
-
-        onApprove: function(data, actions) {
-          return fetch('/api/paypal-capture-order', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ orderId: data.orderID })
-          })
-            .then(function(r) { return r.json(); })
-            .then(function(result) {
-              // Card declined inside PayPal: let the customer choose another way to pay.
-              if (result.error === 'INSTRUMENT_DECLINED') return actions.restart();
-              if (result.status !== 'COMPLETED') throw new Error(result.error || 'Payment not completed');
-              window.location.href = 'success.html?provider=paypal&id=' + encodeURIComponent(result.id);
-            });
-        },
-
-        onError: function() {
-          alert('PayPal payment failed. Please try again or pay by card.');
-        }
-      }).render('#paypal-button-container');
     }
 
     function removeItem(id) {

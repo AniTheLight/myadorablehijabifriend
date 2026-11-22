@@ -1,9 +1,8 @@
 // ─── api/order-status.js ────────────────────────────────────────────────────
 // Lets the confirmation page check that a payment really went through.
-// GET /api/order-status?provider=stripe&id=cs_...   or   ?provider=paypal&id=...
+// GET /api/order-status?provider=stripe&id=cs_...
 
 const Stripe = require('stripe');
-const { paypalRequest } = require('./_lib/paypal');
 
 module.exports = async function handler(req, res) {
   const provider = req.query.provider;
@@ -17,16 +16,6 @@ module.exports = async function handler(req, res) {
         paid: session.payment_status === 'paid',
         total: (session.amount_total / 100).toFixed(2),
         email: session.customer_details ? session.customer_details.email : null
-      });
-    }
-
-    if (provider === 'paypal' && /^[A-Z0-9]{5,40}$/.test(id)) {
-      const order = await paypalRequest('GET', '/v2/checkout/orders/' + id);
-      const unit = order.purchase_units && order.purchase_units[0];
-      return res.status(200).json({
-        paid: order.status === 'COMPLETED',
-        total: unit ? unit.amount.value : null,
-        email: order.payer ? order.payer.email_address : null
       });
     }
 
