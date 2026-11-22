@@ -101,6 +101,11 @@
     .promo-row input:focus { border-color: #CD7250; }
     .promo-row button { background: #e891a1; color: #fff; font-family: 'Nunito', sans-serif; font-weight: 900; font-size: 13px; padding: 10px 18px; border-radius: 50px; border: none; cursor: pointer; box-shadow: 0 3px 0 #c4607a; white-space: nowrap; transition: background 0.15s; }
     .promo-row button:hover { background: #CD7250; }
+    .promo-row button:disabled { opacity: .6; cursor: default; }
+    .promo-msg { font-size: 12px; font-weight: 700; color: #CD7250; margin-top: 8px; }
+    .promo-applied { display: flex; align-items: center; justify-content: space-between; gap: 10px; margin-top: 14px; background: #fff; border: 1.5px dashed #7e98a8; border-radius: 14px; padding: 10px 14px; font-size: 13px; color: #5E4640; }
+    .promo-applied strong { color: #CD7250; }
+    .promo-applied button { background: none; border: none; color: #7e98a8; font-family: 'Nunito', sans-serif; font-weight: 800; font-size: 12px; text-decoration: underline; cursor: pointer; }
     .empty-msg { text-align: center; padding: 2rem 0; font-size: 14px; color: #aaa; font-weight: 700; }
     .empty-msg a { color: #e891a1; font-weight: 900; text-decoration: none; }
     .footer { background: #7e98a8; padding: 2.5rem 2rem; text-align: center; }
@@ -139,7 +144,21 @@
     function getTotal()    { return basket.reduce(function(s,i){ return s + i.price * i.qty; }, 0); }
     // Shipping rules live in products.js (MAHF_SHIPPING) so the page and the
     // payment server always agree. Final prices are always worked out on the server.
-    function shippingCost() { return getTotal() >= MAHF_SHIPPING.freeOver ? 0 : MAHF_SHIPPING.cost; }
+    function shippingCost() {
+      if (appliedPromo && appliedPromo.freeShipping) return 0;
+      return getTotal() >= MAHF_SHIPPING.freeOver ? 0 : MAHF_SHIPPING.cost;
+    }
+
+    // Promo code the customer has applied (checked by the server). Kept for this
+    // browser tab, so it's still there if they come back from the Stripe page.
+    var appliedPromo = null;
+    try { appliedPromo = JSON.parse(sessionStorage.getItem('mahf_promo') || 'null'); } catch (e) {}
+    function savePromo() {
+      try {
+        if (appliedPromo) sessionStorage.setItem('mahf_promo', JSON.stringify(appliedPromo));
+        else sessionStorage.removeItem('mahf_promo');
+      } catch (e) {}
+    }
     function getShipping()  { var c = shippingCost(); return c === 0 ? 'Free' : '£' + c.toFixed(2); }
     function getGrand()     { return getTotal() + shippingCost(); }
 
@@ -233,12 +252,8 @@
             '<div class="order-card">' +
               '<div class="order-title">Your order</div>' +
               '<div id="checkoutItems">' + items + '</div>' +
-              '<div class="order-totals">' +
-                '<div class="total-row"><span class="total-label">Subtotal</span><span class="total-value">£' + getTotal().toFixed(2) + '</span></div>' +
-                '<div class="total-row"><span class="total-label">Shipping</span><span class="total-value" style="color:#7e98a8;">' + getShipping() + '</span></div>' +
-                '<div class="total-row grand"><span class="total-label">Total</span><span class="total-value">£' + getGrand().toFixed(2) + '</span></div>' +
-              '</div>' +
-              '<div class="promo-row"><input type="text" id="promoInput" placeholder="Promo code"><button onclick="applyPromo()">Apply</button></div>' +
+              '<div class="order-totals" id="orderTotals">' + totalsHTML() + '</div>' +
+              '<div id="promoBox">' + promoBoxHTML() + '</div>' +
             '</div>' +
           '</div>' +
         '</div>' +
@@ -327,6 +342,7 @@
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({
             items: basketForServer(),
+            promoCode: appliedPromo ? appliedPromo.code : '',
             customerEmail: document.getElementById('em').value.trim(),
             customerName: document.getElementById('fn').value.trim() + ' ' + document.getElementById('sn').value.trim()
           })
@@ -343,6 +359,7 @@
         }
       } catch (err) {
         console.error('[Stripe] Error:', err);
+        if (/promo code/i.test(err.message)) { appliedPromo = null; savePromo(); refreshTotals(); }
         btn.querySelector('span').textContent = 'Pay securely — £' + getGrand().toFixed(2);
         btn.disabled = false;
         alert('Sorry, something went wrong: ' + err.message + '\n\nPlease try again.');
@@ -362,9 +379,55 @@
       saveBasket(); renderBasket(); renderCheckout();
     }
 
+    function totalsHTML() {
+      return '<div class="total-row"><span class="total-label">Subtotal</span><span class="total-value">£' + getTotal().toFixed(2) + '</span></div>' +
+        '<div class="total-row"><span class="total-label">Shipping</span><span class="total-value" style="color:#7e98a8;">' + getShipping() + '</span></div>' +
+        '<div class="total-row grand"><span class="total-label">Total</span><span class="total-value">£' + getGrand().toFixed(2) + '</span></div>';
+    }
+
+    function promoBoxHTML(message) {
+      if (appliedPromo) {
+        return '<div class="promo-applied"><span>✓ <strong>' + appliedPromo.code + '</strong> applied: ' + appliedPromo.label + '</span>' +
+          '<button type="button" onclick="removePromo()">Remove</button></div>';
+      }
+      return '<div class="promo-row"><input type="text" id="promoInput" placeholder="Promo code" maxlength="30" onkeydown="if(event.key===\'Enter\')applyPromo()">' +
+        '<button type="button" id="promoBtn" onclick="applyPromo()">Apply</button></div>' +
+        (message ? '<p class="promo-msg">' + message + '</p>' : '');
+    }
+
+    // Only redraw the totals, promo box and pay button, so the
+    // customer's typed name and address aren't wiped.
+    function refreshTotals(message) {
+      var totals = document.getElementById('orderTotals');
+      if (totals) totals.innerHTML = totalsHTML();
+      var box = document.getElementById('promoBox');
+      if (box) box.innerHTML = promoBoxHTML(message);
+      var pay = document.querySelector('#payBtn span');
+      if (pay) pay.textContent = 'Pay securely — £' + getGrand().toFixed(2);
+    }
+
     function applyPromo() {
-      var v = document.getElementById('promoInput');
-      if (v && v.value.trim()) alert('Promo "' + v.value.trim() + '" — coming soon!');
+      var input = document.getElementById('promoInput');
+      var code = input ? input.value.trim() : '';
+      if (!code) return;
+      var btn = document.getElementById('promoBtn');
+      if (btn) { btn.disabled = true; btn.textContent = '…'; }
+
+      fetch('/api/promo?code=' + encodeURIComponent(code))
+        .then(function(r) { return r.json().catch(function() { return {}; }); })
+        .then(function(data) {
+          if (!data.valid) return refreshTotals(data.error || "Sorry, that promo code isn't valid.");
+          appliedPromo = { code: data.code, label: data.label, freeShipping: !!data.freeShipping };
+          savePromo();
+          refreshTotals();
+        })
+        .catch(function() { refreshTotals("Couldn't check that code right now. Please try again."); });
+    }
+
+    function removePromo() {
+      appliedPromo = null;
+      savePromo();
+      refreshTotals();
     }
 
     document.addEventListener('DOMContentLoaded', renderCheckout);

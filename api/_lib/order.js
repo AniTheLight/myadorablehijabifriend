@@ -6,13 +6,14 @@
 // (Files in api/_lib are helpers, not public endpoints.)
 
 const { itemMap, shipping } = require('../../products.js');
+const { findPromo, normaliseCode } = require('./promos');
 
 const MAX_QTY_PER_ITEM = 20;
 
 class OrderError extends Error {}
 
 // Returns amounts in pence to avoid rounding problems.
-function buildOrder(items) {
+function buildOrder(items, promoCode) {
   if (!Array.isArray(items) || items.length === 0) {
     throw new OrderError('Your basket is empty.');
   }
@@ -35,15 +36,23 @@ function buildOrder(items) {
     };
   });
 
+  // An unknown code is an error (rather than silently ignored) so the
+  // customer is never charged a price they weren't expecting.
+  let promo = null;
+  if (normaliseCode(promoCode)) {
+    promo = findPromo(promoCode);
+    if (!promo) throw new OrderError("Sorry, that promo code isn't valid. Please remove it and try again.");
+  }
+
   const subtotalPence = lines.reduce(function (s, l) { return s + l.unitPence * l.qty; }, 0);
-  const shippingPence = subtotalPence >= Math.round(shipping.freeOver * 100)
-    ? 0
-    : Math.round(shipping.cost * 100);
+  const freeShipping = (promo && promo.freeShipping) || subtotalPence >= Math.round(shipping.freeOver * 100);
+  const shippingPence = freeShipping ? 0 : Math.round(shipping.cost * 100);
 
   return {
     lines: lines,
     subtotalPence: subtotalPence,
     shippingPence: shippingPence,
+    promo: promo,
     totalPence: subtotalPence + shippingPence
   };
 }

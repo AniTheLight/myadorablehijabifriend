@@ -10,7 +10,7 @@ var MAHF_ROOT = typeof window !== 'undefined' ? window : {};
 var MAHF_CONTACT_EMAIL = 'bestpathonly@gmail.com';
 
 // Shipping rules — used by the checkout page and the payment server code.
-MAHF_ROOT.MAHF_SHIPPING = { cost: 3.29, freeOver: 25 };
+MAHF_ROOT.MAHF_SHIPPING = { cost: 3.75, freeOver: 25 };
 
 // Each product can have "variations" (options the customer picks, e.g. Yasmine /
 // Fatima). Each option has its own id, price and photos. The FIRST option is

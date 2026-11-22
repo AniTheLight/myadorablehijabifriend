@@ -23,7 +23,7 @@ After changing variables, go to **Deployments → ⋯ → Redeploy** so they tak
 
 ## 3. Test before going live
 - Card: on the checkout page use Stripe's test card `4242 4242 4242 4242`, any future date, any CVC.
-- Try an order under £25 (should add £3.29 shipping) and one over £25 (free shipping).
+- Try an order under £25 (should add £3.75 shipping) and one over £25 (free shipping).
 - Check the order appears in the Stripe dashboard and the confirmation page says "Order confirmed!".
 
 ## 4. Go live
@@ -33,6 +33,11 @@ place one small real order yourself (you can refund it from the dashboard).
 ## Orders and emails
 - Orders and shipping addresses appear in your **Stripe** dashboard.
 - Turn on customer receipts: Stripe → Settings → Customer emails → "Successful payments".
+
+## Promo codes
+Codes live in `api/_lib/promos.js` (server code only, so customers can't look them up).
+`FIRST20` gives free delivery. Add or remove a line there to add or stop a code.
+Each order's code shows in Stripe under the payment's **Metadata → promoCode**.
 
 ## Changing prices or shipping
 Edit `products.js`. Prices and the shipping rule (`MAHF_SHIPPING`) there are what
