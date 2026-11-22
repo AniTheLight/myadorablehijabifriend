@@ -174,6 +174,9 @@
     .product-img-col::after  { top: 38%; right: 1.1rem; font-size: 18px; color: var(--coral); }
     .thumb { background: var(--blush); border: 2px solid var(--blush-2); border-radius: 14px; }
     .thumb-row { flex-wrap: wrap; }
+    .accordion-body p { margin: 0 0 0.6em; }
+    .accordion-body p:last-child { margin-bottom: 0; }
+    .accordion-body a { color: var(--terra-ink); font-weight: 700; }
     .thumb.active { border-color: var(--terracotta); }
 
     /* Text: bolder heading, darker body copy */
@@ -317,6 +320,19 @@
     function productImgHTML(p) {
       if (p.image) return '<img src="' + p.image + '" alt="' + p.name + '">';
       return '<div class="img-placeholder"><span>Image coming soon</span></div>';
+    }
+
+    // Shipping & Returns text, shared by every product page.
+    function returnsPolicyHTML() {
+      var email = (typeof MAHF_CONTACT_EMAIL !== 'undefined') ? MAHF_CONTACT_EMAIL : '';
+      var mail = '<a href="mailto:' + email + '">' + email + '</a>';
+      return '<p><strong>Delivery:</strong> Standard UK delivery takes 3–5 working days. Free shipping on orders over £25.</p>' +
+        '<p><strong>14-day change of mind:</strong> You can cancel your order for any reason within 14 days of receiving it. ' +
+        'Let us know within those 14 days, then send the item back unused and in its original condition within a further 14 days. ' +
+        'We\'ll refund you within 14 days of getting it back, including standard delivery costs. Return postage is paid by you.</p>' +
+        '<p><strong>Faulty or damaged items:</strong> If something arrives faulty, damaged or not as described, you can return it within 30 days for a full refund, and we\'ll cover the return postage.</p>' +
+        '<p><strong>Refunds and questions:</strong> To ask for a refund or with any other questions, email us at ' + mail + '.</p>' +
+        '<p style="font-size:12px;opacity:.8;">This doesn\'t affect your statutory rights under UK consumer law.</p>';
     }
 
     // Small photos under the main picture — as many as the product has.
@@ -475,7 +491,7 @@
             '<div class="accordion">' +
               '<div class="accordion-item"><div class="accordion-header" onclick="toggleAcc(this)"><span>Details</span><i class="accordion-icon">+</i></div>' +
               '<div class="accordion-body"><div class="acc-badges"><div class="acc-badge"><span class="acc-badge-icon">🎀</span><p class="acc-badge-title">Gift ready</p><p class="acc-badge-sub">Free gift wrapping on request</p></div><div class="acc-badge"><span class="acc-badge-icon">📦</span><p class="acc-badge-title">Ships fast</p><p class="acc-badge-sub">Dispatched within 2 working days</p></div><div class="acc-badge"><span class="acc-badge-icon">🚚</span><p class="acc-badge-title">Free shipping</p><p class="acc-badge-sub">On UK orders over £25</p></div></div>' + product.details + '</div></div>' +
-              '<div class="accordion-item"><div class="accordion-header" onclick="toggleAcc(this)"><span>Shipping &amp; Returns</span><i class="accordion-icon">+</i></div><div class="accordion-body">Standard UK delivery 3–5 working days. Free shipping on orders over £25. Returns accepted within 14 days of receipt in original condition.</div></div>' +
+              '<div class="accordion-item"><div class="accordion-header" onclick="toggleAcc(this)"><span>Shipping &amp; Returns</span><i class="accordion-icon">+</i></div><div class="accordion-body">' + returnsPolicyHTML() + '</div></div>' +
             '</div>' +
           '</div>' +
         '</section>' +

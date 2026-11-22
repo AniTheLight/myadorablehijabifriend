@@ -6,6 +6,9 @@
 
 var MAHF_ROOT = typeof window !== 'undefined' ? window : {};
 
+// Shop contact email, shown in the returns policy. PLACEHOLDER: change to your real email.
+var MAHF_CONTACT_EMAIL = 'hello@example.com';
+
 // Shipping rules — used by the checkout page and the payment server code.
 MAHF_ROOT.MAHF_SHIPPING = { cost: 3.29, freeOver: 25 };
 
@@ -120,7 +123,7 @@ MAHF_ROOT.MAHF_PRODUCTS = [
       'images/keychainset/hauwa-i-love-allah.jpeg',
       'images/keychainset/malaika-trust-in-allah.jpeg'
     ],
-    description: 'Collect them all! Six little keychain friends to clip onto bags, keys and pencil cases. Pick your favourite for £2.50 each, or get all six together in the full set for £12.99.',
+    description: 'Collect them all! Six little keychain friends to clip onto bags, keys and pencil cases. These little friends will help you, your kids and your friends to always remember Allah\'s blessings.',
     details: 'Keychain with keyring. £2.50 each, or £12.99 for the full set of 6. Suitable for ages 3+.',
     variations: [
       { id: 'keychain-set-1', label: 'Subhanallah', colour: '#e891a1', price: 2.50, image: 'images/keychainset/subhanallah.jpeg', thumbImages: ['images/keychainset/subhanallah.jpeg', 'images/keychainset/thumbnail.jpeg', 'images/keychainset/bismika-amutu.jpeg', 'images/keychainset/allah-made-everything.jpeg', 'images/keychainset/hauwa-alhamdulillah.jpeg', 'images/keychainset/hauwa-i-love-allah.jpeg', 'images/keychainset/malaika-trust-in-allah.jpeg'] },
