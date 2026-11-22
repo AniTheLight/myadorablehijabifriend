@@ -138,18 +138,22 @@ MAHF_ROOT.MAHF_PRODUCTS = [
   },
   {
     id: 'gift-set',
-    name: 'Hijabi Friend — Gift Set of 2',
-    variant: '2 keychains included',
+    name: 'Hijabi Friends: Gift Set of 2',
+    variant: '2 dolls + 3 keychains',
     price: 35.00,
     colour: '#f5f0f8',
     accentColour: '#EDC1BB',
     hijabColour: '#CD7250',
     badge: 'Best value',
     badgeColour: '#E99075',
-    image: null,
-    thumbImages: [null, null, null],
-    description: "Can't choose just one? This beautiful gift set includes two Hijabi Friend keychains — the perfect pair for sisters, best friends, or anyone who deserves a little extra love. Comes beautifully packaged and ready to gift.",
-    details: 'Includes two keychain dolls, each approximately 8cm tall. Keyring clips attached. Suitable for ages 3+. Surface wipe clean only. Gift packaging included.',
+    image: 'images/giftset/gift-set.jpg',
+    thumbImages: [
+      'images/giftset/gift-set.jpg',
+      'images/rainbowskirtdoll/frontmainrainbow.jpg',
+      'images/princessdoll/closeup.jpeg'
+    ],
+    description: "Can't choose just one? This beautiful gift set includes both Princess Malaika and Captain Hauwa, plus 3 keychains. The perfect pair for sisters, best friends, or anyone who deserves a little extra love.",
+    details: 'Includes 2 soft dolls, Princess Malaika and Captain Hauwa, each 35cm tall, plus 3 keychains with keyrings. Suitable for ages 3+.',
     related: ['crochet-doll', 'key-chain-plush', 'princess-doll']
   }
 ];
