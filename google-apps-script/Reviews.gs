@@ -66,7 +66,9 @@ function doPost(e) {
   var lock = LockService.getScriptLock();
   lock.waitLock(10000);
   try {
-    getSheet_().appendRow([
+    var sheet = getSheet_();
+    var row = nextEmptyRow_(sheet);
+    sheet.getRange(row, 1, 1, HEADERS.length).setValues([[
       new Date(),
       safe_(body.productId),
       safe_(body.productName),
@@ -75,7 +77,8 @@ function doPost(e) {
       safe_(body.text),
       photoUrls.join('\n'),
       false
-    ]);
+    ]]);
+    sheet.getRange(row, COL.approved + 1).insertCheckboxes();
   } finally {
     lock.releaseLock();
   }
@@ -93,10 +96,21 @@ function getSheet_() {
     sheet.appendRow(HEADERS);
     sheet.setFrozenRows(1);
     sheet.getRange(1, 1, 1, HEADERS.length).setFontWeight('bold').setBackground('#FBEAE6');
-    sheet.getRange('H2:H1000').insertCheckboxes();
     sheet.setColumnWidth(COL.text + 1, 400);
   }
   return sheet;
+}
+
+// The first row under the headings with an empty "Submitted" cell.
+// (Tick boxes in the Approved column don't count as a filled row.)
+function nextEmptyRow_(sheet) {
+  var max = sheet.getMaxRows();
+  var col = sheet.getRange(1, 1, max, 1).getValues();
+  for (var i = 1; i < col.length; i++) {
+    if (col[i][0] === '' || col[i][0] === null) return i + 1;
+  }
+  sheet.insertRowsAfter(max, 1);
+  return max + 1;
 }
 
 function getFolder_() {
