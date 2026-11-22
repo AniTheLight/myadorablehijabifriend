@@ -6,8 +6,8 @@
 
 var MAHF_ROOT = typeof window !== 'undefined' ? window : {};
 
-// Shop contact email, shown in the returns policy. PLACEHOLDER: change to your real email.
-var MAHF_CONTACT_EMAIL = 'hello@example.com';
+// Shop contact email, shown in the returns policy.
+var MAHF_CONTACT_EMAIL = 'bestpathonly@gmail.com';
 
 // Shipping rules — used by the checkout page and the payment server code.
 MAHF_ROOT.MAHF_SHIPPING = { cost: 3.29, freeOver: 25 };
