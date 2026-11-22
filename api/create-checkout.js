@@ -20,7 +20,7 @@ module.exports = async function handler(req, res) {
 
   let order;
   try {
-    order = buildOrder(body.items);
+    order = buildOrder(body.items, body.promoCode);
   } catch (err) {
     if (err instanceof OrderError) return res.status(400).json({ error: err.message });
     throw err;
@@ -50,12 +50,17 @@ module.exports = async function handler(req, res) {
       mode: 'payment',
       line_items: lineItems,
       customer_email: email,
-      metadata: { customerName: String(body.customerName || '').slice(0, 200) },
+      metadata: {
+        customerName: String(body.customerName || '').slice(0, 200),
+        promoCode: order.promo ? order.promo.code : ''
+      },
       shipping_address_collection: { allowed_countries: ['GB'] },
       shipping_options: [{
         shipping_rate_data: {
           type: 'fixed_amount',
-          display_name: order.shippingPence === 0 ? 'Free shipping' : 'Standard shipping',
+          display_name: order.promo && order.promo.freeShipping
+            ? 'Free delivery (' + order.promo.code + ')'
+            : order.shippingPence === 0 ? 'Free shipping' : 'Standard shipping',
           fixed_amount: { amount: order.shippingPence, currency: 'gbp' }
         }
       }],
