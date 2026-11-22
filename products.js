@@ -21,7 +21,7 @@ MAHF_ROOT.MAHF_PRODUCTS = [
     id: 'crochet-doll',
     name: 'Yasmine and Fatima Friends',
     variant: 'Crochet keychain dolls',
-    price: 6.99,
+    price: 8.99,
     colour: '#f5ddd8',
     accentColour: '#e8a0a0',
     badge: null,
@@ -34,9 +34,9 @@ MAHF_ROOT.MAHF_PRODUCTS = [
     description: "Meet Yasmine and Fatima! They have been best friends forever. They went to school together, played in the park together and spent countless afternoons hanging out after school. As they grew older, Yasmine and Fatima became busy with adult life, but they never forgot to make time for each other. They stood by one another through many of life's hardships.<br><br>To celebrate their friendship, Yasmine got matching crochet dolls for herself and her best friend. Do you have a friend like Fatima or Yasmine who you'd love to surprise with a special gift?",
     details: '12cm crocheted doll with a keyring, available in two different colours. Each gift set also comes with three additional keychains. Suitable for ages 3+, making it a lovely gift for both children and adults alike.',
     variations: [
-      { id: 'crochet-doll-yasmine',  label: 'Yasmine',  colour: '#F5C9A0', price: 6.99, image: 'images/crochetdolls/yasmine.jpeg',             thumbImages: ['images/crochetdolls/yasmine.jpeg', 'images/crochetdolls/crochetdollsfront.jpg', null] },
-      { id: 'crochet-doll-fatima',   label: 'Fatima',   colour: '#8B5E3C', price: 6.99, image: 'images/crochetdolls/fatima.png', thumbImages: ['images/crochetdolls/fatima.png', 'images/crochetdolls/crochetdollsfront.jpg', null] },
-      { id: 'crochet-doll-set', label: 'Yasmine & Fatima set', colour: '#EDC1BB', price: 12.99, image: 'images/crochetdolls/crochetdollsfront.jpg',  thumbImages: ['images/crochetdolls/crochetdollsfront.jpg', 'images/crochetdolls/yasmine.jpeg', 'images/crochetdolls/fatima.png'] }
+      { id: 'crochet-doll-yasmine',  label: 'Yasmine',  colour: '#F5C9A0', price: 8.99, image: 'images/crochetdolls/yasmine.jpeg',             thumbImages: ['images/crochetdolls/yasmine.jpeg', 'images/crochetdolls/crochetdollsfront.jpg', null] },
+      { id: 'crochet-doll-fatima',   label: 'Fatima',   colour: '#8B5E3C', price: 8.99, image: 'images/crochetdolls/fatima.png', thumbImages: ['images/crochetdolls/fatima.png', 'images/crochetdolls/crochetdollsfront.jpg', null] },
+      { id: 'crochet-doll-set', label: 'Yasmine & Fatima set', colour: '#EDC1BB', price: 14.99, image: 'images/crochetdolls/crochetdollsfront.jpg',  thumbImages: ['images/crochetdolls/crochetdollsfront.jpg', 'images/crochetdolls/yasmine.jpeg', 'images/crochetdolls/fatima.png'] }
     ],
     related: ['key-chain-plush', 'princess-doll', 'rainbow-skirt']
   },
@@ -44,7 +44,7 @@ MAHF_ROOT.MAHF_PRODUCTS = [
     id: 'key-chain-plush',
     name: 'Imène the Plushy',
     variant: 'Plush keychain doll',
-    price: 12.99,
+    price: 15.00,
     colour: '#dceaf2',
     accentColour: '#adc2cf',
     badge: null,
@@ -62,7 +62,7 @@ MAHF_ROOT.MAHF_PRODUCTS = [
     id: 'princess-doll',
     name: 'Princess Malaika Doll',
     variant: 'Soft doll',
-    price: 15.50,
+    price: 14.99,
     colour: '#fdf0e8',
     accentColour: '#EDC1BB',
     badge: null,
@@ -75,8 +75,8 @@ MAHF_ROOT.MAHF_PRODUCTS = [
     description: 'Princess Malaika is the only princess of the kingdom. She has a lot of responsibilities as the princess. She does all her homework, Quran lessons and princess duties but sometimes she feels lonely and wants to have some tea parties and hang out with her friends. Will you be her friend?',
     details: '35cm soft doll. Suitable for ages 3+. Princess set comes with 2 additional keychains: one of Princess Malaika and one of her friend Captain Hauwa.',
     variations: [
-      { id: 'princess-doll-single', label: 'Princess Malaika', colour: '#EDC1BB', price: 15.50, image: 'images/princessdoll/princessdollfront.jpg', thumbImages: ['images/princessdoll/princessdollfront.jpg', 'images/princessdoll/closeup.jpeg', 'images/princessdoll/princess-set.png'] },
-      { id: 'princess-doll-set',    label: 'Princess Set',     colour: '#E99075', price: 19.99, image: 'images/princessdoll/princess-set.png',     thumbImages: ['images/princessdoll/princess-set.png', 'images/princessdoll/princessdollfront.jpg', 'images/princessdoll/closeup.jpeg'] }
+      { id: 'princess-doll-single', label: 'Princess Malaika', colour: '#EDC1BB', price: 14.99, image: 'images/princessdoll/princessdollfront.jpg', thumbImages: ['images/princessdoll/princessdollfront.jpg', 'images/princessdoll/closeup.jpeg', 'images/princessdoll/princess-set.png'] },
+      { id: 'princess-doll-set',    label: 'Princess Set',     colour: '#E99075', price: 18.99, image: 'images/princessdoll/princess-set.png',     thumbImages: ['images/princessdoll/princess-set.png', 'images/princessdoll/princessdollfront.jpg', 'images/princessdoll/closeup.jpeg'] }
     ],
     related: ['crochet-doll', 'key-chain-plush', 'rainbow-skirt']
   },
@@ -84,7 +84,7 @@ MAHF_ROOT.MAHF_PRODUCTS = [
     id: 'rainbow-skirt',
     name: 'Captain Hauwa',
     variant: 'Soft doll',
-    price: 16.60,
+    price: 14.99,
     colour: '#ede8f5',
     accentColour: '#c8bde8',
     badge: null,
@@ -100,8 +100,8 @@ MAHF_ROOT.MAHF_PRODUCTS = [
     description: "Hauwa is one of Princess Malaika's closest friends. She dreams of growing up to become a pilot, flying high through the sky and soaring over rainbows! She can't wait to be called Captain Hauwa one day. That's why she loves her rainbow tutu so much and wears it every chance she gets!",
     details: '35cm soft doll, with detachable hijab. Suitable for ages 3+. Pilot set comes with 2 additional keychains of Pilot Hauwa.',
     variations: [
-      { id: 'rainbow-skirt-single',    label: 'Captain Hauwa', colour: '#c8bde8', price: 16.60, image: 'images/rainbowskirtdoll/rainbowskirtfrontimg.jpg', thumbImages: ['images/rainbowskirtdoll/rainbowskirtfrontimg.jpg', 'images/rainbowskirtdoll/frontmainrainbow.jpg', 'images/rainbowskirtdoll/hauwa-closeup.jpeg', 'images/rainbowskirtdoll/hauwa-no-hijab.jpeg', 'images/rainbowskirtdoll/hauwa-hair-clip.jpeg'] },
-      { id: 'rainbow-skirt-pilot-set', label: 'Pilot Set',     colour: '#7e98a8', price: 21.90, image: 'images/rainbowskirtdoll/pilot-set.png',         thumbImages: ['images/rainbowskirtdoll/pilot-set.png', 'images/keychainset/hauwa-alhamdulillah.jpeg', 'images/keychainset/hauwa-i-love-allah.jpeg'] }
+      { id: 'rainbow-skirt-single',    label: 'Captain Hauwa', colour: '#c8bde8', price: 14.99, image: 'images/rainbowskirtdoll/rainbowskirtfrontimg.jpg', thumbImages: ['images/rainbowskirtdoll/rainbowskirtfrontimg.jpg', 'images/rainbowskirtdoll/frontmainrainbow.jpg', 'images/rainbowskirtdoll/hauwa-closeup.jpeg', 'images/rainbowskirtdoll/hauwa-no-hijab.jpeg', 'images/rainbowskirtdoll/hauwa-hair-clip.jpeg'] },
+      { id: 'rainbow-skirt-pilot-set', label: 'Pilot Set',     colour: '#7e98a8', price: 18.99, image: 'images/rainbowskirtdoll/pilot-set.png',         thumbImages: ['images/rainbowskirtdoll/pilot-set.png', 'images/keychainset/hauwa-alhamdulillah.jpeg', 'images/keychainset/hauwa-i-love-allah.jpeg'] }
     ],
     related: ['crochet-doll', 'key-chain-plush', 'princess-doll']
   },
