@@ -6,7 +6,7 @@
 // (Files in api/_lib are helpers, not public endpoints.)
 
 const { itemMap, shipping } = require('../../products.js');
-const { findPromo, normaliseCode } = require('./promos');
+const { checkPromo, promoErrorMessage, normaliseCode } = require('./promos');
 
 const MAX_QTY_PER_ITEM = 20;
 
@@ -40,8 +40,9 @@ function buildOrder(items, promoCode) {
   // customer is never charged a price they weren't expecting.
   let promo = null;
   if (normaliseCode(promoCode)) {
-    promo = findPromo(promoCode);
-    if (!promo) throw new OrderError("Sorry, that promo code isn't valid. Please remove it and try again.");
+    const check = checkPromo(promoCode);
+    if (!check.ok) throw new OrderError(promoErrorMessage(check.reason) + ' Please remove it and try again.');
+    promo = check.promo;
   }
 
   const subtotalPence = lines.reduce(function (s, l) { return s + l.unitPence * l.qty; }, 0);
