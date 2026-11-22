@@ -153,12 +153,14 @@
     // Promo code the customer has applied (checked by the server). Kept for this
     // browser tab, so it's still there if they come back from the Stripe page.
     var appliedPromo = null;
-    // The code is only used while the basket (before delivery) meets its minimum.
+    // The code is only used while the basket (before delivery) is MORE than its minimum.
     function promoActive() {
-      return !!appliedPromo && getTotal() + 1e-9 >= (appliedPromo.minSpend || 0);
+      if (!appliedPromo) return false;
+      var min = appliedPromo.minSpend || 0;
+      return !min || Math.round(getTotal() * 100) > Math.round(min * 100);
     }
     function minSpendText(p) {
-      return 'Add £' + Math.max(0, (p.minSpend || 0) - getTotal()).toFixed(2) + ' more to use ' + p.code + ' (minimum spend £' + Number(p.minSpend).toFixed(2) + ').';
+      return 'this code is for baskets over £' + Number(p.minSpend).toFixed(2) + '. Your basket is £' + getTotal().toFixed(2) + '.';
     }
     try { appliedPromo = JSON.parse(sessionStorage.getItem('mahf_promo') || 'null'); } catch (e) {}
     function savePromo() {

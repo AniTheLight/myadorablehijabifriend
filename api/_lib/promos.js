@@ -8,8 +8,8 @@
 //   freeShipping: true       → delivery is free for that order
 //   lastDay: 'YYYY-MM-DD'    → optional; the code works until the END of this
 //                              day (UK time), then stops working
-//   minSpend: 5              → optional; basket (before delivery) must be at
-//                              least this many pounds
+//   minSpend: 5              → optional; basket (before delivery) must be MORE
+//                              than this many pounds (exactly £5.00 doesn't count)
 
 const PROMOS = {
   FIRST20: { freeShipping: true, label: 'Free delivery', lastDay: '2026-11-30', minSpend: 5 }
@@ -41,13 +41,13 @@ function checkPromo(code, now) {
   return { ok: true, promo: promo };
 }
 
-// Is the basket big enough for this promo? (amounts in pence)
+// Is the basket big enough for this promo? Must be MORE than minSpend. (pence)
 function meetsMinSpend(promo, subtotalPence) {
-  return !promo.minSpend || subtotalPence >= Math.round(promo.minSpend * 100);
+  return !promo.minSpend || subtotalPence > Math.round(promo.minSpend * 100);
 }
 
 function minSpendMessage(promo) {
-  return promo.code + ' needs a basket of £' + Number(promo.minSpend).toFixed(2) + ' or more (before delivery).';
+  return promo.code + ' is for baskets over £' + Number(promo.minSpend).toFixed(2) + ' (before delivery).';
 }
 
 function promoErrorMessage(reason) {

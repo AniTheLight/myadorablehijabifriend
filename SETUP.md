@@ -36,7 +36,7 @@ place one small real order yourself (you can refund it from the dashboard).
 
 ## Promo codes
 Codes live in `api/_lib/promos.js` (server code only, so customers can't look them up).
-`FIRST20` gives free delivery on baskets of £5 or more (before delivery) until the end of
+`FIRST20` gives free delivery on baskets over £5 (before delivery; exactly £5.00 doesn't count) until the end of
 30 November 2026 (UK time). Add or remove a line
 there to add or stop a code; change `lastDay` to move a code's end date.
 Each order's code shows in Stripe under the payment's **Metadata → promoCode**.
