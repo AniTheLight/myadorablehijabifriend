@@ -6,7 +6,7 @@
 // (Files in api/_lib are helpers, not public endpoints.)
 
 const { itemMap, shipping } = require('../../products.js');
-const { checkPromo, promoErrorMessage, normaliseCode } = require('./promos');
+const { checkPromo, promoErrorMessage, meetsMinSpend, minSpendMessage, normaliseCode } = require('./promos');
 
 const MAX_QTY_PER_ITEM = 20;
 
@@ -46,6 +46,9 @@ function buildOrder(items, promoCode) {
   }
 
   const subtotalPence = lines.reduce(function (s, l) { return s + l.unitPence * l.qty; }, 0);
+  if (promo && !meetsMinSpend(promo, subtotalPence)) {
+    throw new OrderError('Sorry, ' + minSpendMessage(promo) + ' Please remove it and try again.');
+  }
   const freeShipping = (promo && promo.freeShipping) || subtotalPence >= Math.round(shipping.freeOver * 100);
   const shippingPence = freeShipping ? 0 : Math.round(shipping.cost * 100);
 

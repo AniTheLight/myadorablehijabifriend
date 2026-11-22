@@ -18,6 +18,7 @@ module.exports = function handler(req, res) {
     valid: true,
     code: promo.code,
     label: promo.label,
-    freeShipping: !!promo.freeShipping
+    freeShipping: !!promo.freeShipping,
+    minSpend: promo.minSpend || 0
   });
 };

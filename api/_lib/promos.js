@@ -8,9 +8,11 @@
 //   freeShipping: true       → delivery is free for that order
 //   lastDay: 'YYYY-MM-DD'    → optional; the code works until the END of this
 //                              day (UK time), then stops working
+//   minSpend: 5              → optional; basket (before delivery) must be at
+//                              least this many pounds
 
 const PROMOS = {
-  FIRST20: { freeShipping: true, label: 'Free delivery', lastDay: '2026-11-30' }
+  FIRST20: { freeShipping: true, label: 'Free delivery', lastDay: '2026-11-30', minSpend: 5 }
 };
 
 function normaliseCode(code) {
@@ -39,10 +41,19 @@ function checkPromo(code, now) {
   return { ok: true, promo: promo };
 }
 
+// Is the basket big enough for this promo? (amounts in pence)
+function meetsMinSpend(promo, subtotalPence) {
+  return !promo.minSpend || subtotalPence >= Math.round(promo.minSpend * 100);
+}
+
+function minSpendMessage(promo) {
+  return promo.code + ' needs a basket of £' + Number(promo.minSpend).toFixed(2) + ' or more (before delivery).';
+}
+
 function promoErrorMessage(reason) {
   return reason === 'expired'
     ? 'Sorry, that promo code has expired.'
     : "Sorry, that promo code isn't valid.";
 }
 
-module.exports = { checkPromo, promoErrorMessage, normaliseCode };
+module.exports = { checkPromo, promoErrorMessage, meetsMinSpend, minSpendMessage, normaliseCode };

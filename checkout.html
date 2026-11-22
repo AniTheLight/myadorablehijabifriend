@@ -105,6 +105,7 @@
     .promo-msg { font-size: 12px; font-weight: 700; color: #CD7250; margin-top: 8px; }
     .promo-applied { display: flex; align-items: center; justify-content: space-between; gap: 10px; margin-top: 14px; background: #fff; border: 1.5px dashed #7e98a8; border-radius: 14px; padding: 10px 14px; font-size: 13px; color: #5E4640; }
     .promo-applied strong { color: #CD7250; }
+    .promo-applied.waiting { border-color: #e891a1; background: #fdf5f3; }
     .promo-applied button { background: none; border: none; color: #7e98a8; font-family: 'Nunito', sans-serif; font-weight: 800; font-size: 12px; text-decoration: underline; cursor: pointer; }
     .empty-msg { text-align: center; padding: 2rem 0; font-size: 14px; color: #aaa; font-weight: 700; }
     .empty-msg a { color: #e891a1; font-weight: 900; text-decoration: none; }
@@ -145,13 +146,20 @@
     // Shipping rules live in products.js (MAHF_SHIPPING) so the page and the
     // payment server always agree. Final prices are always worked out on the server.
     function shippingCost() {
-      if (appliedPromo && appliedPromo.freeShipping) return 0;
+      if (promoActive() && appliedPromo.freeShipping) return 0;
       return getTotal() >= MAHF_SHIPPING.freeOver ? 0 : MAHF_SHIPPING.cost;
     }
 
     // Promo code the customer has applied (checked by the server). Kept for this
     // browser tab, so it's still there if they come back from the Stripe page.
     var appliedPromo = null;
+    // The code is only used while the basket (before delivery) meets its minimum.
+    function promoActive() {
+      return !!appliedPromo && getTotal() + 1e-9 >= (appliedPromo.minSpend || 0);
+    }
+    function minSpendText(p) {
+      return 'Add £' + Math.max(0, (p.minSpend || 0) - getTotal()).toFixed(2) + ' more to use ' + p.code + ' (minimum spend £' + Number(p.minSpend).toFixed(2) + ').';
+    }
     try { appliedPromo = JSON.parse(sessionStorage.getItem('mahf_promo') || 'null'); } catch (e) {}
     function savePromo() {
       try {
@@ -342,7 +350,7 @@
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({
             items: basketForServer(),
-            promoCode: appliedPromo ? appliedPromo.code : '',
+            promoCode: promoActive() ? appliedPromo.code : '',
             customerEmail: document.getElementById('em').value.trim(),
             customerName: document.getElementById('fn').value.trim() + ' ' + document.getElementById('sn').value.trim()
           })
@@ -387,6 +395,10 @@
 
     function promoBoxHTML(message) {
       if (appliedPromo) {
+        if (!promoActive()) {
+          return '<div class="promo-applied waiting"><span><strong>' + appliedPromo.code + '</strong>: ' + minSpendText(appliedPromo) + '</span>' +
+            '<button type="button" onclick="removePromo()">Remove</button></div>';
+        }
         return '<div class="promo-applied"><span>✓ <strong>' + appliedPromo.code + '</strong> applied: ' + appliedPromo.label + '</span>' +
           '<button type="button" onclick="removePromo()">Remove</button></div>';
       }
@@ -417,7 +429,7 @@
         .then(function(r) { return r.json().catch(function() { return {}; }); })
         .then(function(data) {
           if (!data.valid) return refreshTotals(data.error || "Sorry, that promo code isn't valid.");
-          appliedPromo = { code: data.code, label: data.label, freeShipping: !!data.freeShipping };
+          appliedPromo = { code: data.code, label: data.label, freeShipping: !!data.freeShipping, minSpend: Number(data.minSpend) || 0 };
           savePromo();
           refreshTotals();
         })
